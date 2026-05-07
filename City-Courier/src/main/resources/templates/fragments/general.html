@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General</title>
+</head>
+
+<body>
+    <header id="header" th:fragment="header"
+        class="container-fluid border-bottom border-2 d-flex justify-content-between">
+        <h2 class="p-2">Logo</h2>
+        <div id="cuenta" class=" pe-4 pt-3 text-end d-flex gap-3">
+            <i class="bi bi-bell h4"></i>
+            <i class="bi bi-person-circle h4"></i>
+        </div>
+    </header>
+    <aside id="aside" th:fragment="aside"
+        class="list-group col-md-2 col-12 overflow-hidden h6 border-end border-1  rounded-0">
+        <a href="#" class="list-group-item list-group-item-action border-0 p-3 mt-1"><i
+                class="bi bi-house h3 pe-4"></i>Home</a>
+        <a href="#" class="list-group-item list-group-item-action border-0 p-3"><i
+                class="bi bi-bicycle h3 pe-4"></i>Repartidores</a>
+        <a href="#" class="list-group-item list-group-item-action border-0 p-3"><i
+                class="bi bi-box-seam h3 pe-4"></i>Envíos pendientes</a>
+        <a href="#" class="list-group-item list-group-item-action border-0 p-3"> <i
+                class="bi bi-gear-wide-connected h3 pe-4"></i>Configuración</a>
+    </aside>
+
+
+</body>
+
+</html>
