@@ -25,8 +25,11 @@ public class Ruta {
 	
 	@Id @GeneratedValue
 	private Long codigoRuta; 
-	private LocalDateTime fechaSalida;
+	private LocalDateTime fecha;
 	private double distancia;
+	private String lugarInicio; 
+	private String lugarFinal; 
+	
 	
 	@OneToMany (mappedBy = "ruta" , fetch = FetchType.EAGER)
 	@ToString.Exclude

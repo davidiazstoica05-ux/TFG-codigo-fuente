@@ -1,6 +1,7 @@
 package com.tfg_david.dam.City_Courier.model;
 
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,10 @@ public class Repartidor {
 	@Id
 	private String dni; 
 	private String zona;
+	private String nombre; 
+	private String apellidos; 
+	private LocalDateTime fechaInicioRuta; 
+	private LocalDateTime fechaFinalRuta; 
 	
 	@ManyToOne 
 	@JoinColumn( name = "codigoRuta")

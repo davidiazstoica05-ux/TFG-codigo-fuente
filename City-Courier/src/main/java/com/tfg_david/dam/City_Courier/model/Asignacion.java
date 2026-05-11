@@ -35,6 +35,8 @@ public class Asignacion {
 	@ManyToOne
 	@JoinColumn(name = "codigoEnvio")
 	private Envio envio;
+	
+	
 	private Duration tiempoEstimado; // ruta.getDistancia()/envio.getVelocidad(); acordarse hacerla en service
 	
 	

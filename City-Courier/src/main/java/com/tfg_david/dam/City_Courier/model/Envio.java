@@ -25,7 +25,7 @@ public class Envio {
 	@Id 
 	@GeneratedValue
 	private Long codEnvio; 
-	private String direccion;
+	private double direccion;
 	private double peso;
 	private double velocidad;
 	
