@@ -14,31 +14,88 @@
 
 <body>
     <header id="header" th:fragment="header"
-        class="container-fluid border-2 d-flex justify-content-between bg-primary text-light">
-        <h2 class="p-2">City Courier</h2>
-        <div id="cuenta" class=" pe-4 pt-3 text-end d-flex gap-3">
-            <i class="bi bi-bell h4"></i>
-            <i class="bi bi-person-circle h4"></i>
-        </div>
+        class="p-2 border-bottom border-3 border-primary bg-primary text-secondary">
+        <nav class="navbar navbar-expand-md navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand text-decoration-none m-0 p-0" href="#">
+                    <h1 class="m-0">
+                        <span class="fw-bold text-light">City </span>
+                        <span class="fw-bold text-light">Courier</span>
+                    </h1>
+                </a>
+
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon bg-primary rounded-1"></span>
+                </button>
+                <div class="collapse navbar-collapse ms-sm-5 justify-content-between justify-content-md-end fs-5"
+                    id="collapsibleNavbar">
+                    <ul class="navbar-nav d-md-none pt-3">
+                        <li class="nav-item ">
+                            <a class="nav-link text-light fw-bold" href="#"><i class="bi bi-house-door me-4"></i>
+                                HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light fw-bold" href="#"><i class="bi bi-bicycle me-4"></i>
+                                Repartidores</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light fw-bold" href="#"><i class="bi bi-box-seam me-4"></i>
+                                Envíos</a>
+                        </li>
+                    </ul>
+                    <div id="cuenta" class="text-end d-flex gap-3 align-items-center mt-3 mt-sm-0 pe-sm-4">
+                        <i class="bi bi-person-circle h4 mb-0 text-light me-2 fs-2" role="button"></i>
+                    </div>
+                </div>
+            </div>
+        </nav>
     </header>
     <aside id="aside" th:fragment="aside"
-        class="list-group col-md-2 rounded-0 col-12 overflow-hidden h6 border-end border-1 ">
+        class="list-group col-md-2 rounded-0 col-12 overflow-hidden h6 border-end border-1 d-none d-md-block">
         <a href="#" class="list-group-item list-group-item-action border-0 p-3 mt-1 text-dark"><i
                 class="bi bi-house h3 pe-4"></i>Home</a>
 
-        <a href="#" class="list-group-item list-group-item-action border-0 p-3 text-dark">
+
+        <button class="list-group-item list-group-item-action border-0 p-3 text-dark text-start" type="button"
+            data-bs-toggle="collapse" data-bs-target="#collapseRepartidores" aria-expanded="false"
+            aria-controls="collapseRepartidores">
             <i class="bi bi-bicycle h3 pe-4"></i>Repartidores
-            <div class="collapse mt-2" id="collapseExample">
-                <a href="#" class="list-group-item list-group-item-action border-0 text-dark p-2">
-                    <i class="bi bi-bicycle h3 pe-4"></i>Añadir repartidor</a>
-                <a href="#" class="list-group-item list-group-item-action border-0 text-dark p-2">
-                    <i class="bi bi-bicycle h3 pe-4"></i>Ver repartidores</a>
-            </div>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action border-0 p-3 text-dark"><i
-                class="bi bi-box-seam h3 pe-4"></i>Envíos pendientes</a>
-        <a href="#" class="list-group-item list-group-item-action border-0 p-3 text-dark"> <i
-                class="bi bi-gear-wide-connected h3 pe-4"></i>Configuración</a>
+        </button>
+        <div class="collapse" id="collapseRepartidores">
+            <ul class="list-group list-group-flush bg-light">
+                <a href="#" class="list-group-item list-group-item-action border-0 ps-5 py-2 bg-transparent">Listado
+                    de
+                    Repartidores</a>
+                <a href="#" class="list-group-item list-group-item-action border-0 ps-5 py-2 bg-transparent">Nuevo
+                    Repartidor</a>
+            </ul>
+        </div>
+
+        <button class="list-group-item list-group-item-action border-0 p-3 text-dark text-start" type="button"
+            data-bs-toggle="collapse" data-bs-target="#collapseEnvios" aria-expanded="false"
+            aria-controls="collapseEnvios">
+            <i class="bi bi-box-seam h3 pe-4"></i>Envíos
+        </button>
+        <div class="collapse" id="collapseEnvios">
+            <ul class="list-group list-group-flush bg-light">
+                <a href="#" class="list-group-item list-group-item-action border-0 ps-5 py-2 bg-transparent">Listado
+                    de
+                    Envíos</a>
+            </ul>
+        </div>
+
+        <button class="list-group-item list-group-item-action border-0 p-3 text-dark text-start" type="button"
+            data-bs-toggle="collapse" data-bs-target="#collapseConfig" aria-expanded="false"
+            aria-controls="collapseConfig">
+            <i class="bi bi-gear-wide-connected h3 pe-4"></i>Configuración
+        </button>
+        <div class="collapse" id="collapseConfig">
+            <ul class="list-group list-group-flush bg-light">
+                <a href="#" class="list-group-item list-group-item-action border-0 ps-5 py-2 bg-transparent">Ajustes</a>
+                <a href="#" class="list-group-item list-group-item-action border-0 ps-5 py-2 bg-transparent">Perfil</a>
+            </ul>
+        </div>
     </aside>
 
 
