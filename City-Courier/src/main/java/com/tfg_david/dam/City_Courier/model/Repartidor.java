@@ -1,6 +1,7 @@
 package com.tfg_david.dam.City_Courier.model;
 
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,13 @@ public class Repartidor {
 	@ManyToOne 
 	@JoinColumn( name = "codigoRuta")
 	private Ruta ruta; 
+	
+	private String nombre; 
+	private String apellido; 
+	private String email; 
+	private int telefono; 
+	private LocalDateTime fechaNacimiento; 
+	
 	
 	@OneToMany (mappedBy = "repartidor" , fetch = FetchType.EAGER)
 	@ToString.Exclude

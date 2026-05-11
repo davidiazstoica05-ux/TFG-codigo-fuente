@@ -5,42 +5,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario Repartidor</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"
-        defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
 </head>
 
 <body>
-    <div th:fragment="formRider" class="container bg-light p-4 mt-5">
+    <div th:fragment="formRider" class="container bg-primary text-light p-4 mt-5 ">
         <form method="post" th:action="@{/createRider/submit}" th:object="${repartidor}">
-            <fieldset>
+            <fieldset class=" mb-3">
                 <h1>Datos personales</h1>
-                <input type="text" name="nombre" th:field="*{nombre}" placeholder="nombre">
-                <input type="text" name="apellido" th:field="*{apellido}" placeholder="apellido">
-                <input type="email" name="email" th:field="*{email}" placeholder="email">
-                <input type="tel" name="telefono" th:field="*{telefono}" placeholder="telefono">
-                <input type="text" name="dni" th:field="*{dni}" placeholder="dni">
+                <div id="nombreyApellido" class="row mb-3">
+                    <div id="nombre" class=" col-sm-12 col-md-6">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" th:field="*{nombre}" placeholder="nombre">
+                    </div>
+
+                    <div id="apellido" class="col-sm-12 col-md-6">
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" id="apellido" th:field="*{apellido}"
+                            placeholder="apellido">
+                    </div>
+
+
+                </div>
+                <div id="emailYTelefono" class="row mb-3">
+                    <div id="email" class="col-sm-12 col-md-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="email">
+                    </div>
+                    <div id="telefono" class="col-sm-12 col-md-6 ">
+                        <label for="telefono" class="form-label">Telefono</label>
+                        <input type="tel" class="form-control" id="telefono" th:field="*{telefono}"
+                            placeholder="telefono">
+                    </div>
+                </div>
+
+                <div id="dniYFecha" class="row mb-3">
+                    <div id="dni" class="col-sm-12 col-md-6">
+                        <label for="dni" class="form-label">DNI</label>
+                        <input type="text" class="form-control" id="dni" th:field="*{dni}" placeholder="dni">
+                    </div>
+                    <div id="fechaNacimiento" class="col-sm-12 col-md-6">
+                        <label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
+                        <input type="date" class="form-control" id="fechaNacimiento" th:field="*{fechaNacimiento}">
+                    </div>
+                </div>
+
             </fieldset>
+
+            <!--
+                Para que funcione el th:selected, necesitamos una de estas dos opciones:
+                - Recibir el repartidor ya creado en el modelo (editar)
+                - Que el objeto repartidor del modelo esté vacío (crear)
+                En este caso, para el método crear, el repartidor vendrá vacío
+            -->
             <fieldset>
                 <h1>Datos de reparto</h1>
-                <label for="zona">Zona de reparto </label>
-                <select name="zona" id="zona">
-                    <option value="arahal">Arahal</option>
-                    <option value="carmona">Carmona</option>
-                    <option value="ecija">Écija</option>
-                    <option value="fuentesdeandalucia">Fuentes de Andalucía</option>
-                    <option value="lantejuela">La Lantejuela</option>
-                    <option value="marchena">Marchena</option>
-                    <option value="moron">Morón de la Frontera</option>
-                    <option value="osuna">Osuna</option>
-                    <option value="paradas">Paradas</option>
-                    <option value="utrera">Utrera</option>
-                </select>
+                <div id="zona" class="mb-5 row ">
+                    <div class="col-sm-12 col-md-6 ">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="zona">Zona</label>
+                            <select class="form-select" name="zona" id="zona">
+                                <option value="arahal " th:selected="${repartidor.zona == 'arahal'}">Arahal</option>
+                                <option value="carmona" th:selected="${repartidor.zona == 'carmona'}">Carmona</option>
+                                <option value="ecija" th:selected="${repartidor.zona == 'ecija'}">Écija</option>
+                                <option value="fuentesdeandalucia"
+                                    th:selected="${repartidor.zona == 'fuentesdeandalucia'}">
+                                    Fuentes de Andalucía</option>
+                                <option value="lantejuela" th:selected="${repartidor.zona == 'lantejuela'}">La
+                                    Lantejuela
+                                </option>
+                                <option value="marchena" th:selected="${repartidor.zona == 'marchena'}">Marchena
+                                </option>
+                                <option value="moron" th:selected="${repartidor.zona == 'moron'}">Morón de la Frontera
+                                </option>
+                                <option value="osuna" th:selected="${repartidor.zona == 'osuna'}">Osuna</option>
+                                <option value="paradas" th:selected="${repartidor.zona == 'paradas'}">Paradas</option>
+                                <option value="utrera" th:selected="${repartidor.zona == 'utrera'}">Utrera</option>
+                            </select>
+                        </div>
+                    </div>
 
+                </div>
             </fieldset>
 
-            <input type="submit" value="Crear repartidor">
+            <div id="botonCrear" class="mb-3">
+                <input type="submit" value="Crear repartidor">
+            </div>
         </form>
     </div>
