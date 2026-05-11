@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Repartidor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"
+        defer></script>
+</head>
+
+<body>
+    <div th:fragment="formRider" class="container bg-light p-4 mt-5">
+        <form method="post" th:action="@{/createRider/submit}" th:object="${repartidor}">
+            <fieldset>
+                <h1>Datos personales</h1>
+                <input type="text" name="nombre" th:field="*{nombre}" placeholder="nombre">
+                <input type="text" name="apellido" th:field="*{apellido}" placeholder="apellido">
+                <input type="email" name="email" th:field="*{email}" placeholder="email">
+                <input type="tel" name="telefono" th:field="*{telefono}" placeholder="telefono">
+                <input type="text" name="dni" th:field="*{dni}" placeholder="dni">
+            </fieldset>
+            <fieldset>
+                <h1>Datos de reparto</h1>
+                <label for="zona">Zona de reparto </label>
+                <select name="zona" id="zona">
+                    <option value="arahal">Arahal</option>
+                    <option value="carmona">Carmona</option>
+                    <option value="ecija">Écija</option>
+                    <option value="fuentesdeandalucia">Fuentes de Andalucía</option>
+                    <option value="lantejuela">La Lantejuela</option>
+                    <option value="marchena">Marchena</option>
+                    <option value="moron">Morón de la Frontera</option>
+                    <option value="osuna">Osuna</option>
+                    <option value="paradas">Paradas</option>
+                    <option value="utrera">Utrera</option>
+                </select>
+
+            </fieldset>
+
+            <input type="submit" value="Crear repartidor">
+        </form>
+    </div>
