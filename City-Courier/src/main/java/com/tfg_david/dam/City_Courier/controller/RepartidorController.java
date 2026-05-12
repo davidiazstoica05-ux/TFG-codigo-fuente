@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RepartidorController {
 
-	private final RepartidorService repoService;
+	private final RepartidorService repartidorService;
 	
 	@GetMapping("/createRider")
 	public String showForm( Model model) {
@@ -29,10 +29,11 @@ public class RepartidorController {
 	}
 	
 	@PostMapping("/createRider/submit")
-	public String  submit (@ModelAttribute("repartidorForm") Repartidor repartidor, Model model ) {
+	public String  submit (@ModelAttribute("repartidor") Repartidor repartidor, Model model ) {
 		
 	model.addAttribute("repartidor", repartidor);
-	repoService.create(repartidor);
+	repartidorService.save(repartidor);
+	
 	return "redirect:/createRider";
 		
 		
