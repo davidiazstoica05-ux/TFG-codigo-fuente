@@ -24,7 +24,7 @@ public class RepartidorController {
 
 		model.addAttribute("repartidor", new Repartidor());
 		
-		return "riderForm";
+		return "riderFormTest";
 		
 	}
 	
