@@ -1,6 +1,7 @@
 package com.tfg_david.dam.City_Courier.model;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +26,11 @@ public class Asignacion {
 	private boolean estadoPedido; 
 	private double coste; 
 	
+	private LocalDateTime fechaAsignacion; 
+	private LocalDateTime fechaEntrega; 
+	
+	private String motivoIncidencia;
+	
 	@ManyToOne 
 	@JoinColumn(name = "dni")
 	private Repartidor repartidor; 
@@ -38,7 +44,7 @@ public class Asignacion {
 	private Envio envio;
 	
 	
-	private Duration tiempoEstimado; // ruta.getDistancia()/envio.getVelocidad(); acordarse hacerla en service
+	private Duration tiempoEstimado; // fechaInicio-fechaFinal; acordarse hacerla en service
 	
 	
 	

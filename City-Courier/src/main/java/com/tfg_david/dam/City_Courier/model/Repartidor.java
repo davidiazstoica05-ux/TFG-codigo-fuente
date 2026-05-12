@@ -1,7 +1,7 @@
 package com.tfg_david.dam.City_Courier.model;
 
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,21 +26,22 @@ public class Repartidor {
 
 	@Id
 	private String dni; 
+	
 	private String zona;
-	private String nombre; 
 	private String apellidos; 
-	private LocalDateTime fechaInicioRuta; 
-	private LocalDateTime fechaFinalRuta; 
+	private String nombre; 
+	private String email; 
+	private int telefono; 
+	private String genero; 
+	private enum estado {DISPONIBLE,EN_RUTA,DE_BAJA,VACACIONES}
+	private enum tipoVehiculo {Bicicleta, moto, furgoneta, patín_electrico, moto_ecologica}
+	private LocalDate fechaAlta; 
+	private Double PesoTotal;
 	
 	@ManyToOne 
 	@JoinColumn( name = "codigoRuta")
 	private Ruta ruta; 
 	
-	private String nombre; 
-	private String apellido; 
-	private String email; 
-	private int telefono; 
-	private LocalDateTime fechaNacimiento; 
 	
 	
 	@OneToMany (mappedBy = "repartidor" , fetch = FetchType.EAGER)
