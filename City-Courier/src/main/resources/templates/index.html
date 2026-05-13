@@ -9,9 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
-        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/general.css}">
 
@@ -27,20 +26,79 @@
         <aside th:replace="~{fragments/general :: aside}"></aside>
         <main id="main" class="col-md-10 col-12">
 
-            <div class="container-fluid mt-4 text-center ">
-                <div id="rowResumen" class="row justify-content-between">
-                    <div class="col-md-3 col-12 border border rounded-3 bg-warning">
-                        <span>resumen</span>
-                        <span>hola</span>
+            <div class="mt-4">
+                <div id="rowResumen" class="row justify-content-around text-center">
+                    <div class="col-md-3 col-11 px-0">
+                        <div id="cardEnviosHoy" class="card border border rounded-3 shadow">
+                            <div class="card-header bg-warning">
+                                <i class="bi bi-box2-heart-fill fs-2"></i>
+                                <h5 class="h5 fw-bold">Envíos Hoy</h5>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">255</h4> <!--Aqui va un th con el numero de envios de hoy-->
+                                <div class="d-flex flex-column gap-3 mt-4 text-start">
+                                    <!--Aqui va un th con el numero de envios entregados-->
+                                    <div class="d-flex justify-content-between align-items-center border-bottom pb-2">
+                                        <span class="fw-medium"><i
+                                                class="bi bi-check-circle-fill text-success me-2"></i>Entregados</span>
+                                        <span class="badge bg-success rounded-pill fs-6 px-3">25</span>
+                                    </div>
+                                    <!--Aqui va un th con el numero de envios pendientes-->
+                                    <div class="d-flex justify-content-between align-items-center border-bottom pb-2">
+                                        <span class="fw-medium"><i
+                                                class="bi bi-clock-fill text-warning me-2"></i>Pendientes</span>
+                                        <span class="badge bg-warning text-dark rounded-pill fs-6 px-3">230</span>
+                                    </div>
+                                    <!--Aqui va un th con el numero de envios cancelados-->
+                                    <div class="d-flex justify-content-between align-items-center pb-1">
+                                        <span class="fw-medium"><i
+                                                class="bi bi-exclamation-triangle-fill text-danger me-2"></i>Incidencias</span>
+                                        <span class="badge bg-danger rounded-pill fs-6 px-3">25</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-3 col-12 border rounded-3 bg-info">
-                        <span class="">Estadísticas</span>
+                    <div class=" col-md-3 col-12 px-0">
+                        <div id="cardRepartidores" class="card border border rounded-3 shadow">
+                            <div class="card-header bg-info">
+                                <i class="bi bi-person-workspace fs-2"></i>
+                                <h5 class="h5 fw-bold">Repartidores Activos</h5>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">255</h4> <!--Aqui va un th con el numero de repartidores-->
+                                <div class="d-flex flex-column gap-3 mt-4 text-start">
+                                    <!--Aqui va un th con el numero de repartidores activos-->
+                                    <div class="d-flex justify-content-between align-items-center border-bottom pb-2">
+                                        <span class="fw-medium"><i
+                                                class="bi bi-check-circle-fill text-success me-2"></i>Entregados</span>
+                                        <span class="badge bg-success rounded-pill fs-6 px-3">25</span>
+                                    </div>
+                                    <!--Aqui va un th con el numero de repartidores inactivos-->
+                                    <div class="d-flex justify-content-between align-items-center border-bottom pb-2">
+                                        <span class="fw-medium"><i
+                                                class="bi bi-clock-fill text-warning me-2"></i>Pendientes</span>
+                                        <span class="badge bg-warning text-dark rounded-pill fs-6 px-3">230</span>
+                                    </div>
+                                    <!--Aqui va un th con el numero de repartidores con incidencias-->
+                                    <div class="d-flex justify-content-between align-items-center pb-1">
+                                        <span class="fw-medium"><i
+                                                class="bi bi-exclamation-triangle-fill text-danger me-2"></i>Incidencias
+                                        </span>
+                                        <span class="badge bg-danger rounded-pill fs-6 px-3">25</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-3 col-12 border rounded-3 bg-primary text-light">
-                        <span class="">Gráficos</span>
-                    </div>
+                    <!--Aqui va otro card con otra funcion -->
                 </div>
             </div>
+
+
+            <!--Aqui va un div con el top 10 repartidores-->
+
+
         </main>
     </div>
 

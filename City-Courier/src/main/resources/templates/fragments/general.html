@@ -43,21 +43,37 @@
                             <a class="nav-link text-light fw-bold" href="#"><i class="bi bi-box-seam me-4"></i>
                                 Envíos</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light fw-bold" href="#"><i class="bi bi-map me-4"></i>
+                                Rutas</a>
+                        </li>
                     </ul>
                     <div id="cuenta" class="text-end d-flex gap-3 align-items-center mt-3 mt-sm-0 pe-sm-4">
-                        <i class="bi bi-person-circle h4 mb-0 text-light me-2 fs-2" role="button"></i>
+                        <div class="dropdown">
+                            <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle h4 mb-0 text-light me-2 fs-2"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-arrow-left-right me-4 fs-5"></i>
+                                        Cambiar Cuenta</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-left me-4 fs-5"></i>
+                                        Cerrar Sesión</a></li>
+                            </ul>
+                        </div>
                     </div>
+
+
                 </div>
             </div>
         </nav>
     </header>
     <aside id="aside" th:fragment="aside"
         class="list-group col-md-2 rounded-0 col-12 overflow-hidden h6 border-end border-1 d-none d-md-block">
-        <a href="#" class="list-group-item list-group-item-action border-0 p-3 mt-1 text-dark"><i
+        <a href="#" class="list-group-item list-group-item-action border-0 p-3 mt-1 text-primary"><i
                 class="bi bi-house h3 pe-4"></i>Home</a>
 
 
-        <button class="list-group-item list-group-item-action border-0 p-3 text-dark text-start" type="button"
+        <button class="list-group-item list-group-item-action border-0 p-3 text-primary text-start" type="button"
             data-bs-toggle="collapse" data-bs-target="#collapseRepartidores" aria-expanded="false"
             aria-controls="collapseRepartidores">
             <i class="bi bi-bicycle h3 pe-4"></i>Repartidores
@@ -72,7 +88,7 @@
             </ul>
         </div>
 
-        <button class="list-group-item list-group-item-action border-0 p-3 text-dark text-start" type="button"
+        <button class="list-group-item list-group-item-action border-0 p-3 text-primary text-start" type="button"
             data-bs-toggle="collapse" data-bs-target="#collapseEnvios" aria-expanded="false"
             aria-controls="collapseEnvios">
             <i class="bi bi-box-seam h3 pe-4"></i>Envíos
@@ -83,17 +99,22 @@
                     de
                     Envíos</a>
             </ul>
+
+
         </div>
 
-        <button class="list-group-item list-group-item-action border-0 p-3 text-dark text-start" type="button"
-            data-bs-toggle="collapse" data-bs-target="#collapseConfig" aria-expanded="false"
-            aria-controls="collapseConfig">
-            <i class="bi bi-gear-wide-connected h3 pe-4"></i>Configuración
+        <button class="list-group-item list-group-item-action border-0 p-3 text-primary text-start" type="button"
+            data-bs-toggle="collapse" data-bs-target="#collapseRutas" aria-expanded="false"
+            aria-controls="collapseRutas">
+            <i class="bi bi-map h3 pe-4"></i>Rutas
         </button>
-        <div class="collapse" id="collapseConfig">
+        <div class="collapse" id="collapseRutas">
             <ul class="list-group list-group-flush bg-light">
-                <a href="#" class="list-group-item list-group-item-action border-0 ps-5 py-2 bg-transparent">Ajustes</a>
-                <a href="#" class="list-group-item list-group-item-action border-0 ps-5 py-2 bg-transparent">Perfil</a>
+                <a href="#" class="list-group-item list-group-item-action border-0 ps-5 py-2 bg-transparent">Listado
+                    de
+                    Rutas</a>
+                <a href="#" class="list-group-item list-group-item-action border-0 ps-5 py-2 bg-transparent">Nueva
+                    Ruta</a>
             </ul>
         </div>
     </aside>
