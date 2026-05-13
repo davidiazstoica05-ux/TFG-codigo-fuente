@@ -26,17 +26,16 @@ public class Repartidor {
 
 	@Id
 	private String dni; 
-	
 	private String zona;
 	private String apellidos; 
 	private String nombre; 
 	private String email; 
 	private int telefono; 
 	private String genero; 
-	private enum estado {DISPONIBLE,EN_RUTA,DE_BAJA,VACACIONES}
+	private enum disponibilidad {DISPONIBLE,EN_RUTA,DE_BAJA,VACACIONES}
 	private enum tipoVehiculo {Bicicleta, moto, furgoneta, patín_electrico, moto_ecologica}
 	private LocalDate fechaAlta; 
-	private Double PesoTotal;
+	private Double cargaMax;
 	
 	@ManyToOne 
 	@JoinColumn( name = "codigoRuta")
