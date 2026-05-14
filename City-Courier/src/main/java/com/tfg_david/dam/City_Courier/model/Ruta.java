@@ -30,13 +30,10 @@ public class Ruta {
 	private LocalDateTime fechaFinal; 
 	private double distancia;
 	
-	@ElementCollection
+	@ElementCollection //Valorar el cambio a enum 
 	private List<String> puntosEntregas = new ArrayList<>(); 
 	
 	private String codigoPostal; 
-	
-	
-	
 	
 	@OneToMany (mappedBy = "ruta" , fetch = FetchType.EAGER)
 	@ToString.Exclude

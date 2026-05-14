@@ -14,6 +14,14 @@ public class RepartidorService extends BaseService<Repartidor, String, Repartido
 
 	private final RepartidorRepository repartidorRepo; 
 	
+	public void mostrarRiders() {
+		
+		repartidorRepo.findAll()
+					  .forEach(System.out :: println);
+		
+		
+	}
+	
 	
 	
 	

@@ -23,7 +23,7 @@ public class Envio {
 	@GeneratedValue
 	private Long codEnvio; 
 	
-	private double direccion;
+	private String direccion;
 	private double peso;
 	private LocalDateTime fechaEntregaEstimada; 
 	private String destinatario; 

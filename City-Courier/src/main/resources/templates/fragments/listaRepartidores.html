@@ -20,7 +20,7 @@
             <table class="table table-bordered table-striped text-primary text-center">
                 <thead class="p-4">
                     <tr>
-                        <th>dni</th>
+                        <th>DNI</th>
                         <th>Zona</th>
                         <th>Nombre</th>
                         <th>Apellidos</th>
@@ -35,7 +35,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="repartidor : ${repartidores}">
-                        <td th:text="${repartidor.dni}">31031909X</td>
+                        <td th:text="${repartidor.dni}">DNI</td>
                         <td th:text="${repartidor.zona}">Osuna</td>
                         <td th:text="${repartidor.nombre}">David</td>
                         <td th:text="${repartidor.apellidos}">Díaz</td>
