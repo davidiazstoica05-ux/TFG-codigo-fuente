@@ -1,0 +1,12 @@
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+#aside {
+    font-family: 'Inter', sans-serif;
+}
+
+#mainContainer:hover {
+    transform: scale(1.02);
+    transition: all 0.3s ease-in-out;
+}
