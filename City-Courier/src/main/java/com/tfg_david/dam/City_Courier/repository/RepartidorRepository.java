@@ -6,6 +6,6 @@ import com.tfg_david.dam.City_Courier.model.Repartidor;
 
 
 public interface RepartidorRepository 
-extends JpaRepository<Repartidor, Long> {
+extends JpaRepository<Repartidor, String> {
 
 }

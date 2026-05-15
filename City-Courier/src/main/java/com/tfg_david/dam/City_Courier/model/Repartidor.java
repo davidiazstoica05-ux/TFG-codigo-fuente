@@ -27,7 +27,7 @@ import lombok.ToString;
 public class Repartidor {
 
 	@Id
-	private Long dni; 
+	private String dni; 
 	private String zona;
 	private String apellidos; 
 	private String nombre; 
