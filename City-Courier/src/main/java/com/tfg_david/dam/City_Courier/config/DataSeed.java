@@ -17,7 +17,6 @@ import com.tfg_david.dam.City_Courier.repository.RepartidorRepository;
 import com.tfg_david.dam.City_Courier.repository.RutaRepository;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.persistence.ElementCollection;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -75,6 +74,20 @@ public class DataSeed {
 					  .estado(Repartidor.Disponibilidad.EN_RUTA)
 					  .vehiculo(TipoVehiculo.patín_electrico)
 					  .build();
+		
+		Repartidor r2 = Repartidor.builder()
+				  .nombre("Miguel Angél")
+				  .apellidos("Díaz Gallardo")
+				  .dni("90009x")
+				  .cargaMax(10.5)
+				  .email("migeldiaz80@gmail.com")
+				  .fechaAlta(LocalDate.of(2026, 7, 1))
+				  .genero("Male")
+				  .zona("Osuna")
+				  .telefono(697386581)
+				  .estado(Repartidor.Disponibilidad.EN_RUTA)
+				  .vehiculo(TipoVehiculo.moto)
+				  .build();
 					  
 		Envio e = Envio.builder()
 				.destinatario("Manuel Díaz")
@@ -83,6 +96,7 @@ public class DataSeed {
 				.fechaEntregaEstimada(LocalDateTime.of(2026, 2, 1, 14, 00))
 				.build(); 
 		
+		repoRepartidor.save(r2);
 		repoRepartidor.save(r);
 		repoRuta.save(ruta); 
 		repoRuta.save(ruta2);
@@ -101,10 +115,13 @@ public class DataSeed {
 		//Relacionando Repartidor
 		r.setRuta(ruta);
 		r.setAsignacionesRepartidor(List.of(a));
+		r2.setRuta(ruta2);
+		r2.setAsignacionesRepartidor(List.of(a));
 		
 		//Relacion envios
 		e.setAsignacion(a);
 		
+		repoRepartidor.save(r2);
 		repoRepartidor.save(r);
 		repoRuta.save(ruta); 
 		repoEnvio.save(e); 
