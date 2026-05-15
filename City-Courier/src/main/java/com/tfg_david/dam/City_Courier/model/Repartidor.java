@@ -64,6 +64,8 @@ public class Repartidor {
 	@Builder.Default
 	private List<Asignacion> asignacionesRepartidor = new ArrayList<>();
 	
+	
+	//Metodo getter Disponible
 	public boolean isDisponible() {
 		
 		if (getEstado().equals(Disponibilidad.DISPONIBLE)) {

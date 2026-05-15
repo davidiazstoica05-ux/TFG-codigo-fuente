@@ -15,7 +15,7 @@
 
 <body>
 
-    <div th:fragment="listaRepartidores" class="container mt-3 mb-3">
+    <div th:fragment="listaRiders" class="container mt-3 mb-3">
         <div class="table-responsive">
             <table class="table table-bordered table-striped text-primary text-center">
                 <thead class="p-4">
@@ -34,17 +34,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="repartidor : ${repartidores}">
+                    <tr th:each="repartidor : ${repartidorList}">
                         <td th:text="${repartidor.dni}">DNI</td>
                         <td th:text="${repartidor.zona}">Osuna</td>
                         <td th:text="${repartidor.nombre}">David</td>
                         <td th:text="${repartidor.apellidos}">Díaz</td>
                         <td th:text="${repartidor.email}">[EMAIL_ADDRESS]</td>
                         <td th:text="${repartidor.telefono}">666666666</td>
-                        <td th:text="${repartidor.tipoVehiculo}">Bicicleta</td>
+                        <td th:text="${repartidor.vehiculo}"></td>
                         <td th:text="${repartidor.genero}">Masculino</td>
-                        <td th:text="${repartidor.fechaAlta}">2026-05-14</td>
-                        <td th:text="${repartidor.disponibilidad}">Disponible</td>
+                        <td th:text="${#temporals.format(repartidor.fechaAlta)}">2026-05-14</td>
+                        <td th:text="${repartidor.estado}">Disponible</td>
                         <td th:text="${repartidor.cargaMax}">10kg</td>
                     </tr>
                 </tbody>

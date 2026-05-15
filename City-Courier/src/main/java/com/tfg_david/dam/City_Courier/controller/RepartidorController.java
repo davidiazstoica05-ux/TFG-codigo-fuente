@@ -42,9 +42,9 @@ public class RepartidorController {
 	@GetMapping("/showRiders")
 	public String showListRiders(Model model) {
 		
-		model.addAttribute("repartidorList", repartidorService.findAll()); 
+		model.addAttribute("repartidorList", repartidorService.findAll());  
 		
-		return "fragments/listaRepartidores"; 
+		return "riderShowAll"; 
 		
 	}
 	

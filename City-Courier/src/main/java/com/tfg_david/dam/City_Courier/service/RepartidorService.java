@@ -19,7 +19,6 @@ public class RepartidorService extends BaseService<Repartidor, String, Repartido
 		repartidorRepo.findAll()
 					  .forEach(System.out :: println);
 		
-		
 	}
 	
 	
