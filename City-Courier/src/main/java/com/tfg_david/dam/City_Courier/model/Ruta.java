@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -25,8 +25,15 @@ public class Ruta {
 	
 	@Id @GeneratedValue
 	private Long codigoRuta; 
-	private LocalDateTime fechaSalida;
+	
+	private LocalDateTime fechaInicio;
+	private LocalDateTime fechaFinal; 
 	private double distancia;
+	
+	@ElementCollection //Valorar el cambio a enum 
+	private List<String> puntosEntregas = new ArrayList<>(); 
+	
+	private String codigoPostal; 
 	
 	@OneToMany (mappedBy = "ruta" , fetch = FetchType.EAGER)
 	@ToString.Exclude

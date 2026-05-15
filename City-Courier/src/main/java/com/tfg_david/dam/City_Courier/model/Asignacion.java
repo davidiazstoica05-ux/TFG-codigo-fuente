@@ -1,12 +1,14 @@
 package com.tfg_david.dam.City_Courier.model;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,6 +26,11 @@ public class Asignacion {
 	private boolean estadoPedido; 
 	private double coste; 
 	
+	private LocalDateTime fechaAsignacion; 
+	private LocalDateTime fechaEntrega; 
+	
+	private String motivoIncidencia;
+	
 	@ManyToOne 
 	@JoinColumn(name = "dni")
 	private Repartidor repartidor; 
@@ -32,10 +39,12 @@ public class Asignacion {
 	@JoinColumn(name = "codigoRuta")
 	private Ruta ruta;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "codigoEnvio")
 	private Envio envio;
-	private Duration tiempoEstimado; // ruta.getDistancia()/envio.getVelocidad(); acordarse hacerla en service
+	
+	
+	private Duration tiempoEstimado; // fechaInicio-fechaFinal; acordarse hacerla en service
 	
 	
 	

@@ -1,34 +1,126 @@
-<!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<header id="header" th:fragment="header" class="p-2 bg-transparent text-light">
+    <nav class="navbar navbar-expand-md navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand text-decoration-none m-0 p-0" href="#">
+                <h1 class="m-0">
+                    <span class="fw-bold text-light">City Courier</span>
+                </h1>
+            </a>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>General</title>
-</head>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon bg-primary rounded-1"></span>
+            </button>
 
-<body>
-    <header id="header" th:fragment="header"
-        class="container-fluid border-bottom border-2 d-flex justify-content-between">
-        <h2 class="p-2">Logo</h2>
-        <div id="cuenta" class=" pe-4 pt-3 text-end d-flex gap-3">
-            <i class="bi bi-bell h4"></i>
-            <i class="bi bi-person-circle h4"></i>
+            <div class="collapse navbar-collapse ms-sm-5 justify-content-between justify-content-md-end fs-5"
+                id="collapsibleNavbar">
+
+                <ul class="navbar-nav d-md-none pt-3">
+                    <li class="nav-item">
+                        <a class="nav-link text-light fw-bold" href="#"><i class="bi bi-house-door me-3"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light fw-bold" href="#"><i class="bi bi-bicycle me-3"></i>
+                            Repartidores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light fw-bold" href="#"><i class="bi bi-box-seam me-3"></i> Envíos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light fw-bold" href="#"><i class="bi bi-map me-3"></i> Rutas</a>
+                    </li>
+                </ul>
+
+                <div id="cuenta" class="text-end d-flex gap-3 align-items-center mt-3 mt-sm-0 pe-sm-4">
+                    <div class="dropdown">
+                        <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle h4 mb-0 text-light me-2 fs-2"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow">
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-arrow-left-right me-3 fs-5"></i>
+                                    Cambiar Cuenta</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-left me-3 fs-5"></i> Cerrar
+                                    Sesión</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-    </header>
-    <aside id="aside" th:fragment="aside"
-        class="list-group col-md-2 col-12 overflow-hidden h6 border-end border-1  rounded-0">
-        <a href="#" class="list-group-item list-group-item-action border-0 p-3 mt-1"><i
-                class="bi bi-house h3 pe-4"></i>Home</a>
-        <a href="#" class="list-group-item list-group-item-action border-0 p-3"><i
-                class="bi bi-bicycle h3 pe-4"></i>Repartidores</a>
-        <a href="#" class="list-group-item list-group-item-action border-0 p-3"><i
-                class="bi bi-box-seam h3 pe-4"></i>Envíos pendientes</a>
-        <a href="#" class="list-group-item list-group-item-action border-0 p-3"> <i
-                class="bi bi-gear-wide-connected h3 pe-4"></i>Configuración</a>
-    </aside>
+    </nav>
+</header>
 
+<aside id="aside" th:fragment="aside"
+    class="list-group col-md-2 rounded-0 col-12 overflow-hidden pt-5 border-0 d-none d-md-block bg-transparent">
 
-</body>
+    <a href="#"
+        class="list-group-item list-group-item-action border-0 py-3 px-4 mt-1 text-light bg-transparent d-flex align-items-center gap-3">
+        <i class="bi bi-house fs-4 m-0"></i>
+        <span class="fs-5 fw-medium">Home</span>
+    </a>
 
-</html>
+    <button
+        class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent text-start d-flex align-items-center gap-3"
+        type="button" data-bs-toggle="collapse" data-bs-target="#collapseRepartidores" aria-expanded="false"
+        aria-controls="collapseRepartidores">
+        <i class="bi bi-bicycle fs-4 m-0"></i>
+        <span class="fs-5 fw-medium">Repartidores</span>
+    </button>
+    <div class="collapse" id="collapseRepartidores">
+        <ul class="list-group list-group-flush bg-transparent">
+            <a href="#"
+                class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
+                <span class="fs-6">Listado de Repartidores</span>
+            </a>
+            <a href="#"
+                class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
+                <span class="fs-6">Nuevo Repartidor</span>
+            </a>
+        </ul>
+    </div>
+
+    <button
+        class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent text-start d-flex align-items-center gap-3"
+        type="button" data-bs-toggle="collapse" data-bs-target="#collapseEnvios" aria-expanded="false"
+        aria-controls="collapseEnvios">
+        <i class="bi bi-box-seam fs-4 m-0"></i>
+        <span class="fs-5 fw-medium">Envíos</span>
+    </button>
+    <div class="collapse" id="collapseEnvios">
+        <ul class="list-group list-group-flush bg-transparent">
+            <a href="#"
+                class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
+                <span class="fs-6">Listado de Envíos</span>
+            </a>
+            <a href="#"
+                class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
+                <span class="fs-6">Nuevo Envío</span>
+            </a>
+            <a href="#"
+                class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
+                <span class="fs-6">Incidencias</span>
+            </a>
+        </ul>
+
+    </div>
+
+    <button
+        class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent text-start d-flex align-items-center gap-3"
+        type="button" data-bs-toggle="collapse" data-bs-target="#collapseRutas" aria-expanded="false"
+        aria-controls="collapseRutas">
+        <i class="bi bi-map fs-4 m-0"></i>
+        <span class="fs-5 fw-medium">Rutas</span>
+    </button>
+    <div class="collapse" id="collapseRutas">
+        <ul class="list-group list-group-flush bg-transparent">
+            <a href="#"
+                class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
+                <span class="fs-6">Listado de Rutas</span>
+            </a>
+            <a href="#"
+                class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
+                <span class="fs-6">Nueva Ruta</span>
+            </a>
+        </ul>
+    </div>
+
+</aside>
