@@ -35,6 +35,9 @@ public class Repartidor {
 	private int telefono; 
 	private String genero; 
 	
+	
+	//Acordarse de crear los enum en clases no en en linea
+	
 	public enum Disponibilidad {
 		DISPONIBLE,EN_RUTA,DE_BAJA,VACACIONES
 		}

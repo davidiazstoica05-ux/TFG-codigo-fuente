@@ -7,5 +7,8 @@ import com.tfg_david.dam.City_Courier.model.Asignacion;
 
 public interface AsignacionRepository 
 extends JpaRepository<Asignacion, Long> {
+	
+
+	
 
 }

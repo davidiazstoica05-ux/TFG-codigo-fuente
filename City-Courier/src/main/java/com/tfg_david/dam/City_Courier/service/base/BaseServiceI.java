@@ -16,5 +16,6 @@ public interface BaseServiceI<T, ID> {
 	void delete(T t);
 
 	void deleteById(ID id);
+	
 
 }

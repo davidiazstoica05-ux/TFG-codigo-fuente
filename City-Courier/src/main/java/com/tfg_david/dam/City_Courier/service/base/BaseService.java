@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 
-public class BaseService <T,ID,R extends JpaRepository<T, ID>> implements BaseServiceI<T, ID>{ 
+public abstract class BaseService <T,ID,R extends JpaRepository<T, ID>> implements BaseServiceI<T, ID>{ 
 
 	@Autowired
 	protected R repo;
@@ -51,6 +51,8 @@ public class BaseService <T,ID,R extends JpaRepository<T, ID>> implements BaseSe
 		repo.deleteById(id);
 		
 	}
+
+	
 
 	
 	
