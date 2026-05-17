@@ -5,12 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mostrarRepartidores</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
-
 </head>
 
 <body>
@@ -39,18 +33,20 @@
                         <td th:text="${repartidor.zona}">Osuna</td>
                         <td th:text="${repartidor.nombre}">David</td>
                         <td th:text="${repartidor.apellidos}">Díaz</td>
-                        <td th:text="${repartidor.email}">[EMAIL_ADDRESS]</td>
+                        <td th:text="${repartidor.email}">Email</td>
                         <td th:text="${repartidor.telefono}">666666666</td>
                         <td th:text="${repartidor.vehiculo}"></td>
                         <td th:text="${repartidor.genero}">Masculino</td>
-                        <td th:text="${#temporals.format(repartidor.fechaAlta)}">2026-05-14</td>
+                        <td
+                            th:text="${repartidor.fechaAlta != null ? #temporals.format(repartidor.fechaAlta, 'dd/MM/yyyy') : 'Sin fecha'}">
+                            14/05/2026</td>
                         <td th:text="${repartidor.estado}">Disponible</td>
                         <td th:text="${repartidor.cargaMax}">10kg</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
+    </div>
 </body>
 
 </html>

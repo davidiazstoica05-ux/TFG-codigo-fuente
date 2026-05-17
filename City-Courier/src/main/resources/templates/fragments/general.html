@@ -49,78 +49,146 @@
     </nav>
 </header>
 
-<aside id="aside" th:fragment="aside"
-    class="list-group col-md-2 rounded-0 col-12 overflow-hidden pt-5 border-0 d-none d-md-block bg-transparent">
+<aside id="aside-operador" th:fragment="asideOperador"
+    class="list-group col-md-2 rounded-0 col-12 overflow-hidden border-0 d-none d-md-block bg-transparent mt-3">
 
     <a href="#"
-        class="list-group-item list-group-item-action border-0 py-3 px-4 mt-1 text-light bg-transparent d-flex align-items-center gap-3">
+        class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent d-flex align-items-center gap-3">
         <i class="bi bi-house fs-4 m-0"></i>
-        <span class="fs-5 fw-medium">Home</span>
+        <span class="fs-5 fw-medium">Inicio</span>
     </a>
 
     <button
         class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent text-start d-flex align-items-center gap-3"
-        type="button" data-bs-toggle="collapse" data-bs-target="#collapseRepartidores" aria-expanded="false"
-        aria-controls="collapseRepartidores">
-        <i class="bi bi-bicycle fs-4 m-0"></i>
-        <span class="fs-5 fw-medium">Repartidores</span>
+        type="button" data-bs-toggle="collapse" data-bs-target="#collapseEnviosOp">
+        <i class="bi bi-box-seam fs-4 m-0"></i>
+        <span class="fs-5 fw-medium">Gestión Envíos</span>
     </button>
-    <div class="collapse" id="collapseRepartidores">
+    <div class="collapse show" id="collapseEnviosOp">
         <ul class="list-group list-group-flush bg-transparent">
             <a href="#"
                 class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
-                <span class="fs-6">Listado de Repartidores</span>
+                <i class="bi bi-plus-circle me-2"></i> Nuevo Envío
             </a>
             <a href="#"
                 class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
-                <span class="fs-6">Nuevo Repartidor</span>
+                <i class="bi bi-search me-2"></i> Consultar Estado
             </a>
         </ul>
     </div>
+</aside>
+
+
+<aside id="aside-rrhh" th:fragment="asideRrhh"
+    class="list-group col-md-2 rounded-0 col-12 overflow-hidden border-0 d-none d-md-block bg-transparent mt-3">
+
+    <a href="#"
+        class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent d-flex align-items-center gap-3">
+        <i class="bi bi-house fs-4 m-0"></i>
+        <span class="fs-5 fw-medium">Inicio</span>
+    </a>
 
     <button
         class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent text-start d-flex align-items-center gap-3"
-        type="button" data-bs-toggle="collapse" data-bs-target="#collapseEnvios" aria-expanded="false"
-        aria-controls="collapseEnvios">
+        type="button" data-bs-toggle="collapse" data-bs-target="#collapseRrhh">
+        <i class="bi bi-people fs-4 m-0"></i>
+        <span class="fs-5 fw-medium">Personal</span>
+    </button>
+    <div class="collapse show" id="collapseRrhh">
+        <ul class="list-group list-group-flush bg-transparent">
+            <a href="#"
+                class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
+                <i class="bi bi-person-lines-fill me-2"></i> Ver Repartidores
+            </a>
+            <a href="#"
+                class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
+                <i class="bi bi-person-plus-fill me-2"></i> Alta Repartidor
+            </a>
+        </ul>
+    </div>
+</aside>
+
+
+<aside id="aside-logistica" th:fragment="asideLogistica"
+    class="list-group col-md-2 rounded-0 col-12 overflow-hidden border-0 d-none d-md-block bg-transparent mt-3">
+
+    <a href="#"
+        class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent d-flex align-items-center gap-3">
+        <i class="bi bi-house fs-4 m-0"></i>
+        <span class="fs-5 fw-medium">Inicio</span>
+    </a>
+
+    <button
+        class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent text-start d-flex align-items-center gap-3"
+        type="button" data-bs-toggle="collapse" data-bs-target="#collapseRutasLog">
+        <i class="bi bi-map fs-4 m-0"></i>
+        <span class="fs-5 fw-medium">Operaciones</span>
+    </button>
+    <div class="collapse show" id="collapseRutasLog">
+        <ul class="list-group list-group-flush bg-transparent">
+            <a href="#"
+                class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
+                <i class="bi bi-geo-alt me-2"></i> Rutas Activas
+            </a>
+            <a href="#"
+                class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
+                <i class="bi bi-journal-plus me-2"></i> Crear Asignación
+            </a>
+            <a href="#"
+                class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
+                <i class="bi bi-pencil-square me-2"></i> Editar Envíos
+            </a>
+        </ul>
+    </div>
+</aside>
+
+
+<aside id="aside-admin" th:fragment="asideAdmin"
+    class="list-group col-md-2 rounded-0 col-12 overflow-hidden border-0 d-none d-md-block bg-transparent mt-3">
+
+    <a href="#"
+        class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent d-flex align-items-center gap-3">
+        <i class="bi bi-speedometer2 fs-4 m-0"></i>
+        <span class="fs-5 fw-medium">Dashboard</span>
+    </a>
+
+    <button
+        class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent text-start d-flex align-items-center gap-3"
+        type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdminEnvios">
         <i class="bi bi-box-seam fs-4 m-0"></i>
         <span class="fs-5 fw-medium">Envíos</span>
     </button>
-    <div class="collapse" id="collapseEnvios">
+    <div class="collapse" id="collapseAdminEnvios">
         <ul class="list-group list-group-flush bg-transparent">
             <a href="#"
-                class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
-                <span class="fs-6">Listado de Envíos</span>
-            </a>
+                class="list-group-item list-group-item-action border-0 ps-5 py-2 text-light bg-transparent opacity-75">Histórico
+                Total</a>
             <a href="#"
-                class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
-                <span class="fs-6">Nuevo Envío</span>
-            </a>
-            <a href="#"
-                class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
-                <span class="fs-6">Incidencias</span>
-            </a>
+                class="list-group-item list-group-item-action border-0 ps-5 py-2 text-light bg-transparent opacity-75">Auditoría
+                Incidencias</a>
         </ul>
-
     </div>
 
     <button
         class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent text-start d-flex align-items-center gap-3"
-        type="button" data-bs-toggle="collapse" data-bs-target="#collapseRutas" aria-expanded="false"
-        aria-controls="collapseRutas">
-        <i class="bi bi-map fs-4 m-0"></i>
-        <span class="fs-5 fw-medium">Rutas</span>
+        type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdminRiders">
+        <i class="bi bi-bicycle fs-4 m-0"></i>
+        <span class="fs-5 fw-medium">Repartidores</span>
     </button>
-    <div class="collapse" id="collapseRutas">
+    <div class="collapse" id="collapseAdminRiders">
         <ul class="list-group list-group-flush bg-transparent">
             <a href="#"
-                class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
-                <span class="fs-6">Listado de Rutas</span>
-            </a>
+                class="list-group-item list-group-item-action border-0 ps-5 py-2 text-light bg-transparent opacity-75">Control
+                de Flota</a>
             <a href="#"
-                class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
-                <span class="fs-6">Nueva Ruta</span>
-            </a>
+                class="list-group-item list-group-item-action border-0 ps-5 py-2 text-light bg-transparent opacity-75">Métricas
+                de Rendimiento</a>
         </ul>
     </div>
 
+    <a href="#"
+        class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent d-flex align-items-center gap-3">
+        <i class="bi bi-gear fs-4 m-0"></i>
+        <span class="fs-5 fw-medium">Configuración</span>
+    </a>
 </aside>
