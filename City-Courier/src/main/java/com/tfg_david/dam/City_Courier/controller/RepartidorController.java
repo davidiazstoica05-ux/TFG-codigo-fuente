@@ -1,9 +1,12 @@
 package com.tfg_david.dam.City_Courier.controller;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -29,7 +32,28 @@ public class RepartidorController {
         return "rrhh"; 
     }
 
-	
+    @GetMapping("/editar/{dni}")
+	private String editarRepartidor(@PathVariable("dni") String dni, Model model) {
+    	
+    	Optional<Repartidor> repartidor = repartidorService.findById(dni); 
+    	
+    
+    	if (repartidor.isPresent()) {
+    		
+    		model.addAttribute("repartidor", repartidor.get());
+    		
+    		model.addAttribute("repartidorList", repartidorService.findAll());
+            
+    		model.addAttribute("modoEdicion", true);
+    		
+    		return "rrhh"; 
+			
+		} else {
+			
+			return "redirect:/rrhh/repartidores";
+			
+		}
+    }
 	
 	
 	

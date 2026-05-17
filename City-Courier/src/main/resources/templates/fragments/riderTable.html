@@ -1,52 +1,46 @@
-<!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="listaRiders" class="container-fluid p-0">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light text-secondary">
+                <tr>
+                    <th class="fw-semibold">DNI</th>
+                    <th class="fw-semibold">Zona</th>
+                    <th class="fw-semibold">Nombre</th>
+                    <th class="fw-semibold">Apellidos</th>
+                    <th class="fw-semibold">Email</th>
+                    <th class="fw-semibold">Teléfono</th>
+                    <th class="fw-semibold">Vehículo</th>
+                    <th class="fw-semibold">Género</th>
+                    <th class="fw-semibold">Fecha Alta</th>
+                    <th class="fw-semibold">Estado</th>
+                    <th class="fw-semibold">Carga máx.</th>
+                    <th class="fw-semibold text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="border-top-0">
+                <tr th:each="repartidor : ${repartidorList}">
+                    <td th:text="${repartidor.dni}">DNI</td>
+                    <td th:text="${repartidor.zona}">Osuna</td>
+                    <td th:text="${repartidor.nombre}">David</td>
+                    <td th:text="${repartidor.apellidos}">Díaz</td>
+                    <td th:text="${repartidor.email}">Email</td>
+                    <td th:text="${repartidor.telefono}">666666666</td>
+                    <td th:text="${repartidor.vehiculo}">Furgoneta</td>
+                    <td th:text="${repartidor.genero}">Masculino</td>
+                    <td
+                        th:text="${repartidor.fechaAlta != null ? #temporals.format(repartidor.fechaAlta, 'dd/MM/yyyy') : 'Sin fecha'}">
+                        14/05/2026</td>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mostrarRepartidores</title>
-</head>
+                    <td th:text="${repartidor.estado}">Disponible</td>
+                    <td th:text="${repartidor.cargaMax}">10kg</td>
 
-<body>
-
-    <div th:fragment="listaRiders" class="container mt-3 mb-3">
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped text-primary text-center">
-                <thead class="p-4">
-                    <tr>
-                        <th>DNI</th>
-                        <th>Zona</th>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>Email</th>
-                        <th>Teléfono</th>
-                        <th>Vehículo</th>
-                        <th>Género</th>
-                        <th>Fecha de Alta</th>
-                        <th>Disponibilidad</th>
-                        <th>Carga max.</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="repartidor : ${repartidorList}">
-                        <td th:text="${repartidor.dni}">DNI</td>
-                        <td th:text="${repartidor.zona}">Osuna</td>
-                        <td th:text="${repartidor.nombre}">David</td>
-                        <td th:text="${repartidor.apellidos}">Díaz</td>
-                        <td th:text="${repartidor.email}">Email</td>
-                        <td th:text="${repartidor.telefono}">666666666</td>
-                        <td th:text="${repartidor.vehiculo}"></td>
-                        <td th:text="${repartidor.genero}">Masculino</td>
-                        <td
-                            th:text="${repartidor.fechaAlta != null ? #temporals.format(repartidor.fechaAlta, 'dd/MM/yyyy') : 'Sin fecha'}">
-                            14/05/2026</td>
-                        <td th:text="${repartidor.estado}">Disponible</td>
-                        <td th:text="${repartidor.cargaMax}">10kg</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                    <td class="text-center">
+                        <a th:href="@{/rrhh/editar/{id}(id=${repartidor.dni})}" class="text-decoration-none">
+                            <i class="bi bi-pencil-square fs-5"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-</body>
-
-</html>
+</div>

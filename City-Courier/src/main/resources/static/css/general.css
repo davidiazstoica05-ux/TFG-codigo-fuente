@@ -6,7 +6,19 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
-#mainContainer:hover {
-    transform: scale(1.02);
-    transition: all 0.3s ease-in-out;
+
+
+.table tbody tr td:last-child {
+    cursor: pointer;
+}
+
+.table tbody tr td:last-child i {
+    color: var(--bs-primary);
+    transition: all 0.2s ease-in-out;
+    display: inline-block;
+}
+
+.table tbody tr td:last-child i:hover {
+    color: var(--bs-info);
+    transform: scale(1.3);
 }
