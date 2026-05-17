@@ -33,7 +33,7 @@ public class RepartidorController {
     }
 
     @GetMapping("/editar/{dni}")
-	private String editarRepartidor(@PathVariable("dni") String dni, Model model) {
+	public String editarRepartidor(@PathVariable("dni") String dni, Model model) {
     	
     	Optional<Repartidor> repartidor = repartidorService.findById(dni); 
     	

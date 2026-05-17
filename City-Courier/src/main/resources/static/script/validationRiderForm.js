@@ -1,3 +1,6 @@
+
+console.log("Está bien cargado");
+
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 (() => {
     'use strict'

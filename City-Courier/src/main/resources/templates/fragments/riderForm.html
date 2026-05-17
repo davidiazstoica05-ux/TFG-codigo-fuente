@@ -14,7 +14,7 @@
 
             <div class="modal-body p-4 p-md-5">
 
-                <form method="post" th:action="@{/rrhh/createRider/submit}" th:object="${repartidor}"
+                <form method="post" th:action="@{/rrhh/createRider/submit}" id="riderForm" th:object="${repartidor}"
                     class="needs-validation" novalidate>
 
                     <h6 class="text-primary fw-bold border-bottom pb-2 mb-4">Datos Personales</h6>
@@ -22,15 +22,15 @@
                     <div class="row mb-3">
                         <div class="col-sm-12 col-md-6 mb-3 mb-md-0">
                             <label for="nombre" class="form-label fw-medium">Nombre</label>
-                            <input type="text" class="form-control bg-light border-0" id="nombre" th:field="*{nombre}"
-                                placeholder="Ej. Juan" required>
+                            <input type="text" pattern="^[A-Za-zÀ-ÿ\s'-]+$" class="form-control bg-light border-0"
+                                id="nombre" th:field="*{nombre}" placeholder="Ej. Juan" required>
                             <div class="invalid-feedback">Debe introducir un nombre.</div>
                         </div>
 
                         <div class="col-sm-12 col-md-6">
                             <label for="apellidos" class="form-label fw-medium">Apellidos</label>
-                            <input type="text" class="form-control bg-light border-0" id="apellidos"
-                                th:field="*{apellidos}" placeholder="Ej. Pérez" required>
+                            <input type="text" pattern="^[A-Za-zÀ-ÿ\s'-]+$" class="form-control bg-light border-0"
+                                id="apellidos" th:field="*{apellidos}" placeholder="Ej. Pérez" required>
                             <div class="invalid-feedback">Debe introducir un apellido.</div>
                         </div>
                     </div>
@@ -45,8 +45,8 @@
 
                         <div class="col-sm-12 col-md-6">
                             <label for="telefono" class="form-label fw-medium">Teléfono</label>
-                            <input type="tel" class="form-control bg-light border-0" id="telefono"
-                                th:field="*{telefono}" placeholder="Ej. 600123456" required>
+                            <input type="tel" pattern="^\+?[0-9]{9,15}$" class="form-control bg-light border-0"
+                                id="telefono" th:field="*{telefono}" placeholder="Ej. 600123456" required>
                             <div class="invalid-feedback">Debe introducir un número válido.</div>
                         </div>
                     </div>
@@ -54,8 +54,8 @@
                     <div class="row mb-5">
                         <div class="col-sm-12 col-md-6 mb-3 mb-md-0">
                             <label for="dni" class="form-label fw-medium">DNI</label>
-                            <input type="text" class="form-control bg-light border-0" id="dni" th:field="*{dni}"
-                                placeholder="12345678A" required>
+                            <input type="text" pattern="^[0-9]{8}[A-Za-z]$" class="form-control bg-light border-0"
+                                id="dni" th:field="*{dni}" placeholder="12345678A" required>
                             <div class="invalid-feedback">Debe introducir un DNI válido.</div>
                         </div>
 
