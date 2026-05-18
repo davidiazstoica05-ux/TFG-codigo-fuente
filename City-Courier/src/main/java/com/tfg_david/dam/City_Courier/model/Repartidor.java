@@ -34,20 +34,9 @@ public class Repartidor {
 	private String email; 
 	private int telefono; 
 	private String genero; 
-	
-	
-	//Acordarse de crear los enum en clases no en en linea
-	
-	public enum Disponibilidad {
-		DISPONIBLE,EN_RUTA,DE_BAJA,VACACIONES
-		}
-	
+		
 	@Enumerated(EnumType.STRING)
 	private Disponibilidad estado;
-	
-	public enum TipoVehiculo {
-		Bicicleta, moto, furgoneta, patín_electrico, moto_ecologica
-		}
 	
 	@Enumerated(EnumType.STRING)
 	private TipoVehiculo vehiculo;

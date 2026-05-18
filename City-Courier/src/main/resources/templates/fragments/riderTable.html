@@ -25,13 +25,13 @@
                     <td th:text="${repartidor.apellidos}">Díaz</td>
                     <td th:text="${repartidor.email}">Email</td>
                     <td th:text="${repartidor.telefono}">666666666</td>
-                    <td th:text="${repartidor.vehiculo}">Furgoneta</td>
+                    <td th:text="${repartidor.vehiculo?.descripcion}">Furgoneta</td>
                     <td th:text="${repartidor.genero}">Masculino</td>
                     <td
                         th:text="${repartidor.fechaAlta != null ? #temporals.format(repartidor.fechaAlta, 'dd/MM/yyyy') : 'Sin fecha'}">
                         14/05/2026</td>
 
-                    <td th:text="${repartidor.estado}">Disponible</td>
+                    <td th:text="${repartidor.estado?.descripcion}">Disponible</td>
                     <td th:text="${repartidor.cargaMax}">10kg</td>
 
                     <td class="text-center">

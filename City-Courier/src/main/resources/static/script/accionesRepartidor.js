@@ -1,8 +1,4 @@
 
-
-
-
-
 //Esta tiene que vigilar siempre que se abra el modal 
 var modalCrearRepartidor = document.getElementById("modalCrearRepartidor");
 var form = document.getElementById("riderForm");

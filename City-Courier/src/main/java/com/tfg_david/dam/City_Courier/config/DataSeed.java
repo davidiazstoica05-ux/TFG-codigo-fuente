@@ -7,9 +7,9 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.tfg_david.dam.City_Courier.model.Asignacion;
+import com.tfg_david.dam.City_Courier.model.Disponibilidad;
 import com.tfg_david.dam.City_Courier.model.Envio;
 import com.tfg_david.dam.City_Courier.model.Repartidor;
-import com.tfg_david.dam.City_Courier.model.Repartidor.TipoVehiculo;
 import com.tfg_david.dam.City_Courier.model.Ruta;
 import com.tfg_david.dam.City_Courier.repository.AsignacionRepository;
 import com.tfg_david.dam.City_Courier.repository.EnviosRepository;
@@ -71,8 +71,8 @@ public class DataSeed {
 					  .genero("Male")
 					  .zona("Osuna")
 					  .telefono(697386581)
-					  .estado(Repartidor.Disponibilidad.EN_RUTA)
-					  .vehiculo(TipoVehiculo.patín_electrico)
+					  .estado(Disponibilidad.DISPONIBLE)
+					  .vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.Furgoneta)
 					  .build();
 		
 		Repartidor r2 = Repartidor.builder()
@@ -85,8 +85,8 @@ public class DataSeed {
 				  .genero("Male")
 				  .zona("Osuna")
 				  .telefono(697386581)
-				  .estado(Repartidor.Disponibilidad.EN_RUTA)
-				  .vehiculo(TipoVehiculo.moto)
+				  .estado(Disponibilidad.VACACIONES)
+				  .vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.moto_ecologica)
 				  .build();
 					  
 		Envio e = Envio.builder()
