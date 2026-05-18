@@ -55,7 +55,20 @@ public class RepartidorController {
 		}
     }
 	
-	
+    
+    @GetMapping("/findByDNI/{dni}")
+    public String findByDNIRepartidor(@PathVariable("dni") String dni, Model model) {
+    	
+    	Optional<Repartidor> repartidor = repartidorService.findById(dni);
+    	
+    	if (repartidor.isPresent()) {
+			
+    		model.addAttribute("repartidor",repartidor.get());
+    		
+		}
+    	
+    	
+    }
 	
 	@PostMapping("/createRider/submit")
     public String submit (@ModelAttribute("repartidor") Repartidor repartidor, Model model ) {
