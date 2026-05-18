@@ -100,32 +100,23 @@
 
     <div th:replace="~{fragments/riderForm :: riderForm}"></div>
 
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 
 
+
+    <script id="validationRiderForm" th:src="@{/script/validationRiderForm.js}"></script>
+    <script id="accionesRepartidor" th:src="@{/script/accionesRepartidor.js}"></script>
+
+
+
     <script th:if="${modoEdicion}">
-
-        var modalEditarRepartidor = new bootstrap.Modal(document.getElementById('modalCrearRepartidor'));
-        modalEditarRepartidor.show();
-    </script>
-
-    <script>
-        var modalCrearRepartidor = document.getElementById("modalCrearRepartidor");
-
-
-        modalCrearRepartidor.addEventListener("hidden.bs.modal", function () {
-            console.log("Me he cerrado");
-
-            document.getElementById("riderForm").reset();
-        })
+        //Esta función solo se ejecuta al pulsar el botón de crear repartidor
+        var modalCrearRepartidor = new bootstrap.Modal(document.getElementById('modalCrearRepartidor'));
+        modalCrearRepartidor.show();
+        console.log("abierto modal ");
 
     </script>
-
-    <script th:src="@{/script/validationRiderForm.js}"></script>
 
 </body>
 
