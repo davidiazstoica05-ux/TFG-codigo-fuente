@@ -135,8 +135,8 @@
 
                             <div class="col-sm-12 col-md-6 mt-4">
                                 <label for="cargaMax" class="form-label fw-medium">Carga Máxima</label>
-                                <input type="number" step="0.01" class="form-control bg-light border-0" id="cargaMax"
-                                    th:field="*{cargaMax}" placeholder="Ej. 10.00" required>
+                                <input type="number" step="0.25" min="1.00" class="form-control bg-light border-0"
+                                    id="cargaMax" th:field="*{cargaMax}" placeholder="Ej. 150.00" required>
                                 <div class="invalid-feedback">Debe introducir una carga máxima válida.</div>
                             </div>
 
