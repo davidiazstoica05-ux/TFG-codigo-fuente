@@ -83,6 +83,13 @@ public class DataSeed {
                 .peso(1.7)
                 .fechaEntregaEstimada(LocalDateTime.of(2026, 2, 1, 14, 00))
                 .build();
+        
+        Envio e2 = Envio.builder()
+                .destinatario("Laura Gómez")
+                .direccion("Arahal, Calle Corredera 45")
+                .peso(3.2)
+                .fechaEntregaEstimada(LocalDateTime.of(2026, 2, 1, 10, 30))
+                .build();
                 
         Asignacion a = Asignacion.builder()
                 .coste(2.5)
@@ -92,26 +99,34 @@ public class DataSeed {
                 .motivoIncidencia(" ")
                 .tiempoEstimado(null)
                 .build();
+        
+        Asignacion a2 = Asignacion.builder()
+                .coste(4.0)
+                .estadoPedido(false)
+                .fechaAsignacion(LocalDateTime.of(2026, 2, 1, 8, 00))
+                .fechaEntrega(LocalDateTime.of(2026, 2, 1, 10, 30))
+                .motivoIncidencia(" ")
+                .tiempoEstimado(null)
+                .build();
 
         
-        a.setRepartidor(r);
-        a.setRuta(ruta);
-        a.setEnvio(e);
+        ruta.addAsignacion(a);
+        r.addAsignacion(a);
+
+        a.vincularEnvio(e);
+                
+        r.setRuta(ruta); 
         
-        ruta.setAsignacionesRuta(List.of(a));
-        r.setAsignacionesRepartidor(List.of(a));
-        e.setAsignacion(a);
+        ruta2.addAsignacion(a2);
+        r2.addAsignacion(a2);
         
-        r.setRuta(ruta);
+        a2.vincularEnvio(e2);
+        
         r2.setRuta(ruta2);
         
         
-        repoRuta.save(ruta);
-        repoRuta.save(ruta2);
-        repoRepartidor.save(r);
-        repoRepartidor.save(r2);
-        repoEnvio.save(e);
+
         
-        repoAsig.save(a); 
+
     }
 }

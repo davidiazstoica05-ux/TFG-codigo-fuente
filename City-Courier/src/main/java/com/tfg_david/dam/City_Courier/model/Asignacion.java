@@ -39,12 +39,23 @@ public class Asignacion {
 	@JoinColumn(name = "codigoRuta")
 	private Ruta ruta;
 	
-	@OneToOne
-	@JoinColumn(name = "codigoEnvio")
+	@OneToOne ()
 	private Envio envio;
 	
 	
 	private Duration tiempoEstimado; // fechaInicio-fechaFinal; acordarse hacerla en service
 	
+	
+	public void vincularEnvio(Envio envio) {
+		
+		this.envio = envio;
+		
+		if (envio != null) {
+			
+			envio.setAsignacion(null);
+			
+		}
+		
+	}
 	
 }
