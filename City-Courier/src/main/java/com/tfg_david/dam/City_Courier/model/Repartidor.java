@@ -57,16 +57,20 @@ public class Repartidor {
 	private List<Asignacion> asignacionesRepartidor = new ArrayList<>();
 	
 	
-	//Metodo getter Disponible
-	public boolean isDisponible() {
+public void addAsignacion (Asignacion asignacion) {
 		
-		if (getEstado().equals(Disponibilidad.DISPONIBLE)) {
-			
-			return true; 
-			
-		}
+		this.asignacionesRepartidor.remove(asignacion);
 		
-		return false; 
+		asignacion.setRepartidor(this);
+		
+	}
+	
+	public void removeAsignacion(Asignacion asignacion) {
+		
+		
+	this.asignacionesRepartidor.remove(asignacion); 
+	
+	asignacion.setRepartidor(null);
 		
 	}
 

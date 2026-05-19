@@ -47,5 +47,4 @@ public class Asignacion {
 	private Duration tiempoEstimado; // fechaInicio-fechaFinal; acordarse hacerla en service
 	
 	
-	
 }
