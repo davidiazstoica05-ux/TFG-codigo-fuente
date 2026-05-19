@@ -1,4 +1,4 @@
-<div th:fragment="logisticaForm" class="modal fade" id="modalCrearEnvio" tabindex="-1" aria-labelledby="modalLabel"
+<div th:fragment="envioForm" class="modal fade" id="modalCrearEnvio" tabindex="-1" aria-labelledby="modalLabel"
     aria-hidden="true">
 
     <div class="modal-dialog modal-lg">
@@ -6,7 +6,7 @@
 
             <div class="modal-header bg-primary text-white border-0">
                 <h5 class="modal-title fw-bold" id="modalLabel">
-                    <i class="bi bi-package-fill me-2"></i>Nuevo Envio
+                    <i class="bi bi-package-fill me-2"></i>Nuevo Envío
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                     aria-label="Close"></button>
@@ -14,15 +14,22 @@
 
             <div class="modal-body p-4 p-md-5">
 
-                <form method="post" th:action="@{/logistica/envios}" id="logisticaForm" th:object="${envio}"
+                <form method="post" th:action="@{/logistica/principal}" id="logisticaForm" th:object="${envio}"
                     class="needs-validation" novalidate>
 
                     <fieldset>
                         <h6 class="text-primary fw-bold border-bottom pb-2 mb-4">Datos del Destinatario</h6>
 
                         <div class="row mb-3">
+                            <div class="col-sm-12 col-md-6 mb-3 mb-md-0">
+                                <label for="destinatario" class="form-label fw-medium">Nombre del Destinatario</label>
+                                <input type="text" class="form-control bg-light border-0" id="destinatario"
+                                    th:field="*{destinatario}" placeholder="Ej. Juan Pérez" required>
+                                <div class="invalid-feedback">Debe introducir un nombre de destinatario válido.</div>
+                            </div>
+
                             <div class="col-sm-12 col-md-6">
-                                <label for="zona" class="form-label fw-medium">Zona </label>
+                                <label for="zona" class="form-label fw-medium">Zona de Reparto</label>
                                 <select class="form-select bg-light border-0" id="zona" th:field="*{zona}" required>
                                     <option value="" disabled selected>Seleccione una zona...</option>
                                     <option value="Arahal">Arahal</option>
@@ -38,19 +45,21 @@
                                 </select>
                                 <div class="invalid-feedback">Debe seleccionar una zona.</div>
                             </div>
+                        </div>
 
-                            <div>
-                                <label for="direccion" class="form-label fw-medium">Dirección</label>
+                        <div class="row mb-4">
+                            <div class="col-12 col-md-6 mb-3 mb-md-0">
+                                <label for="direccion" class="form-label fw-medium">Dirección Completa</label>
                                 <input type="text" class="form-control bg-light border-0" id="direccion"
                                     th:field="*{direccion}" placeholder="Ej. Calle Mayor, 123" required>
                                 <div class="invalid-feedback">Debe introducir una dirección válida.</div>
                             </div>
 
-                            <div class="col-sm-12 col-md-6">
-                                <label for="destinatario" class="form-label fw-medium">Nombre del Destinatario</label>
-                                <input type="text" class="form-control bg-light border-0" id="destinatario"
-                                    th:field="*{destinatario}" placeholder="Ej. Juan Pérez" required>
-                                <div class="invalid-feedback">Debe introducir un nombre de destinatario válido.</div>
+                            <div class="col-12 col-md-6">
+                                <label for="codigoPostal" class="form-label fw-medium">Código Postal</label>
+                                <input type="text" class="form-control bg-light border-0" maxlength="5" minlength="5"
+                                    id="codigoPostal" th:field="*{codPostal}" placeholder="Ej. 41001" required>
+                                <div class="invalid-feedback">Debe introducir un código postal válido.</div>
                             </div>
                         </div>
 
@@ -58,106 +67,34 @@
 
                     <fieldset>
                         <h6 class="text-primary fw-bold border-bottom pb-2 mb-4">Datos del Envío</h6>
-                        <div class="row mb-5">
+
+                        <div class="row mb-4">
                             <div class="col-sm-12 col-md-6 mb-3 mb-md-0">
-                                <label for="dni" class="form-label fw-medium">Peso (kg)</label>
-                                <input type="text" max="25" min="0.25" step="0.25"
-                                    class="form-control bg-light border-0" id="dni" th:field="*{dni}"
+                                <label for="peso" class="form-label fw-medium">Peso (kg)</label>
+                                <input type="number" max="25" min="0.25" step="0.25"
+                                    class="form-control bg-light border-0" id="peso" th:field="*{peso}"
                                     placeholder="Ej. 5.5" required>
                                 <div class="invalid-feedback">Debe introducir un peso válido.</div>
                             </div>
 
                             <div class="col-sm-12 col-md-6">
-                                <label for="fechaEntregaEstimada" class="form-label fw-medium">Fecha de
-                                    entregaEstimada</label>
-                                <input type="date" class="form-control bg-light border-0" id="fechaEntregaEstimada"
-                                    th:field="*{fechaEntregaEstimada}" placeholder="Masculino" required>
+                                <label for="fechaEntregaEstimada" class="form-label fw-medium">Fecha de Entrega
+                                    Estimada</label>
+                                <input type="datetime-local" class="form-control bg-light border-0"
+                                    id="fechaEntregaEstimada" th:field="*{fechaEntregaEstimada}" required>
                                 <div class="invalid-feedback">Debe introducir una fecha de envío válida.</div>
                             </div>
-
-
                         </div>
-                    </fieldset>
-
-                    <fieldset>
-                        <h6 class="text-primary fw-bold border-bottom pb-2 mb-4">Datos de Reparto</h6>
-
-                        <div class="row mb-4">
-                            <div class="col-sm-12 col-md-6">
-                                <label for="zona" class="form-label fw-medium">Zona Asignada</label>
-                                <select class="form-select bg-light border-0" id="zona" th:field="*{zona}" required>
-                                    <option value="" disabled selected>Seleccione una zona...</option>
-                                    <option value="Arahal">Arahal</option>
-                                    <option value="Carmona">Carmona</option>
-                                    <option value="Écija">Écija</option>
-                                    <option value="Fuentes de Andalucía">Fuentes de Andalucía</option>
-                                    <option value="La Lantejuela">La Lantejuela</option>
-                                    <option value="Marchena">Marchena</option>
-                                    <option value="Morón">Morón de la Frontera</option>
-                                    <option value="Osuna">Osuna</option>
-                                    <option value="Paradas">Paradas</option>
-                                    <option value="Utrera">Utrera</option>
-                                </select>
-                                <div class="invalid-feedback">Debe seleccionar una zona.</div>
-                            </div>
-
-                            <div id="tipovehiculo" class="col-sm-12 col-md-6">
-                                <label for="vehiculo" class="form-label fw-medium">Tipo de Vehículo</label>
-                                <select class="form-select bg-light border-0" id="vehiculo" th:field="*{vehiculo}"
-                                    required>
-                                    <option value="" disabled selected>Seleccione un tipo de vehículo...</option>
-                                    <option
-                                        th:each="vehOpt : ${T(com.tfg_david.dam.City_Courier.model.TipoVehiculo).values()}"
-                                        th:value="${vehOpt}" th:text="${vehOpt.descripcion}"></option>
-                                </select>
-                                <div class="invalid-feedback">Debe seleccionar un tipo de vehículo.</div>
-                            </div>
-                        </div>
-
-                    </fieldset>
-
-                    <fieldset>
-
-                        <h6 class="text-primary fw-bold border-bottom pb-2 mb-4">Datos de Altas</h6>
-
-                        <div class="row mb-4">
-                            <div class="col-sm-12 col-md-6">
-                                <label for="fechaAlta" class="form-label fw-medium">Fecha de Alta</label>
-                                <input type="date" class="form-control bg-light border-0" id="fechaAlta"
-                                    th:field="*{fechaAlta}" required>
-                                <div class="invalid-feedback">Debe introducir una fecha de alta.</div>
-                            </div>
-
-                            <div class="col-sm-12 col-md-6">
-                                <label for="disponibilidad" class="form-label fw-medium">Disponibilidad</label>
-                                <select class="form-select bg-light border-0" id="disponibilidad" th:field="*{estado}"
-                                    required>
-                                    <option value="" disabled selected>Seleccione la disponibilidad...</option>
-                                    <option
-                                        th:each="dispOpt : ${T(com.tfg_david.dam.City_Courier.model.Disponibilidad).values()}"
-                                        th:value="${dispOpt}" th:text="${dispOpt.descripcion}"></option>
-                                </select>
-                                <div class="invalid-feedback">Debe seleccionar una disponibilidad válida.</div>
-                            </div>
-
-                            <div class="col-sm-12 col-md-6 mt-4">
-                                <label for="cargaMax" class="form-label fw-medium">Carga Máxima</label>
-                                <input type="number" step="0.25" min="1.00" class="form-control bg-light border-0"
-                                    id="cargaMax" th:field="*{cargaMax}" placeholder="Ej. 150.00" required>
-                                <div class="invalid-feedback">Debe introducir una carga máxima válida.</div>
-                            </div>
-
-                        </div>
-
                     </fieldset>
 
                     <div class="d-flex justify-content-end gap-2 mt-5">
                         <button type="button" class="btn btn-outline-secondary px-4 rounded-pill"
                             data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary px-4 rounded-pill">
-                            <i class="bi bi-save me-2"></i>Crear Repartidor
+                            <i class="bi bi-save me-2"></i>Crear Envío
                         </button>
                     </div>
+
                 </form>
 
             </div>

@@ -17,36 +17,25 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/logistica")
 public class LogisticaController {
 
-	private final EnviosService envioService; 
-	
-	
-	
+	private final EnviosService envioService;
 
 	@GetMapping("/principal")
-	public String prueba( Model model) {
-		
-		model.addAttribute("envioList", envioService.findAll()); 
-		
+	public String prueba(Model model) {
+
+		model.addAttribute("envioList", envioService.findAll());
+
 		model.addAttribute("envio", new Envio());
-		
 		return "logistica/logistica";
 
 	}
-	
-	
-	
+
 	@PostMapping("/principal")
 	public String submit(@ModelAttribute("envio") Envio envio, Model model) {
-		
-		
+
 		envioService.save(envio);
-		
-		return "redirect: /logistica/principal";
-		
-		
+
+		return "redirect:/logistica/principal";
+
 	}
-	
-	
-	
 
 }
