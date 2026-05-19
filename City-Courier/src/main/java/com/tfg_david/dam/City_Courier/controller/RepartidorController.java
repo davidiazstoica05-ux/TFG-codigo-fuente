@@ -56,7 +56,7 @@ public class RepartidorController {
 		
 		model.addAttribute("repartidor", new Repartidor());
 		
-		return "rrhh";
+		return "rrhh/rrhh";
 
 
 	}
@@ -74,7 +74,7 @@ public class RepartidorController {
 
 			model.addAttribute("modoEdicion", true);
 
-			return "rrhh";
+			return "rrhh/rrhh";
 
 		} else {
 

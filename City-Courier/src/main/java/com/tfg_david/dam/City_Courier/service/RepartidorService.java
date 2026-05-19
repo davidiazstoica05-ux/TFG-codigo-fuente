@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RepartidorService extends BaseService<Repartidor, String, RepartidorRepository> {
 
-	private final RepartidorRepository repartidorRepo;
 
 	
 	

@@ -46,5 +46,40 @@ public class Ruta {
 	@EqualsAndHashCode.Exclude
 	@Builder.Default
 	private List<Asignacion> asignacionesRuta = new ArrayList<>();
-
+	
+	public void addAsignacion (Asignacion asignacion) {
+		
+		this.asignacionesRuta.add(asignacion);
+		
+		asignacion.setRuta(this);
+		
+	}
+	
+	public void removeAsignacion(Asignacion asignacion) {
+		
+		
+	this.asignacionesRuta.remove(asignacion); 
+	
+	asignacion.setRuta(null);
+		
+	}
+	
+	public void addRepartidor (Repartidor repartidor) {
+		
+		this.repartidor.add(repartidor);
+		
+		repartidor.setRuta(this);
+		
+	}
+	
+	public void removeRepartidor (Repartidor repartidor) {
+		
+		
+	this.repartidor.remove(repartidor);
+	
+	repartidor.setRuta(null);
+		
+	}
+	
+	
 }

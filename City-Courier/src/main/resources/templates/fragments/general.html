@@ -120,12 +120,15 @@
 
     <button
         class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent text-start d-flex align-items-center gap-3"
-        type="button" data-bs-toggle="collapse" data-bs-target="#collapseRutasLog">
+        type="button" data-bs-toggle="collapse" data-bs-target="#collapseRutasLog" aria-expanded="false"
+        aria-controls="collapseRutasLog">
         <i class="bi bi-map fs-4 m-0"></i>
         <span class="fs-5 fw-medium">Operaciones</span>
+        <i class="bi bi-chevron-down ms-auto fs-6"></i>
     </button>
-    <div class="collapse show" id="collapseRutasLog">
-        <ul class="list-group list-group-flush bg-transparent">
+
+    <div class="collapse" id="collapseRutasLog">
+        <div class="list-group list-group-flush bg-transparent">
             <a href="#"
                 class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
                 <i class="bi bi-geo-alt me-2"></i> Rutas Activas
@@ -138,10 +141,9 @@
                 class="list-group-item list-group-item-action border-0 ps-5 py-3 text-light bg-transparent opacity-75">
                 <i class="bi bi-pencil-square me-2"></i> Editar Envíos
             </a>
-        </ul>
+        </div>
     </div>
 </aside>
-
 
 <aside id="aside-admin" th:fragment="asideAdmin"
     class="list-group col-md-2 rounded-0 col-12 overflow-hidden border-0 d-none d-md-block bg-transparent mt-3">
