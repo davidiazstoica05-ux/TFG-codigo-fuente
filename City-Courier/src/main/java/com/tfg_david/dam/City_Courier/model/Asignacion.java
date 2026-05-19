@@ -3,6 +3,7 @@ package com.tfg_david.dam.City_Courier.model;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -39,9 +40,8 @@ public class Asignacion {
 	@JoinColumn(name = "codigoRuta")
 	private Ruta ruta;
 	
-	@OneToOne ()
+	@OneToOne(mappedBy = "asignacion", cascade = CascadeType.ALL)
 	private Envio envio;
-	
 	
 	private Duration tiempoEstimado; // fechaInicio-fechaFinal; acordarse hacerla en service
 	
@@ -52,7 +52,7 @@ public class Asignacion {
 		
 		if (envio != null) {
 			
-			envio.setAsignacion(null);
+			envio.setAsignacion(this);
 			
 		}
 		

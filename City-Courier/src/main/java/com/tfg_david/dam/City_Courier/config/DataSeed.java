@@ -124,9 +124,16 @@ public class DataSeed {
         
         r2.setRuta(ruta2);
         
+      repoRuta.save(ruta); 
+      repoRuta.save(ruta2);
+          
+      repoRepartidor.save(r); 
+      repoRepartidor.save(r2); 
+      
         
-
-        
+      repoAsig.save(a); 
+      repoAsig.save(a2); 
+           
 
     }
 }

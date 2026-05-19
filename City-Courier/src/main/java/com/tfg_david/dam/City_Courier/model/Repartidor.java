@@ -59,7 +59,7 @@ public class Repartidor {
 	
 public void addAsignacion (Asignacion asignacion) {
 		
-		this.asignacionesRepartidor.remove(asignacion);
+		this.asignacionesRepartidor.add(asignacion);
 		
 		asignacion.setRepartidor(this);
 		

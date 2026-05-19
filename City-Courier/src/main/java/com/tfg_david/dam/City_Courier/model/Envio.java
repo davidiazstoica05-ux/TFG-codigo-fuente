@@ -3,6 +3,7 @@ package com.tfg_david.dam.City_Courier.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -29,7 +30,7 @@ public class Envio {
 	private LocalDateTime fechaEntregaEstimada; 
 	private String destinatario; 
 	
-	@OneToOne(mappedBy = "envio")
+	@OneToOne
 	@JoinColumn(name = "idAsignacion")
 	private Asignacion asignacion; 
 	

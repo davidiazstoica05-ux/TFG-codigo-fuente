@@ -8,7 +8,7 @@
                     <th class="fw-semibold">Peso</th>
                     <th class="fw-semibold">FechaEntregaEstimada</th>
                     <th class="fw-semibold">Destinatario</th>
-                    <th class="fw-semibold">Asignacion</th>
+                    <th class="fw-semibold">Repartidor</th>
                     <th class="fw-semibold text-center">Acciones</th>
                 </tr>
             </thead>
@@ -17,9 +17,9 @@
                     <td th:text="${envio.codEnvio}">CodEnvio</td>
                     <td th:text="${envio.direccion}">Osuna</td>
                     <td th:text="${envio.peso}">10kg</td>
-                    <td th:text="${envio.fechaEntregaEstimada}">14/05/2026</td>
+                    <td th:text="${#temporals.format(envio.fechaEntregaEstimada, 'dd/MM/yyyy HH:mm')}">14/05/2026</td>
                     <td th:text="${envio.destinatario}">Juan Pérez</td>
-                    <td th:text="${envio.asignacion}">Asignación 1</td>
+                    <td th:text="${envio.asignacion?.repartidor?.dni}">Asignación 1</td>
                     <td class="text-center">
                         <i class="bi bi-pencil-square fs-5"></i>
                     </td>

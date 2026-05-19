@@ -49,7 +49,7 @@ public class Ruta {
 	
 	public void addAsignacion (Asignacion asignacion) {
 		
-		this.asignacionesRuta.remove(asignacion);
+		this.asignacionesRuta.add(asignacion);
 		
 		asignacion.setRuta(this);
 		
@@ -66,7 +66,7 @@ public class Ruta {
 	
 	public void addRepartidor (Repartidor repartidor) {
 		
-		this.repartidor.remove(repartidor);
+		this.repartidor.add(repartidor);
 		
 		repartidor.setRuta(this);
 		
