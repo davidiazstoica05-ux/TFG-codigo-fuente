@@ -2,7 +2,9 @@ package com.tfg_david.dam.City_Courier.config;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -26,27 +28,31 @@ public class DataSeed {
     private final RepartidorRepository repoRepartidor;
     private final RutaRepository repoRuta;
     private final AsignacionRepository repoAsig;
-    private final EnviosRepository repoEnvio;
+
     
     @PostConstruct
     public void run() {
         
-        // 1. CREAMOS LAS ENTIDADES INDEPENDIENTES (Sin relaciones todavía)
-        
+    	Map<String, Double> paradasRuta1 = new LinkedHashMap();
+    	paradasRuta1.put("Lantejuela", 120.0);
+    	paradasRuta1.put("Marchena", 40.0);
+    	
+    	Map<String, Double> paradasRuta2 = new LinkedHashMap();
+    	paradasRuta2.put("Osuna", 120.0);
+    	paradasRuta2.put("Arahal", 40.0);
+    	
         Ruta ruta = Ruta.builder()
-                .codigoPostal("41640")
                 .fechaFinal(LocalDateTime.of(2026, 2, 1, 16, 00))
                 .fechaInicio(LocalDateTime.of(2026, 2, 1, 8, 00))
-                .distancia(5.5)
-                .puntosEntregas(List.of("PlazaJuanDeMesa","BlasInfante","SanCristobal"))
+                .nombreRuta("Marchena-Lantejuela")
+                .puntosEntregas(paradasRuta1)
                 .build();
         
         Ruta ruta2 = Ruta.builder()
-                .codigoPostal("41010")
-                .distancia(3.3)
                 .fechaFinal(LocalDateTime.of(2026, 2, 1, 16, 00))
                 .fechaInicio(LocalDateTime.of(2026, 2, 1, 8, 00))
-                .puntosEntregas(List.of("AvdSantaCecilia","LopezGomara","SanJacinto"))
+                .nombreRuta("Arahal-Osuna")
+                .puntosEntregas(paradasRuta2)
                 .build();
         
         Repartidor r = Repartidor.builder()
