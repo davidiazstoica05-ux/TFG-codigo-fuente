@@ -2,7 +2,9 @@ package com.tfg_david.dam.City_Courier.model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -26,14 +28,14 @@ public class Ruta {
 	@Id @GeneratedValue
 	private Long codigoRuta; 
 	
+	private String nombreRuta; 
 	private LocalDateTime fechaInicio;
 	private LocalDateTime fechaFinal; 
-	private double distancia;
 	
-	@ElementCollection //Valorar el cambio a enum 
-	private List<String> puntosEntregas = new ArrayList<>(); 
 	
-	private String codigoPostal; 
+	
+	@ElementCollection 
+	private Map<String, Double> puntosEntregas = new LinkedHashMap<>();
 	
 	@OneToMany (mappedBy = "ruta" , fetch = FetchType.EAGER)
 	@ToString.Exclude
