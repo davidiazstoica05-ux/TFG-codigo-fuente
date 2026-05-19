@@ -78,7 +78,7 @@ public class RepartidorController {
 
 		} else {
 
-			return "redirect: /rrhh/repartidores";
+			return "redirect:/rrhh/repartidores";
 
 		}
 	}
@@ -88,7 +88,7 @@ public class RepartidorController {
 	@PostMapping("/repartidores")
 	public String submit(@ModelAttribute("repartidor") Repartidor repartidor, Model model) {
 		repartidorService.save(repartidor);
-		return "redirect: /rrhh/repartidores";
+		return "redirect:/rrhh/repartidores";
 	}
 
 }

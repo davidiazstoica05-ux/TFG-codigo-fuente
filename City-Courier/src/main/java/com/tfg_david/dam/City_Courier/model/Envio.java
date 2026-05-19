@@ -3,7 +3,6 @@ package com.tfg_david.dam.City_Courier.model;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -26,6 +25,8 @@ public class Envio {
 	private Long codEnvio; 
 	
 	private String direccion;
+	private String zona;
+	private String codPostal;
 	private double peso;
 	private LocalDateTime fechaEntregaEstimada; 
 	private String destinatario; 
