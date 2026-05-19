@@ -173,6 +173,13 @@
 
     <script id="validationForm" th:src="@{/script/validationForm.js}"></script>
 
+    <script th:if="${modoEdicion}">
+        var modalCrearEnvio = new bootstrap.Modal(document.getElementById('modalCrearEnvio'));
+        modalCrearEnvio.show();
+        console.log("abierto modal ");
+    </script>
+
+
 </body>
 
 </html>

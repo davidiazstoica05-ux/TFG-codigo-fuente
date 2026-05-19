@@ -21,7 +21,10 @@
                     <td th:text="${envio.destinatario}">Juan Pérez</td>
                     <td th:text="${envio.asignacion?.repartidor?.dni}">Asignación 1</td>
                     <td class="text-center">
-                        <i class="bi bi-pencil-square fs-5"></i>
+                        <a th:href="@{/logistica/editar/{codEnvio}(codEnvio=${envio.codEnvio})}"
+                            class="text-decoration-none">
+                            <i class="bi bi-pencil-square fs-5"></i>
+                        </a>
                     </td>
                 </tr>
             </tbody>

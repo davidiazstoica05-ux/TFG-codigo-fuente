@@ -84,6 +84,10 @@
                                     id="fechaEntregaEstimada" th:field="*{fechaEntregaEstimada}" required>
                                 <div class="invalid-feedback">Debe introducir una fecha de envío válida.</div>
                             </div>
+
+                            <div class="col-12 mt-3">
+                                <input type="hidden" th:field="*{asignacion.repartidor.dni}" id="dniRepartidor">
+                            </div>
                         </div>
                     </fieldset>
 
