@@ -29,6 +29,7 @@ public class EnvioController {
 		model.addAttribute("envioList", envioService.findAll());
 
 		model.addAttribute("envio", new Envio());
+		
 		return "logistica/logistica";
 
 	}
@@ -38,7 +39,7 @@ public class EnvioController {
 		
 		Asignacion asigid; 
 		
-		if (envio != null) {
+		if (envio.getCodEnvio() != null) {
 			
 			Optional<Envio> envioRecibido = envioService.findById(envio.getCodEnvio()); 
 			

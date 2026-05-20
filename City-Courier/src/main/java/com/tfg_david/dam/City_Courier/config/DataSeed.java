@@ -3,7 +3,6 @@ package com.tfg_david.dam.City_Courier.config;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
@@ -14,7 +13,6 @@ import com.tfg_david.dam.City_Courier.model.Envio;
 import com.tfg_david.dam.City_Courier.model.Repartidor;
 import com.tfg_david.dam.City_Courier.model.Ruta;
 import com.tfg_david.dam.City_Courier.repository.AsignacionRepository;
-import com.tfg_david.dam.City_Courier.repository.EnviosRepository;
 import com.tfg_david.dam.City_Courier.repository.RepartidorRepository;
 import com.tfg_david.dam.City_Courier.repository.RutaRepository;
 
