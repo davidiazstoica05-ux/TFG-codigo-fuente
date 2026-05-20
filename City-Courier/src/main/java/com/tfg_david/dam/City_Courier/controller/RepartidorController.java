@@ -1,8 +1,9 @@
 package com.tfg_david.dam.City_Courier.controller;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +29,7 @@ public class RepartidorController {
 	@GetMapping("/repartidores")
 	public String rrhh(@RequestParam(required = false) String dni, Model model) {
 
-		Set<Repartidor> r = new HashSet<>();
+		List<Repartidor> r = new ArrayList();
 		
 		if (dni != null && !dni.isEmpty() ) {
 
