@@ -28,13 +28,14 @@ public class RepartidorController {
 	@GetMapping("/repartidores")
 	public String rrhh(@RequestParam(required = false) String dni, Model model) {
 
+		Set<Repartidor> r = new HashSet<>();
+		
 		if (dni != null && !dni.isEmpty() ) {
 
 			Optional<Repartidor> repartidor = repartidorService.findById(dni);
 
 			if (repartidor.isPresent()) {
 				
-				Set<Repartidor> r = new HashSet<>();
 				r.add(repartidor.get()); 
 
 				model.addAttribute("repartidorList", r);
@@ -42,7 +43,7 @@ public class RepartidorController {
 
 			} else {
 
-				return "redirect: /rrhh/repartidores";
+				return "redirect:/rrhh/repartidores";
 
 			}
 
