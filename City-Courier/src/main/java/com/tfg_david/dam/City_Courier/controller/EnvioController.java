@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.tfg_david.dam.City_Courier.model.Asignacion;
 import com.tfg_david.dam.City_Courier.model.Envio;
 import com.tfg_david.dam.City_Courier.service.EnviosService;
 
@@ -33,9 +34,28 @@ public class EnvioController {
 	}
 
 	@PostMapping("/principal")
-	public String submit(@ModelAttribute("envio") Envio envio, Model model) {
+	public String submit(@ModelAttribute("envio")Envio envio, Model model) {
+		
+		Asignacion asigid; 
+		
+		if (envio != null) {
+			
+			Optional<Envio> envioRecibido = envioService.findById(envio.getCodEnvio()); 
+			
+			
+			if (envioRecibido.isPresent()) {
+				
+				asigid = envioRecibido.get().getAsignacion();
+				
+				envio.setAsignacion(asigid);
 
+				
+			}
+
+		}
+		
 		envioService.save(envio);
+
 
 		return "redirect:/logistica/principal";
 
@@ -52,6 +72,7 @@ public class EnvioController {
 			model.addAttribute("envioList", envioService.findAll());  
 			model.addAttribute("modoEdicion",true); 
 			return "logistica/logistica";
+			
 		}else {
 			
 			return "redirect:/logistica/principal";

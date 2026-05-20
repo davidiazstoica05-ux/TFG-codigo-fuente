@@ -78,6 +78,12 @@
                             </div>
 
                             <div class="col-sm-12 col-md-6">
+                                <label for="idEnvio"> Código de Envío</label>
+                                <input type="text" class="form-control bg-light border-0" id="idEnvio"
+                                    th:field="*{codEnvio}" placeholder="Ej. ENV-001" readonly>
+                            </div>
+
+                            <div class="col-sm-12">
                                 <label for="fechaEntregaEstimada" class="form-label fw-medium">Fecha de Entrega
                                     Estimada</label>
                                 <input type="datetime-local" class="form-control bg-light border-0"
@@ -85,9 +91,8 @@
                                 <div class="invalid-feedback">Debe introducir una fecha de envío válida.</div>
                             </div>
 
-                            <div class="col-12 mt-3">
-                                <input type="hidden" th:field="*{asignacion.repartidor.dni}" id="dniRepartidor">
-                            </div>
+
+
                         </div>
                     </fieldset>
 
