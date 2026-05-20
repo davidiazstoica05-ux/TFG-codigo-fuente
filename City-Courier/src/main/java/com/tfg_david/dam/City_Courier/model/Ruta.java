@@ -41,7 +41,7 @@ public class Ruta {
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
 	@Builder.Default
-	private List<Repartidor> repartidor = new ArrayList<>();
+	private List<Repartidor> repartidores = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "ruta", fetch = FetchType.EAGER)
 	@ToString.Exclude
@@ -68,7 +68,7 @@ public class Ruta {
 	
 	public void addRepartidor (Repartidor repartidor) {
 		
-		this.repartidor.add(repartidor);
+		this.repartidores.add(repartidor);
 		
 		repartidor.setRuta(this);
 		
@@ -77,7 +77,7 @@ public class Ruta {
 	public void removeRepartidor (Repartidor repartidor) {
 		
 		
-	this.repartidor.remove(repartidor);
+	this.repartidores.remove(repartidor);
 	
 	repartidor.setRuta(null);
 		
