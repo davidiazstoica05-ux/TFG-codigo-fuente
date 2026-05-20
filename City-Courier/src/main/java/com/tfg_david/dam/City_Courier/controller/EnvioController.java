@@ -27,7 +27,7 @@ public class EnvioController {
 	private final EnviosService envioService;
 
 	@GetMapping("/principal")
-	public String logistica(@RequestParam(required = false) Long codEnvio, Model model) {
+	public String logisticaEnvio(@RequestParam(required = false) Long codEnvio, Model model) {
 
 		List<Envio> e = new ArrayList();
 
@@ -54,7 +54,7 @@ public class EnvioController {
 
 		model.addAttribute("envio", new Envio());
 
-		return "logistica/logistica";
+		return "logistica/envios";
 
 	}
 
@@ -93,7 +93,7 @@ public class EnvioController {
 			model.addAttribute("envio", envio.get());
 			model.addAttribute("envioList", envioService.findAll());
 			model.addAttribute("modoEdicion", true);
-			return "logistica/logistica";
+			return "logistica/envios";
 
 		} else {
 
