@@ -142,7 +142,28 @@
                                 <div class="invalid-feedback">Debe introducir un nombre de ruta válido.</div>
                             </div>
 
+                            <div class="col-sm-12 col-md-6">
+                                <label for="puntosEntrega" class="form-label fw-medium">Puntos de Entrega</label>
+                                <input type="text" class="form-control bg-light border-0" id="puntosEntrega"
+                                    th:field="*{puntosEntregas}" placeholder="Ej. 5 puntos" required>
+                                <div class="invalid-feedback">Debe introducir un número válido de puntos de entrega.
 
+                                    <select name="puntosEntregas" id="puntosEntrega" th:field="*{puntosEntregas}"
+                                        required>
+                                        <option value="" disabled selected>Seleccione una zona...</option>
+                                        <option value="Arahal">Arahal</option>
+                                        <option value="Carmona">Carmona</option>
+                                        <option value="Écija">Écija</option>
+                                        <option value="Fuentes de Andalucía">Fuentes de Andalucía</option>
+                                        <option value="La Lantejuela">La Lantejuela</option>
+                                        <option value="Marchena">Marchena</option>
+                                        <option value="Morón">Morón de la Frontera</option>
+                                        <option value="Osuna">Osuna</option>
+                                        <option value="Paradas">Paradas</option>
+                                        <option value="Utrera">Utrera</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
 
                     </fieldset>
