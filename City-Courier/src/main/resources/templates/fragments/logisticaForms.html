@@ -109,3 +109,76 @@
         </div>
     </div>
 </div>
+
+
+
+<div th:fragment="rutaForm" class="modal fade" id="modalCrearRuta" tabindex="-1" aria-labelledby="modalLabelRuta"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content text-dark border-0 shadow">
+
+            <div class="modal-header bg-success text-white border-0">
+                <h5 class="modal-title fw-bold" id="modalLabelRuta">
+                    <i class="bi bi-map me-2"></i>Nueva Ruta
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-4 p-md-5">
+
+                <form method="post" th:action="@{/logistica/rutas}" id="rutaForm" th:object="${ruta}"
+                    class="needs-validation" novalidate>
+
+                    <fieldset>
+                        <h6 class="text-success fw-bold border-bottom pb-2 mb-4">Información General de la Ruta</h6>
+
+                        <div class="row mb-3">
+                            <div class="col-sm-12 col-md-6 mb-3 mb-md-0">
+                                <label for="nombreRuta" class="form-label fw-medium">Nombre de la Ruta</label>
+                                <input type="text" class="form-control bg-light border-0" id="nombreRuta"
+                                    th:field="*{nombreRuta}" placeholder="Ej. Ruta Centro" required>
+                                <div class="invalid-feedback">Debe introducir un nombre de ruta válido.</div>
+                            </div>
+
+
+                        </div>
+
+                    </fieldset>
+
+                    <fieldset>
+                        <h6 class="text-success fw-bold border-bottom pb-2 mb-4">Horarios de Operación</h6>
+
+                        <div class="row mb-4">
+                            <div class="col-sm-12 col-md-6 mb-3 mb-md-0">
+                                <label for="fechaInicio" class="form-label fw-medium">Fecha y Hora de Inicio</label>
+                                <input type="datetime-local" class="form-control bg-light border-0" id="fechaInicio"
+                                    th:field="*{fechaInicio}" required>
+                                <div class="invalid-feedback">Debe introducir una fecha de inicio válida.</div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-6">
+                                <label for="fechaFinal" class="form-label fw-medium">Fecha y Hora de
+                                    Finalización</label>
+                                <input type="datetime-local" class="form-control bg-light border-0" id="fechaFinal"
+                                    th:field="*{fechaFinal}" required>
+                                <div class="invalid-feedback">Debe introducir una fecha de finalización válida.</div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="d-flex justify-content-end gap-2 mt-5">
+                        <button type="button" class="btn btn-outline-secondary px-4 rounded-pill"
+                            data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success px-4 rounded-pill">
+                            <i class="bi bi-map me-2"></i>Crear Ruta
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
