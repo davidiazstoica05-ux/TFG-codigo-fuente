@@ -88,15 +88,17 @@ public class DataSeed {
 
                 Envio e = Envio.builder()
                                 .destinatario("Manuel Díaz")
-                                .direccion("Osuna, Plaza Juan de mesa")
+                                .direccion("Plaza Juan de mesa")
+                                .zona("Osuna")
                                 .peso(1.7)
                                 .fechaEntregaEstimada(LocalDateTime.of(2026, 2, 1, 14, 00))
                                 .build();
 
                 Envio e2 = Envio.builder()
                                 .destinatario("Laura Gómez")
-                                .direccion("Arahal, Calle Corredera 45")
+                                .direccion("Calle Corredera 45")
                                 .peso(3.2)
+                                .zona("Osuna")
                                 .fechaEntregaEstimada(LocalDateTime.of(2026, 2, 1, 10, 30))
                                 .build();
 
