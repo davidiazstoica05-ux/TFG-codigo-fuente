@@ -14,45 +14,57 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
- import com.tfg_david.dam.City_Courier.model.Ruta;
+import com.tfg_david.dam.City_Courier.model.Ruta;
 import com.tfg_david.dam.City_Courier.service.RutaService;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller 
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/logistica")
 public class RutaController {
-	
-	private final RutaService rutaService; 
-	
+
+	private final RutaService rutaService;
+
 	@GetMapping("/rutas")
-	public String logisticaRuta(Long codigoRuta, Model model) {
-		
-		
-		model.addAttribute("rutaList", rutaService.findAll());
-		
+	public String logisticaRuta(@RequestParam(value = "criterio", required = false) String busqueda, Model model) {
+
+		Long stringConvertido;
+
+		if (busqueda != null && !busqueda.trim().isEmpty()) {
+
+
+			stringConvertido = rutaService.ExtraerCodigoSiEsNumerico(busqueda);
+
+			model.addAttribute("rutaList", rutaService.findByIdOrNombreRuta(busqueda, stringConvertido));
+
+		} else {
+			
+			model.addAttribute("rutaList", rutaService.findAll());
+		}
+
 		model.addAttribute("ruta", new Ruta());
-		
-		return "logistica/rutas"; 
+
+		return "logistica/rutas";
 	}
-	
+
 	@PostMapping("/rutas")
-	public String submit(@ModelAttribute("ruta") Ruta ruta, @RequestParam("zonaSeleccionada") List<String> zonaSeleccionada, @RequestParam("distancia") Double distancia, Model model) {
-		
-		
+	public String submit(@ModelAttribute("ruta") Ruta ruta,
+			@RequestParam("zonaSeleccionada") List<String> zonaSeleccionada,
+			@RequestParam("distancia") Double distancia, Model model) {
+
 		Map<String, Double> puntosEntregas = new LinkedHashMap<>();
-		
+
 		puntosEntregas = rutaService.transformarString(zonaSeleccionada, distancia);
-		
+
 		ruta.setPuntosEntregas(puntosEntregas);
-				
+
 		rutaService.save(ruta);
-		
+
 		return "redirect:/logistica/rutas";
-		
+
 	}
-	
+
 	@GetMapping("/rutas/{codigoRuta}")
 	public String editarRuta(@PathVariable("codigoRuta") Long codigoRuta, Model model) {
 
@@ -71,8 +83,5 @@ public class RutaController {
 		}
 
 	}
-	
-	
-	
 
 }

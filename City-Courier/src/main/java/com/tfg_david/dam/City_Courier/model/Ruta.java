@@ -1,6 +1,5 @@
 package com.tfg_david.dam.City_Courier.model;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
