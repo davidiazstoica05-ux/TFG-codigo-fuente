@@ -2,6 +2,7 @@ package com.tfg_david.dam.City_Courier.config;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -43,15 +44,15 @@ public class DataSeed {
                 paradasRuta2.put("Arahal", 40.0);
 
                 Ruta ruta = Ruta.builder()
-                                .fechaFinal(LocalDateTime.of(2026, 2, 1, 16, 00))
-                                .fechaInicio(LocalDateTime.of(2026, 2, 1, 8, 00))
+                                .fechaFinal(LocalTime.of(16, 00))
+                                .fechaInicio(LocalTime.of(8, 00))
                                 .nombreRuta("Marchena-Lantejuela")
                                 .puntosEntregas(paradasRuta1)
                                 .build();
 
                 Ruta ruta2 = Ruta.builder()
-                                .fechaFinal(LocalDateTime.of(2026, 2, 1, 16, 00))
-                                .fechaInicio(LocalDateTime.of(2026, 2, 1, 8, 00))
+                	    		.fechaFinal(LocalTime.of(16, 00))
+                	    		.fechaInicio(LocalTime.of(8, 00))
                                 .nombreRuta("Arahal-Osuna")
                                 .puntosEntregas(paradasRuta2)
                                 .build();
