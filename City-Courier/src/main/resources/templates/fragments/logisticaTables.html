@@ -34,42 +34,6 @@
     </div>
 </div>
 
-<div th:fragment="listaEnvios" class="container-fluid p-0">
-    <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0">
-            <thead class="table-light text-secondary">
-                <tr>
-                    <th class="fw-semibold">CodEnvio</th>
-                    <th class="fw-semibold">Direccion</th>
-                    <th class="fw-semibold">Zona</th>
-                    <th class="fw-semibold">Peso</th>
-                    <th class="fw-semibold">FechaEntregaEstimada</th>
-                    <th class="fw-semibold">Destinatario</th>
-                    <th class="fw-semibold">Repartidor</th>
-                    <th class="fw-semibold text-center">Acciones</th>
-                </tr>
-            </thead>
-            <tbody class="border-top-0">
-                <tr th:each="envio : ${envioList}">
-                    <td th:text="${envio.codEnvio}">CodEnvio</td>
-                    <td th:text="${envio.direccion}">Osuna</td>
-                    <td th:text="${envio.zona}">Zona 1</td>
-                    <td th:text="${envio.peso}">10kg</td>
-                    <td th:text="${#temporals.format(envio.fechaEntregaEstimada, 'dd/MM/yyyy HH:mm')}">14/05/2026</td>
-                    <td th:text="${envio.destinatario}">Juan Pérez</td>
-                    <td th:text="${envio.asignacion?.repartidor?.dni}">Asignación 1</td>
-                    <td class="text-center">
-                        <a th:href="@{/logistica/editar/{codEnvio}(codEnvio=${envio.codEnvio})}"
-                            class="text-decoration-none">
-                            <i class="bi bi-pencil-square fs-5"></i>
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
 <div th:fragment="listaRutas" class="container-fluid p-0">
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
@@ -79,7 +43,6 @@
                     <th class="fw-semibold">DNI Repartidor</th>
                     <th class="fw-semibold">Asignación</th>
                     <th class="fw-semibold">Nombre Ruta</th>
-                    <th class="fw-semibold">Puntos de Entrega</th>
                     <th class="fw-semibold">Fecha Inicio</th>
                     <th class="fw-semibold text-center">Fecha Fin</th>
                     <th class="fw-semibold text-center" colspan="2">Acciones</th>
@@ -91,9 +54,8 @@
                     <td th:text="${ruta.repartidores.size() + ' repartidor(es)'}">DNI Repartidor</td>
                     <td th:text="${ruta.asignacionesRuta.size()} + ' asignacion(es)'">Asignación 1</td>
                     <td th:text="${ruta.nombreRuta}">Nombre Ruta</td>
-                    <td th:text="${#maps.size(ruta.puntosEntregas)} + ' punto(s) de entrega'">Puntos de Entrega</td>
-                    <td th:text="${#temporals.format(ruta.fechaInicio, 'dd/MM/yyyy HH:mm')}">14/05/2026 09:00</td>
-                    <td th:text="${#temporals.format(ruta.fechaFinal, 'dd/MM/yyyy HH:mm')}">14/05/2026 17:00</td>
+                    <td th:text="${#temporals.format(ruta.fechaInicio, 'HH:mm')}">14/05/2026 09:00</td>
+                    <td th:text="${#temporals.format(ruta.fechaFinal, 'HH:mm')}">14/05/2026 17:00</td>
 
                     <td class="text-center border-end-0 pe-1">
                         <button type="button" class="btn btn-sm btn-outline-info rounded-circle" data-bs-toggle="modal"

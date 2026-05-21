@@ -1,6 +1,7 @@
 package com.tfg_david.dam.City_Courier.model;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -29,8 +30,8 @@ public class Ruta {
 	private Long codigoRuta; 
 	
 	private String nombreRuta; 
-	private LocalDateTime fechaInicio;
-	private LocalDateTime fechaFinal; 
+	private LocalTime fechaInicio;
+	private LocalTime fechaFinal; 
 	
 	
 	

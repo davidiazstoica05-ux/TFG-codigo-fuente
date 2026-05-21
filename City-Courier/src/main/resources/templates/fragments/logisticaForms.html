@@ -27,26 +27,7 @@
                                     th:field="*{destinatario}" placeholder="Ej. Juan Pérez" required>
                                 <div class="invalid-feedback">Debe introducir un nombre de destinatario válido.</div>
                             </div>
-
-                            <div class="col-sm-12 col-md-6">
-                                <label for="zona" class="form-label fw-medium">Zona de Reparto</label>
-                                <select class="form-select bg-light border-0" id="zona" th:field="*{zona}" required>
-                                    <option value="" disabled selected>Seleccione una zona...</option>
-                                    <option value="Arahal">Arahal</option>
-                                    <option value="Carmona">Carmona</option>
-                                    <option value="Écija">Écija</option>
-                                    <option value="Fuentes de Andalucía">Fuentes de Andalucía</option>
-                                    <option value="La Lantejuela">La Lantejuela</option>
-                                    <option value="Marchena">Marchena</option>
-                                    <option value="Morón">Morón de la Frontera</option>
-                                    <option value="Osuna">Osuna</option>
-                                    <option value="Paradas">Paradas</option>
-                                    <option value="Utrera">Utrera</option>
-                                </select>
-                                <div class="invalid-feedback">Debe seleccionar una zona.</div>
-                            </div>
                         </div>
-
                         <div class="row mb-4">
                             <div class="col-12 col-md-6 mb-3 mb-md-0">
                                 <label for="direccion" class="form-label fw-medium">Dirección Completa</label>
@@ -100,6 +81,130 @@
                             data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary px-4 rounded-pill">
                             <i class="bi bi-save me-2"></i>Crear Envío
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Formulario para crear una nueva ruta-->
+<div th:fragment="rutaForm" class="modal fade" id="modalCrearRuta" tabindex="-1" aria-labelledby="modalLabelRuta"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content text-dark border-0 shadow">
+
+            <div class="modal-header bg-success text-white border-0">
+                <h5 class="modal-title fw-bold" id="modalLabelRuta">
+                    <i class="bi bi-map me-2"></i>Nueva Ruta
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-4 p-md-5">
+
+                <form method="post" th:action="@{/logistica/rutas}" id="rutaForm" th:object="${ruta}"
+                    class="needs-validation" novalidate>
+
+                    <fieldset>
+                        <h6 class="text-success fw-bold border-bottom pb-2 mb-4">Información General de la Ruta</h6>
+
+                        <div class="row mb-3">
+                            <div class="col-sm-12 col-md-6 mb-3 mb-md-0">
+                                <label for="nombreRuta" class="form-label fw-medium">Nombre de la Ruta</label>
+                                <input type="text" class="form-control bg-light border-0" id="nombreRuta"
+                                    th:field="*{nombreRuta}" placeholder="Ej. Ruta Centro" required>
+                                <div class="invalid-feedback">Debe introducir un nombre de ruta válido.</div>
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-sm-12 col-md-6 mb-3 mb-md-0">
+                                <label for="puntoEntrega" class="form-label fw-medium">Punto de Inicio</label>
+                                <select class="form-select bg-light border-0" id="puntoEntrega" name="zonaSeleccionada"
+                                    required>
+                                    <option value="" disabled selected>Seleccione un punto de entrega...</option>
+                                    <option value="Arahal">Arahal</option>
+                                    <option value="Carmona">Carmona</option>
+                                    <option value="Écija">Écija</option>
+                                    <option value="Fuentes de Andalucía">Fuentes de Andalucía</option>
+                                    <option value="La Lantejuela">La Lantejuela</option>
+                                    <option value="Marchena">Marchena</option>
+                                    <option value="Morón">Morón de la Frontera</option>
+                                    <option value="Osuna">Osuna</option>
+                                    <option value="Paradas">Paradas</option>
+                                    <option value="Utrera">Utrera</option>
+                                </select>
+                                <div class="invalid-feedback">Debe seleccionar un punto de entrega.</div>
+
+
+                            </div>
+
+                            <div class="col-sm-12 col-md-6">
+                                <label for="zonaEntrega" class="form-label fw-medium">Punto de Finalización</label>
+                                <select class="form-select bg-light border-0" id="PuntoFinalizacion"
+                                    name="zonaSeleccionada" required>
+                                    <option value="" disabled selected>Seleccione un punto de entrega alternativo...
+                                    </option>
+                                    <option value=" Arahal">Arahal</option>
+                                    <option value="Carmona">Carmona</option>
+                                    <option value="Écija">Écija</option>
+                                    <option value="Fuentes de Andalucía">Fuentes de Andalucía</option>
+                                    <option value="La Lantejuela">La Lantejuela</option>
+                                    <option value="Marchena">Marchena</option>
+                                    <option value="Morón">Morón de la Frontera</option>
+                                    <option value="Osuna">Osuna</option>
+                                    <option value="Paradas">Paradas</option>
+                                    <option value="Utrera">Utrera</option>
+                                </select>
+                                <div class="invalid-feedback">Debe seleccionar una zona alternativa.</div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-sm-12">
+                                <label for="distancia" class="form-label fw-medium">Distancia (km)</label>
+                                <input type="number" min="0" step="5" class="form-control bg-light border-0"
+                                    id="distancia" placeholder="Ej. 25.5" name="distancia" required>
+                                <div class="invalid-feedback">Debe introducir una distancia válida.</div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                    <fieldset></fieldset>
+
+                    <h6 class="text-success fw-bold border-bottom pb-2 mb-4">Horarios de Operación</h6>
+
+                    <div class="row mb-4">
+                        <div class="col-sm-12 col-md-6 mb-3 mb-md-0">
+                            <label for="fechaInicio" class="form-label fw-medium">Fecha y Hora de Inicio</label>
+                            <input type="time" class="form-control bg-light border-0" id="fechaInicio"
+                                th:field="*{fechaInicio}" required>
+                            <div class="invalid-feedback">Debe introducir una fecha de inicio válida.</div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-6">
+                            <label for="fechaFinal" class="form-label fw-medium">Fecha y Hora de
+                                Finalización</label>
+                            <input type="time" class="form-control bg-light border-0" id="fechaFinal"
+                                th:field="*{fechaFinal}" required>
+                            <div class="invalid-feedback">Debe introducir una fecha de finalización válida.</div>
+                        </div>
+                    </div>
+                    </fieldset>
+
+                    <div class="d-flex justify-content-end gap-2 mt-5">
+                        <button type="button" class="btn btn-outline-secondary px-4 rounded-pill"
+                            data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success px-4 rounded-pill">
+                            <i class="bi bi-map me-2"></i>Crear Ruta
                         </button>
                     </div>
 
