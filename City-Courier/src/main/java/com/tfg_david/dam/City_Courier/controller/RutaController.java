@@ -1,6 +1,8 @@
 package com.tfg_david.dam.City_Courier.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,10 +36,15 @@ public class RutaController {
 	}
 	
 	@PostMapping("/rutas")
-	public String submit(@ModelAttribute("ruta") Ruta ruta, @RequestParam("zonaSeleccionada") List<String> zonaSeleccionada, Model model) {
+	public String submit(@ModelAttribute("ruta") Ruta ruta, @RequestParam("zonaSeleccionada") List<String> zonaSeleccionada, @RequestParam("distancia") Double distancia, Model model) {
 		
 		
+		Map<String, Double> puntosEntregas = new LinkedHashMap<>();
 		
+		puntosEntregas = rutaService.transformarString(zonaSeleccionada, distancia);
+		
+		ruta.setPuntosEntregas(puntosEntregas);
+				
 		rutaService.save(ruta);
 		
 		return "redirect:/logistica/rutas";

@@ -129,7 +129,7 @@
                             <div class="col-sm-12 col-md-6 mb-3 mb-md-0">
                                 <label for="puntoEntrega" class="form-label fw-medium">Punto de Inicio</label>
                                 <select class="form-select bg-light border-0" id="puntoEntrega" name="zonaSeleccionada"
-                                    th:field="*{puntosEntregas}" required>
+                                    required>
                                     <option value="" disabled selected>Seleccione un punto de entrega...</option>
                                     <option value="Arahal">Arahal</option>
                                     <option value="Carmona">Carmona</option>
@@ -150,10 +150,10 @@
                             <div class="col-sm-12 col-md-6">
                                 <label for="zonaEntrega" class="form-label fw-medium">Punto de Finalización</label>
                                 <select class="form-select bg-light border-0" id="PuntoFinalizacion"
-                                    name="zonaSeleccionada" th:field="*{puntosEntregas}" required>
+                                    name="zonaSeleccionada" required>
                                     <option value="" disabled selected>Seleccione un punto de entrega alternativo...
                                     </option>
-                                    <option value="Arahal">Arahal</option>
+                                    <option value=" Arahal">Arahal</option>
                                     <option value="Carmona">Carmona</option>
                                     <option value="Écija">Écija</option>
                                     <option value="Fuentes de Andalucía">Fuentes de Andalucía</option>
@@ -172,7 +172,7 @@
                             <div class="col-sm-12">
                                 <label for="distancia" class="form-label fw-medium">Distancia (km)</label>
                                 <input type="number" min="0" step="5" class="form-control bg-light border-0"
-                                    id="distancia" placeholder="Ej. 25.5" required>
+                                    id="distancia" placeholder="Ej. 25.5" name="distancia" required>
                                 <div class="invalid-feedback">Debe introducir una distancia válida.</div>
                             </div>
                         </div>
