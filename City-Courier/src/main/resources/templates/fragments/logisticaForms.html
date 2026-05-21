@@ -122,60 +122,65 @@
                                     th:field="*{nombreRuta}" placeholder="Ej. Ruta Centro" required>
                                 <div class="invalid-feedback">Debe introducir un nombre de ruta válido.</div>
                             </div>
-
-                        </div>
-
-                        <div class="row mb-4">
                             <div class="col-sm-12 col-md-6 mb-3 mb-md-0">
-                                <label for="puntoEntrega" class="form-label fw-medium">Punto de Inicio</label>
-                                <select class="form-select bg-light border-0" id="puntoEntrega" name="zonaSeleccionada"
-                                    required>
-                                    <option value="" disabled selected>Seleccione un punto de entrega...</option>
-                                    <option value="Arahal">Arahal</option>
-                                    <option value="Carmona">Carmona</option>
-                                    <option value="Écija">Écija</option>
-                                    <option value="Fuentes de Andalucía">Fuentes de Andalucía</option>
-                                    <option value="La Lantejuela">La Lantejuela</option>
-                                    <option value="Marchena">Marchena</option>
-                                    <option value="Morón">Morón de la Frontera</option>
-                                    <option value="Osuna">Osuna</option>
-                                    <option value="Paradas">Paradas</option>
-                                    <option value="Utrera">Utrera</option>
-                                </select>
-                                <div class="invalid-feedback">Debe seleccionar un punto de entrega.</div>
-
+                                <input type="hidden" class="form-control bg-light border-0" id="codigoRuta"
+                                    th:field="*{codigoRuta}"
+                                    placeholder="Ej. Ruta para entregas en el centro de la ciudad" required>
+                                <div class="invalid-feedback">Debe introducir un código de ruta válido.</div>
 
                             </div>
 
-                            <div class="col-sm-12 col-md-6">
-                                <label for="zonaEntrega" class="form-label fw-medium">Punto de Finalización</label>
-                                <select class="form-select bg-light border-0" id="PuntoFinalizacion"
-                                    name="zonaSeleccionada" required>
-                                    <option value="" disabled selected>Seleccione un punto de entrega alternativo...
-                                    </option>
-                                    <option value=" Arahal">Arahal</option>
-                                    <option value="Carmona">Carmona</option>
-                                    <option value="Écija">Écija</option>
-                                    <option value="Fuentes de Andalucía">Fuentes de Andalucía</option>
-                                    <option value="La Lantejuela">La Lantejuela</option>
-                                    <option value="Marchena">Marchena</option>
-                                    <option value="Morón">Morón de la Frontera</option>
-                                    <option value="Osuna">Osuna</option>
-                                    <option value="Paradas">Paradas</option>
-                                    <option value="Utrera">Utrera</option>
-                                </select>
-                                <div class="invalid-feedback">Debe seleccionar una zona alternativa.</div>
-                            </div>
-                        </div>
+                            <div class="row mb-4">
+                                <div class="col-sm-12 col-md-6 mb-3 mb-md-0">
+                                    <label for="puntoEntrega" class="form-label fw-medium">Punto de Inicio</label>
+                                    <select class="form-select bg-light border-0" id="puntoEntrega"
+                                        name="zonaSeleccionada" required>
+                                        <option value="" disabled selected>Seleccione un punto de entrega...</option>
+                                        <option value="Arahal">Arahal</option>
+                                        <option value="Carmona">Carmona</option>
+                                        <option value="Écija">Écija</option>
+                                        <option value="Fuentes de Andalucía">Fuentes de Andalucía</option>
+                                        <option value="La Lantejuela">La Lantejuela</option>
+                                        <option value="Marchena">Marchena</option>
+                                        <option value="Morón">Morón de la Frontera</option>
+                                        <option value="Osuna">Osuna</option>
+                                        <option value="Paradas">Paradas</option>
+                                        <option value="Utrera">Utrera</option>
+                                    </select>
+                                    <div class="invalid-feedback">Debe seleccionar un punto de entrega.</div>
 
-                        <div class="row mb-4">
-                            <div class="col-sm-12">
-                                <label for="distancia" class="form-label fw-medium">Distancia (km)</label>
-                                <input type="number" min="0" step="5" class="form-control bg-light border-0"
-                                    id="distancia" placeholder="Ej. 25.5" name="distancia" required>
-                                <div class="invalid-feedback">Debe introducir una distancia válida.</div>
+
+                                </div>
+
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="zonaEntrega" class="form-label fw-medium">Punto de Finalización</label>
+                                    <select class="form-select bg-light border-0" id="PuntoFinalizacion"
+                                        name="zonaSeleccionada" required>
+                                        <option value="" disabled selected>Seleccione un punto de entrega alternativo...
+                                        </option>
+                                        <option value=" Arahal">Arahal</option>
+                                        <option value="Carmona">Carmona</option>
+                                        <option value="Écija">Écija</option>
+                                        <option value="Fuentes de Andalucía">Fuentes de Andalucía</option>
+                                        <option value="La Lantejuela">La Lantejuela</option>
+                                        <option value="Marchena">Marchena</option>
+                                        <option value="Morón">Morón de la Frontera</option>
+                                        <option value="Osuna">Osuna</option>
+                                        <option value="Paradas">Paradas</option>
+                                        <option value="Utrera">Utrera</option>
+                                    </select>
+                                    <div class="invalid-feedback">Debe seleccionar una zona alternativa.</div>
+                                </div>
                             </div>
-                        </div>
+
+                            <div class="row mb-4">
+                                <div class="col-sm-12">
+                                    <label for="distancia" class="form-label fw-medium">Distancia (km)</label>
+                                    <input type="number" min="0" step="5" class="form-control bg-light border-0"
+                                        id="distancia" placeholder="Ej. 25.5" name="distancia" required>
+                                    <div class="invalid-feedback">Debe introducir una distancia válida.</div>
+                                </div>
+                            </div>
 
                     </fieldset>
                     <fieldset></fieldset>
