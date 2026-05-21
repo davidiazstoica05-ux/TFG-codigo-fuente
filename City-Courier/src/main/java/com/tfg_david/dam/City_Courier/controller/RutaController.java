@@ -1,11 +1,14 @@
 package com.tfg_david.dam.City_Courier.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tfg_david.dam.City_Courier.model.Ruta;
 import com.tfg_david.dam.City_Courier.service.RutaService;
@@ -31,7 +34,9 @@ public class RutaController {
 	}
 	
 	@PostMapping("/rutas")
-	public String submit(@ModelAttribute("ruta") Ruta ruta, Model model) {
+	public String submit(@ModelAttribute("ruta") Ruta ruta, @RequestParam("zonaSeleccionada") List<String> zonaSeleccionada, Model model) {
+		
+		
 		
 		rutaService.save(ruta);
 		
