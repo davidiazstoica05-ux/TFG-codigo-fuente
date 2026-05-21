@@ -46,11 +46,20 @@
 
     <div th:replace="~{fragments/logisticaForms :: rutaForm}"></div>
 
+    <script id="validationRiderForm" th:src="@{/script/validationForm.js}"></script>
+    <script id="accionesRuta" th:src="@{/script/accionesRuta.js}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
-    <script id="validationForm" th:src="@{/script/validationForm.js}"></script>
+    <script id="validationForm" th:src="@{/script/validationForm.js}"></script>ç
 
+    <script th:if="${modoEdicion}">
+        //Esta función solo se ejecuta al pulsar el botón de crear repartidor
+        var modalCrearRuta = new bootstrap.Modal(document.getElementById('modalCrearRuta'));
+        modalCrearRuta.show();
+        console.log("abierto modal ");
+
+    </script>
 </body>
 
 </html>
