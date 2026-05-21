@@ -92,6 +92,8 @@
 </div>
 
 
+
+
 <!--Formulario para crear una nueva ruta-->
 <div th:fragment="rutaForm" class="modal fade" id="modalCrearRuta" tabindex="-1" aria-labelledby="modalLabelRuta"
     aria-hidden="true">
@@ -210,6 +212,116 @@
                             data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-success px-4 rounded-pill">
                             <i class="bi bi-map me-2"></i>Crear Ruta
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Formulario par crear una asociacion-->
+<div th:fragment="asignacionForm" class="modal fade" id="modalCrearAsignacion" tabindex="-1"
+    aria-labelledby="modalLabelAsignacion" aria-hidden="true">
+
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content text-dark border-0 shadow">
+
+            <div class="modal-header bg-info text-white border-0">
+                <h5 class="modal-title fw-bold" id="modalLabelAsignacion">
+                    <i class="bi bi-person-check-fill me-2"></i>Nueva Asignación
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-4 p-md-5">
+
+                <form method="post" th:action="@{/logistica/asignaciones}" id="asignacionFormulario"
+                    th:object="${asignacion}" class="needs-validation" novalidate>
+
+                    <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}">
+
+                    <fieldset>
+                        <h6 class="text-info fw-bold border-bottom pb-2 mb-4">Estado y Coste</h6>
+
+                        <div class="row mb-3">
+                            <div class="col-sm-12 col-md-6 mb-3 mb-md-0">
+                                <label for="coste" class="form-label fw-medium">Coste del Servicio (€)</label>
+                                <input type="number" min="0" step="0.01" class="form-control bg-light border-0"
+                                    id="coste" th:field="*{coste}" placeholder="Ej. 15.50" required>
+                                <div class="invalid-feedback">Debe introducir un coste válido.</div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-6">
+                                <label for="estadoPedido" class="form-label fw-medium">Estado de la Asignación</label>
+                                <select class="form-select bg-light border-0" id="estadoPedido"
+                                    th:field="*{estadoPedido}">
+                                    <option value="false" selected>Pendiente</option>
+                                    <option value="true">Completado</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="mt-4">
+                        <h6 class="text-info fw-bold border-bottom pb-2 mb-4">Planificación Temporal</h6>
+
+                        <div class="row mb-4">
+                            <div class="col-sm-12 col-md-6 mb-3 mb-md-0">
+                                <label for="fechaAsignacion" class="form-label fw-medium">Fecha de Asignación</label>
+                                <input type="datetime-local" class="form-control bg-light border-0" id="fechaAsignacion"
+                                    th:field="*{fechaAsignacion}" required>
+                                <div class="invalid-feedback">Debe seleccionar cuándo se asigna la ruta.</div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-6">
+                                <label for="fechaEntrega" class="form-label fw-medium">Fecha de Entrega (Real)</label>
+                                <input type="datetime-local" class="form-control bg-light border-0" id="fechaEntrega"
+                                    th:field="*{fechaEntrega}">
+                                <div class="form-text">Dejar en blanco si aún no se ha entregado.</div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="mt-4">
+                        <h6 class="text-info fw-bold border-bottom pb-2 mb-4">Operativa e Incidencias</h6>
+
+                        <div class="row mb-3">
+                            <div class="col-sm-12 col-md-6 mb-3 mb-md-0">
+                                <label for="repartidor" class="form-label fw-medium">DNI Repartidor</label>
+                                <input type="text" class="form-control bg-light border-0" id="repartidor"
+                                    th:field="*{repartidor.dni}" placeholder="Ej. 12345678A" required>
+                                <div class="invalid-feedback">Debe asignar un DNI válido.</div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-6">
+                                <label for="ruta" class="form-label fw-medium">Código de Ruta</label>
+                                <input type="number" class="form-control bg-light border-0" id="ruta"
+                                    th:field="*{ruta.codigoRuta}" placeholder="Ej. 105" required>
+                                <div class="invalid-feedback">Debe asignar un código de ruta.</div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label for="motivoIncidencia" class="form-label fw-medium">Motivo de Incidencia
+                                    (Opcional)</label>
+                                <textarea class="form-control bg-light border-0" id="motivoIncidencia" rows="2"
+                                    th:field="*{motivoIncidencia}"
+                                    placeholder="Describa si ha ocurrido algún problema..."></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="d-flex justify-content-end gap-2 mt-5">
+                        <button type="button" class="btn btn-outline-secondary px-4 rounded-pill"
+                            data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-info text-white px-4 rounded-pill">
+                            <i class="bi bi-save me-2"></i>Guardar Asignación
                         </button>
                     </div>
 
