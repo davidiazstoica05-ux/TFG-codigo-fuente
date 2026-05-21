@@ -1,3 +1,4 @@
+<!--Tabla de envíos-->
 <div th:fragment="listaEnvios" class="container-fluid p-0">
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
@@ -34,6 +35,10 @@
     </div>
 </div>
 
+
+
+
+<!--Tabla de rutas-->
 <div th:fragment="listaRutas" class="container-fluid p-0">
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
@@ -165,6 +170,62 @@
                             </div>
                         </div>
                     </div>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+<!--Tabla de Asignaciones-->
+<div th:fragment="listaAsignaciones" class="container-fluid p-0">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light text-secondary border-info">
+                <tr>
+                    <th class="fw-semibold">ID</th>
+                    <th class="fw-semibold">Repartidor (DNI)</th>
+                    <th class="fw-semibold">Ruta (Código)</th>
+                    <th class="fw-semibold">Estado</th>
+                    <th class="fw-semibold">Cod Envio</th>
+                    <th class="fw-semibold">Coste</th>
+                    <th class="fw-semibold">Fecha Asignación</th>
+                    <th class="fw-semibold">Incidencia</th>
+                    <th class="fw-semibold text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="border-top-0">
+                <tr th:each="asig : ${asignacionList}">
+                    <td class="fw-bold text-muted" th:text="${asig.idAsignacion}">1</td>
+
+                    <td th:text="${asig.repartidor?.dni}">12345678A</td>
+
+                    <td th:text="${asig.ruta?.nombreRuta}">105</td>
+
+                    <td>
+                        <span th:if="${asig.estadoPedido}" class="badge bg-success">Completado</span>
+                        <span th:unless="${asig.estadoPedido}" class="badge bg-warning text-dark">Pendiente</span>
+                    </td>
+
+                    <td th:text="${asig.envio?.codEnvio ?: 'Ninguno'}">Ninguno</td>
+
+
+
+                    <td th:text="${asig.coste + ' €'}">0.0 €</td>
+
+                    <td th:text="${#temporals.format(asig.fechaAsignacion, 'dd/MM/yyyy HH:mm')}">14/05/2026</td>
+
+                    <td class="text-danger small" th:text="${asig.motivoIncidencia ?: 'Ninguna'}">Ninguna</td>
+
+                    <td class="text-center">
+                        <a th:href="@{/logistica/asignaciones/editar/{id}(id=${asig.idAsignacion})}"
+                            class="text-decoration-none text-info">
+                            <i class="bi bi-pencil-square fs-5"></i>
+                        </a>
+                    </td>
                 </tr>
             </tbody>
         </table>

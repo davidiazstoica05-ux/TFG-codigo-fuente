@@ -37,13 +37,14 @@
                 </div>
 
                 <div class="p-4 text-center border rounded-4 border-info border-opacity-25 bg-light">
+                    <div th:replace="~{fragments/logisticaTables :: listaAsignaciones}"></div>
                 </div>
 
             </div>
         </main>
     </div>
 
-    <div th:replace="~{fragments/logisticaForms :: envioForm}"></div>
+    <!--<div th:replace="~{fragments/logisticaForms :: envioForm}"></div>-->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
