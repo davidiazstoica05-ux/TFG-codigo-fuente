@@ -34,10 +34,11 @@ public class AsignacionController {
 	public String asignacion(@RequestParam(required = false) Long idAsignacion, Model model) {
 
 		List<Asignacion> a = new ArrayList<>();
+		Optional<Asignacion> asignacion;
 
 		if (idAsignacion != null && idAsignacion != 0L) {
 
-			Optional<Asignacion> asignacion = asigService.findById(idAsignacion);
+			asignacion = asigService.findById(idAsignacion);
 
 			if (asignacion.isPresent()) {
 
@@ -95,21 +96,32 @@ public class AsignacionController {
 
 	@PostMapping("/asignaciones")
 	public String asignaciones(@ModelAttribute("asignacion") Asignacion asignacion, Model model) {
-		
+
+		Optional<Asignacion> asignacionAntigua;
 		Envio envioAntiguo;
 
-		if (asigService.asignarRepartidor(asignacion) && asigService.asignarEnvio(asignacion)) {
-		
-			envioAntiguo = asignacion.getEnvio();
-			envioAntiguo.setAsignacion(null);
-			envioService.save(envioAntiguo);
-			
-			asigService.save(asignacion);
+		if (asignacion.getIdAsignacion() != null) {
 
+			asignacionAntigua = asigService.findById(asignacion.getIdAsignacion());
+
+			if (asignacionAntigua.isPresent() && asignacionAntigua.get().getEnvio() != null) {
+
+				envioAntiguo = asignacionAntigua.get().getEnvio();
+
+				if (!envioAntiguo.getCodEnvio().equals(asignacion.getEnvio().getCodEnvio())) {
+
+					envioAntiguo.setAsignacion(null);
+
+					envioService.save(envioAntiguo);
+				}
+			}
+		}
+
+		if (asigService.asignarRepartidor(asignacion) && asigService.asignarEnvio(asignacion)) {
+			asigService.save(asignacion);
 		}
 
 		return "redirect:/logistica/asignaciones";
-
 	}
 
 }
