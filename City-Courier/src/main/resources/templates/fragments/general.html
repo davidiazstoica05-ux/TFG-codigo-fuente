@@ -39,8 +39,13 @@
                         <ul class="dropdown-menu dropdown-menu-end shadow">
                             <li><a class="dropdown-item" href="#"><i class="bi bi-arrow-left-right me-3 fs-5"></i>
                                     Cambiar Cuenta</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-left me-3 fs-5"></i> Cerrar
-                                    Sesión</a></li>
+                            <li>
+                                <form th:action="@{/logout}" method="post">
+                                    <button type="submit" class="dropdown-item">
+                                        <i class=" bi bi-box-arrow-left me-3 fs-5"></i> Cerrar Sesión
+                                    </button>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 </div>

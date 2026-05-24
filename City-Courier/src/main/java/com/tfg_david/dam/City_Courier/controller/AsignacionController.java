@@ -3,6 +3,8 @@ package com.tfg_david.dam.City_Courier.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,12 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.tfg_david.dam.City_Courier.config.Utilidades;
 import com.tfg_david.dam.City_Courier.model.Asignacion;
 import com.tfg_david.dam.City_Courier.model.Envio;
 import com.tfg_david.dam.City_Courier.service.AsignacionService;
 import com.tfg_david.dam.City_Courier.service.EnviosService;
 import com.tfg_david.dam.City_Courier.service.RepartidorService;
+import com.tfg_david.dam.City_Courier.utilidades.Utilidades;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,29 +35,29 @@ public class AsignacionController {
 	@GetMapping("/asignaciones")
 	public String asignacion(@RequestParam(value = "criterio", required = false) String busqueda, Model model) {
 
-	    List<Asignacion> listaResultados;
-	    Long stringConvertido = null;
+		List<Asignacion> listaResultados;
+		Long stringConvertido = null;
 
-	    model.addAttribute("repartidoresList", repartidorService.findAll());
-	    model.addAttribute("enviosList", envioService.findAll());
-	    model.addAttribute("asignacion", new Asignacion());
+		model.addAttribute("repartidoresList", repartidorService.findAll());
+		model.addAttribute("enviosList", envioService.findAll());
+		model.addAttribute("asignacion", new Asignacion());
 
-	    if (busqueda != null && !busqueda.trim().isEmpty()) {
-	        
-	        if (Utilidades.comprobarSiEsDNI(busqueda)) {
-	            listaResultados = asigService.findByIdAsignacionOrRepartidorDni( stringConvertido, busqueda);
-	        } else {
-	            stringConvertido = Utilidades.extraerCodigoSiEsNumerico(busqueda);
-	            listaResultados = asigService.findByIdAsignacionOrRepartidorDni(stringConvertido, busqueda);
-	        }
+		if (busqueda != null && !busqueda.trim().isEmpty()) {
 
-	    } else {
-	        listaResultados = asigService.findAll();
-	    }
+			if (Utilidades.comprobarSiEsDNI(busqueda)) {
+				listaResultados = asigService.findByIdAsignacionOrRepartidorDni(stringConvertido, busqueda);
+			} else {
+				stringConvertido = Utilidades.extraerCodigoSiEsNumerico(busqueda);
+				listaResultados = asigService.findByIdAsignacionOrRepartidorDni(stringConvertido, busqueda);
+			}
 
-	    model.addAttribute("asignacionList", listaResultados);
+		} else {
+			listaResultados = asigService.findAll();
+		}
 
-	    return "logistica/asignaciones";
+		model.addAttribute("asignacionList", listaResultados);
+
+		return "logistica/asignaciones";
 	}
 
 	@GetMapping("/asignaciones/editar/{idAsignacion}")

@@ -1,4 +1,4 @@
-package com.tfg_david.dam.City_Courier.config;
+package com.tfg_david.dam.City_Courier.utilidades;
 
 public class Utilidades {
 

@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.tfg_david.dam.City_Courier.config.Utilidades;
 import com.tfg_david.dam.City_Courier.model.Ruta;
 import com.tfg_david.dam.City_Courier.service.RutaService;
+import com.tfg_david.dam.City_Courier.utilidades.Utilidades;
 
 import lombok.RequiredArgsConstructor;
 
