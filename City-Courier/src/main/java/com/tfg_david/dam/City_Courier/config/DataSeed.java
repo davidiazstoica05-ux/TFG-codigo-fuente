@@ -45,38 +45,89 @@ public class DataSeed {
 		paradasRuta2.put("Osuna", 120.0);
 		paradasRuta2.put("Arahal", 40.0);
 
-		Ruta ruta = Ruta.builder().fechaFinal(LocalTime.of(16, 00)).fechaInicio(LocalTime.of(8, 00))
-				.nombreRuta("Marchena-Lantejuela").puntosEntregas(paradasRuta1).build();
+		Ruta ruta = Ruta.builder()
+		        .fechaFinal(LocalTime.of(16, 00))
+		        .fechaInicio(LocalTime.of(8, 00))
+		        .nombreRuta("Marchena-Lantejuela")
+		        .puntosEntregas(paradasRuta1)
+		        .build();
 
-		Ruta ruta2 = Ruta.builder().fechaFinal(LocalTime.of(16, 00)).fechaInicio(LocalTime.of(8, 00))
-				.nombreRuta("Arahal-Osuna").puntosEntregas(paradasRuta2).build();
+		Ruta ruta2 = Ruta.builder()
+		        .fechaFinal(LocalTime.of(16, 00))
+		        .fechaInicio(LocalTime.of(8, 00))
+		        .nombreRuta("Arahal-Osuna")
+		        .puntosEntregas(paradasRuta2)
+		        .build();
 
-		Repartidor r = Repartidor.builder().nombre("David").apellidos("Díaz Stoica").dni("31031909x").cargaMax(10.5)
-				.email("daviddiaz@gmail.com").fechaAlta(LocalDate.of(2026, 1, 1)).genero("Male").zona("Osuna")
-				.telefono(697386581).estado(Disponibilidad.DISPONIBLE)
-				.vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.Furgoneta).build();
+		Repartidor r = Repartidor.builder()
+		        .nombre("David")
+		        .apellidos("Díaz Stoica")
+		        .dni("31031909x")
+		        .cargaMax(10.5)
+		        .email("daviddiaz@gmail.com")
+		        .fechaAlta(LocalDate.of(2026, 1, 1))
+		        .genero("Male")
+		        .zona("Osuna")
+		        .telefono(697386581)
+		        .estado(Disponibilidad.DISPONIBLE)
+		        .vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.Furgoneta)
+		        .build();
 
-		Repartidor r2 = Repartidor.builder().nombre("Miguel Angél").apellidos("Díaz Gallardo").dni("90009x")
-				.cargaMax(10.5).email("migeldiaz80@gmail.com").fechaAlta(LocalDate.of(2026, 7, 1)).genero("Male")
-				.zona("Osuna").telefono(697386581).estado(Disponibilidad.VACACIONES)
-				.vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.moto_ecologica).build();
+		Repartidor r2 = Repartidor.builder()
+		        .nombre("Miguel Angél")
+		        .apellidos("Díaz Gallardo")
+		        .dni("21590009x")
+		        .cargaMax(10.5)
+		        .email("migeldiaz80@gmail.com")
+		        .fechaAlta(LocalDate.of(2026, 7, 1))
+		        .genero("Male")
+		        .zona("Osuna")
+		        .telefono(697386581)
+		        .estado(Disponibilidad.VACACIONES)
+		        .vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.moto_ecologica)
+		        .build();
 
-		Envio e = Envio.builder().destinatario("Manuel Díaz").direccion("Plaza Juan de mesa").zona("Osuna").peso(1.7)
-				.fechaEntregaEstimada(LocalDateTime.of(2026, 2, 1, 14, 00)).build();
+		Envio e = Envio.builder()
+		        .destinatario("Manuel Díaz")
+		        .direccion("Plaza Juan de mesa")
+		        .zona("Osuna")
+		        .peso(1.7)
+		        .fechaEntregaEstimada(LocalDateTime.of(2026, 2, 1, 14, 00))
+		        .build();
 
-		Envio e2 = Envio.builder().destinatario("Laura Gómez").direccion("Calle Corredera 45").peso(3.2).zona("Osuna")
-				.fechaEntregaEstimada(LocalDateTime.of(2026, 2, 1, 10, 30)).build();
+		Envio e2 = Envio.builder()
+		        .destinatario("Laura Gómez")
+		        .direccion("Calle Corredera 45")
+		        .peso(3.2)
+		        .zona("Osuna")
+		        .fechaEntregaEstimada(LocalDateTime.of(2026, 2, 1, 10, 30))
+		        .build();
 
-		Envio e3 = Envio.builder().destinatario("Elena Torres").direccion("Avenida de la Constitución 15").peso(0.8)
-				.zona("Sevilla Centro").fechaEntregaEstimada(LocalDateTime.of(2026, 2, 2, 11, 15)).build();
+		Envio e3 = Envio.builder()
+		        .destinatario("Elena Torres")
+		        .direccion("Avenida de la Constitución 15")
+		        .peso(0.8)
+		        .zona("Sevilla Centro")
+		        .fechaEntregaEstimada(LocalDateTime.of(2026, 2, 2, 11, 15))
+		        .build();
 
-		Asignacion a = Asignacion.builder().coste(2.5).estadoPedido(false)
-				.fechaAsignacion(LocalDateTime.of(2026, 2, 1, 16, 00))
-				.fechaEntrega(LocalDateTime.of(2026, 2, 1, 14, 00)).motivoIncidencia(" ").tiempoEstimado(null).build();
+		Asignacion a = Asignacion.builder()
+		        .coste(2.5)
+		        .estadoPedido(false)
+		        .fechaAsignacion(LocalDateTime.of(2026, 2, 1, 16, 00))
+		        .fechaEntrega(LocalDateTime.of(2026, 2, 1, 14, 00))
+		        .motivoIncidencia(" ")
+		        .tiempoEstimado(null)
+		        .build();
 
-		Asignacion a2 = Asignacion.builder().coste(4.0).estadoPedido(false)
-				.fechaAsignacion(LocalDateTime.of(2026, 2, 1, 8, 00)).fechaEntrega(LocalDateTime.of(2026, 2, 1, 10, 30))
-				.motivoIncidencia(" ").tiempoEstimado(null).build();
+		Asignacion a2 = Asignacion.builder()
+		        .coste(4.0)
+		        .estadoPedido(false)
+		        .fechaAsignacion(LocalDateTime.of(2026, 2, 1, 8, 00))
+		        .fechaEntrega(LocalDateTime.of(2026, 2, 1, 10, 30))
+		        .motivoIncidencia(" ")
+		        .tiempoEstimado(null)
+		        .build();
 
 		a.vincularEnvio(e);
 

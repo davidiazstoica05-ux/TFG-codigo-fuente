@@ -1,5 +1,6 @@
 package com.tfg_david.dam.City_Courier.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -69,5 +70,16 @@ public class AsignacionService extends BaseService<Asignacion, Long, AsignacionR
 		return false;
 
 	}
+	
+	public List<Asignacion> findByIdAsignacionOrRepartidorDni( Long idAsignacion,String busqueda) {
+		
+		
+		return repo.findByIdAsignacionOrRepartidorDni(idAsignacion,busqueda); 
+		
+		
+	}
+
+
+	
 
 }

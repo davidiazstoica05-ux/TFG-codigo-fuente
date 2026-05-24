@@ -1,6 +1,5 @@
 package com.tfg_david.dam.City_Courier.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tfg_david.dam.City_Courier.config.Utilidades;
 import com.tfg_david.dam.City_Courier.model.Asignacion;
 import com.tfg_david.dam.City_Courier.model.Envio;
 import com.tfg_david.dam.City_Courier.service.AsignacionService;
@@ -31,40 +31,31 @@ public class AsignacionController {
 	private final RepartidorService repartidorService;
 
 	@GetMapping("/asignaciones")
-	public String asignacion(@RequestParam(required = false) Long idAsignacion, Model model) {
+	public String asignacion(@RequestParam(value = "criterio", required = false) String busqueda, Model model) {
 
-		List<Asignacion> a = new ArrayList<>();
-		Optional<Asignacion> asignacion;
+	    List<Asignacion> listaResultados;
+	    Long stringConvertido = null;
 
-		if (idAsignacion != null && idAsignacion != 0L) {
+	    model.addAttribute("repartidoresList", repartidorService.findAll());
+	    model.addAttribute("enviosList", envioService.findAll());
+	    model.addAttribute("asignacion", new Asignacion());
 
-			asignacion = asigService.findById(idAsignacion);
+	    if (busqueda != null && !busqueda.trim().isEmpty()) {
+	        
+	        if (Utilidades.comprobarSiEsDNI(busqueda)) {
+	            listaResultados = asigService.findByIdAsignacionOrRepartidorDni( stringConvertido, busqueda);
+	        } else {
+	            stringConvertido = Utilidades.extraerCodigoSiEsNumerico(busqueda);
+	            listaResultados = asigService.findByIdAsignacionOrRepartidorDni(stringConvertido, busqueda);
+	        }
 
-			if (asignacion.isPresent()) {
+	    } else {
+	        listaResultados = asigService.findAll();
+	    }
 
-				a.add(asignacion.get());
+	    model.addAttribute("asignacionList", listaResultados);
 
-				model.addAttribute("repartidoresList", repartidorService.findAll());
-
-				model.addAttribute("enviosList", envioService.findAll());
-
-				model.addAttribute("asignacionList", a);
-
-			} else {
-
-				return "redirect:/logistica/asignaciones";
-			}
-
-		} else {
-
-			model.addAttribute("asignacionList", asigService.findAll());
-
-		}
-
-		model.addAttribute("asignacion", new Asignacion());
-
-		return "logistica/asignaciones";
-
+	    return "logistica/asignaciones";
 	}
 
 	@GetMapping("/asignaciones/editar/{idAsignacion}")
