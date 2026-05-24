@@ -33,25 +33,6 @@ public class RutaService extends BaseService<Ruta, Long, RutaRepository> {
 
 	}
 
-	public Long ExtraerCodigoSiEsNumerico(String busqueda) {
-
-		if (busqueda == null || busqueda.trim().isEmpty()) {
-
-			return null;
-
-		}
-
-		String limpiar = busqueda.trim();
-		char caracter = limpiar.charAt(0);
-
-		if (Character.isDigit(caracter)) {
-
-			return Long.valueOf(busqueda);
-
-		}
-
-		return null;
-
-	}
+	
 
 }

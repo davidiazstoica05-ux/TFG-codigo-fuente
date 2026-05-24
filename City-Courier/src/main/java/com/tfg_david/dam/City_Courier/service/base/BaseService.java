@@ -6,10 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-
-
-
-public abstract class BaseService <T,ID,R extends JpaRepository<T, ID>> implements BaseServiceI<T, ID>{ 
+public abstract class BaseService<T, ID, R extends JpaRepository<T, ID>> implements BaseServiceI<T, ID> {
 
 	@Autowired
 	protected R repo;
@@ -17,7 +14,7 @@ public abstract class BaseService <T,ID,R extends JpaRepository<T, ID>> implemen
 	@Override
 	public List<T> findAll() {
 		// TODO Auto-generated method stub
-	 return repo.findAll();	
+		return repo.findAll();
 	}
 
 	@Override
@@ -42,18 +39,14 @@ public abstract class BaseService <T,ID,R extends JpaRepository<T, ID>> implemen
 	public void delete(T t) {
 
 		repo.delete(t);
-		
+
 	}
 
 	@Override
 	public void deleteById(ID id) {
 
 		repo.deleteById(id);
-		
+
 	}
 
-	
-
-	
-	
 }
