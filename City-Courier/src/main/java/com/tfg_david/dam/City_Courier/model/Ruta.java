@@ -21,67 +21,44 @@ import lombok.ToString;
 
 @Entity
 @Data
-@AllArgsConstructor @NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Ruta {
-	
-	@Id @GeneratedValue
-	private Long codigoRuta; 
-	
-	private String nombreRuta; 
+
+	@Id
+	@GeneratedValue
+	private Long codigoRuta;
+
+	private String nombreRuta;
 	private LocalTime fechaInicio;
-	private LocalTime fechaFinal; 
-	
-	
-	
-	@ElementCollection 
+	private LocalTime fechaFinal;
+
+	@ElementCollection
 	private Map<String, Double> puntosEntregas = new LinkedHashMap<>();
-	
-	@OneToMany (mappedBy = "ruta" , fetch = FetchType.EAGER)
-	@ToString.Exclude
-	@EqualsAndHashCode.Exclude
-	@Builder.Default
-	private List<Repartidor> repartidores = new ArrayList<>();
-	
+
 	@OneToMany(mappedBy = "ruta", fetch = FetchType.EAGER)
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
 	@Builder.Default
-	private List<Asignacion> asignacionesRuta = new ArrayList<>();
+	private List<Repartidor> repartidores = new ArrayList<>();
+
 	
-	public void addAsignacion (Asignacion asignacion) {
-		
-		this.asignacionesRuta.add(asignacion);
-		
-		asignacion.setRuta(this);
-		
-	}
-	
-	public void removeAsignacion(Asignacion asignacion) {
-		
-		
-	this.asignacionesRuta.remove(asignacion); 
-	
-	asignacion.setRuta(null);
-		
-	}
-	
-	public void addRepartidor (Repartidor repartidor) {
-		
+
+	public void addRepartidor(Repartidor repartidor) {
+
 		this.repartidores.add(repartidor);
-		
+
 		repartidor.setRuta(this);
-		
+
 	}
-	
-	public void removeRepartidor (Repartidor repartidor) {
-		
-		
-	this.repartidores.remove(repartidor);
-	
-	repartidor.setRuta(null);
-		
+
+	public void removeRepartidor(Repartidor repartidor) {
+
+		this.repartidores.remove(repartidor);
+
+		repartidor.setRuta(null);
+
 	}
-	
-	
+
 }

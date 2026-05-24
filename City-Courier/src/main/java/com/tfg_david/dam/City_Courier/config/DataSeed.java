@@ -119,19 +119,18 @@ public class DataSeed {
                                 .tiempoEstimado(null)
                                 .build();
 
-                ruta.addAsignacion(a);
-                r.addAsignacion(a);
+       
 
                 a.vincularEnvio(e);
 
+                r.addAsignacion(a);   
+                
                 r.setRuta(ruta);
-
-                ruta2.addAsignacion(a2);
-                r2.addAsignacion(a2);
 
                 a2.vincularEnvio(e2);
 
                 r2.setRuta(ruta2);
+        		r2.addAsignacion(a2);
 
                 repoRuta.save(ruta);
                 repoRuta.save(ruta2);
@@ -141,6 +140,5 @@ public class DataSeed {
 
                 repoAsig.save(a);
                 repoAsig.save(a2);
-
-        }
+ }
 }

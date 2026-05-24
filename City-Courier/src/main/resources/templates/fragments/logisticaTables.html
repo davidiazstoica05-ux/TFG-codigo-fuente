@@ -1,3 +1,4 @@
+<!--Tabla de envíos-->
 <div th:fragment="listaEnvios" class="container-fluid p-0">
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
@@ -34,6 +35,10 @@
     </div>
 </div>
 
+
+
+
+<!--Tabla de rutas-->
 <div th:fragment="listaRutas" class="container-fluid p-0">
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
@@ -41,7 +46,6 @@
                 <tr>
                     <th class="fw-semibold">CodRuta</th>
                     <th class="fw-semibold">DNI Repartidor</th>
-                    <th class="fw-semibold">Asignación</th>
                     <th class="fw-semibold">Nombre Ruta</th>
                     <th class="fw-semibold">Fecha Inicio</th>
                     <th class="fw-semibold text-center">Fecha Fin</th>
@@ -52,7 +56,6 @@
                 <tr th:each="ruta : ${rutaList}">
                     <td th:text="${ruta.codigoRuta}">CodRuta</td>
                     <td th:text="${ruta.repartidores.size() + ' repartidor(es)'}">DNI Repartidor</td>
-                    <td th:text="${ruta.asignacionesRuta.size()} + ' asignacion(es)'">Asignación 1</td>
                     <td th:text="${ruta.nombreRuta}">Nombre Ruta</td>
                     <td th:text="${#temporals.format(ruta.fechaInicio, 'HH:mm')}">14/05/2026 09:00</td>
                     <td th:text="${#temporals.format(ruta.fechaFinal, 'HH:mm')}">14/05/2026 17:00</td>
@@ -105,8 +108,6 @@
                                             <div class="p-3 bg-light rounded-4 border text-center h-100">
                                                 <i class="bi bi-box-seam text-success mb-2 fs-4 d-block"></i>
                                                 <p class="text-muted mb-0" style="font-size: 0.8rem;">Asignaciones</p>
-                                                <h4 class="fw-bold mb-0 text-dark"
-                                                    th:text="${ruta.asignacionesRuta.size()}">0</h4>
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -123,22 +124,24 @@
                                         Flota Asignada
                                     </h6>
                                     <ul class="list-group list-group-flush border-top border-bottom">
+
                                         <li class="list-group-item px-0 py-3 d-flex align-items-center border-0 border-bottom"
-                                            th:each="asig : ${ruta.asignacionesRuta}">
+                                            th:each="repartidor : ${ruta.repartidores}">
                                             <div
                                                 class="bg-secondary bg-opacity-10 p-2 rounded-circle me-3 text-secondary">
                                                 <i class="bi bi-person-badge fs-5"></i>
                                             </div>
                                             <div>
                                                 <p class="fw-semibold mb-0 text-dark"
-                                                    th:text="'Repartidor ID: ' + ${asig.repartidor?.dni}">DNI</p>
+                                                    th:text="'Repartidor DNI: ' + ${repartidor.dni}">DNI</p>
                                                 <small class="text-muted">Vinculado a la ruta</small>
                                             </div>
                                         </li>
+
                                         <li class="list-group-item px-0 py-4 text-center text-muted border-0"
-                                            th:if="${#lists.isEmpty(ruta.asignacionesRuta)}">
+                                            th:if="${#lists.isEmpty(ruta.repartidores)}">
                                             <i class="bi bi-inbox d-block fs-3 mb-2 opacity-50"></i>
-                                            No hay repartidores asignados.
+                                            No hay repartidores asignados a esta ruta.
                                         </li>
                                     </ul>
 
@@ -149,7 +152,7 @@
                                         </h6>
                                         <ul class=" list-group list-group-flush border-start border-2 border-success"
                                             th:each="entrada : ${ruta.puntosEntregas}">
-                                            <li class="list-group ms-3 col 6"
+                                            <li class="list-group ms-3 col-6"
                                                 th:text="' -- ' + ${entrada.key} + ' | Distancia: ' + ${entrada.value} + ' km'">
                                             </li>
                                         </ul>
@@ -165,6 +168,62 @@
                             </div>
                         </div>
                     </div>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ------------------------------ -->
+
+
+
+<!--Tabla de Asignaciones-->
+<div th:fragment="listaAsignaciones" class="container-fluid p-0">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light text-secondary border-info">
+                <tr>
+                    <th class="fw-semibold">ID</th>
+                    <th class="fw-semibold">Repartidor (DNI)</th>
+                    <th class="fw-semibold">Ruta</th>
+                    <th class="fw-semibold">Estado</th>
+                    <th class="fw-semibold">Cod Envio</th>
+                    <th class="fw-semibold">Coste</th>
+                    <th class="fw-semibold">Fecha Asignación</th>
+                    <th class="fw-semibold">Incidencia</th>
+                    <th class="fw-semibold text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="border-top-0">
+                <tr th:each="asig : ${asignacionList}">
+                    <td class="fw-bold text-muted" th:text="${asig.idAsignacion}">1</td>
+
+                    <td th:text="${asig.repartidor?.dni}">12345678A</td>
+                    <td th:text="${asig.repartidor?.ruta?.nombreRuta?: 'Sin ruta'}">Ruta 1</td>
+
+
+                    <td>
+                        <span th:if="${asig.estadoPedido}" class="badge bg-success">Completado</span>
+                        <span th:unless="${asig.estadoPedido}" class="badge bg-warning text-dark">Pendiente</span>
+                    </td>
+
+                    <td th:text="${asig.envio?.codEnvio ?: 'Ninguno'}">Ninguno</td>
+
+
+
+                    <td th:text="${asig.coste + ' €/km'}">0.0 €</td>
+
+                    <td th:text="${#temporals.format(asig.fechaAsignacion, 'dd/MM/yyyy HH:mm')}">14/05/2026</td>
+
+                    <td class="text-danger small" th:text="${asig.motivoIncidencia ?: 'Ninguna'}">Ninguna</td>
+
+                    <td class="text-center">
+                        <a th:href="@{/logistica/asignaciones/editar/{id}(id=${asig.idAsignacion})}"
+                            class="text-decoration-none text-info">
+                            <i class="bi bi-pencil-square fs-5"></i>
+                        </a>
+                    </td>
                 </tr>
             </tbody>
         </table>
