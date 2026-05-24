@@ -1,19 +1,23 @@
 package com.tfg_david.dam.City_Courier.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tfg_david.dam.City_Courier.model.Asignacion;
-import com.tfg_david.dam.City_Courier.model.Repartidor;
-import com.tfg_david.dam.City_Courier.repository.RutaRepository;
+import com.tfg_david.dam.City_Courier.model.Envio;
 import com.tfg_david.dam.City_Courier.service.AsignacionService;
 import com.tfg_david.dam.City_Courier.service.EnviosService;
 import com.tfg_david.dam.City_Courier.service.RepartidorService;
-import com.tfg_david.dam.City_Courier.service.RutaService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,35 +27,82 @@ import lombok.RequiredArgsConstructor;
 public class AsignacionController {
 
 	private final AsignacionService asigService;
-	private final EnviosService envioService; 
+	private final EnviosService envioService;
 	private final RepartidorService repartidorService;
-	private final RutaService rutaService; 
 
 	@GetMapping("/asignaciones")
-	public String asignacion(Model model) {
-		
+	public String asignacion(@RequestParam(required = false) Long idAsignacion, Model model) {
 
-		model.addAttribute("asignacionList", asigService.findAll());
+		List<Asignacion> a = new ArrayList<>();
+
+		if (idAsignacion != null && idAsignacion != 0L) {
+
+			Optional<Asignacion> asignacion = asigService.findById(idAsignacion);
+
+			if (asignacion.isPresent()) {
+
+				a.add(asignacion.get());
+
+				model.addAttribute("repartidoresList", repartidorService.findAll());
+
+				model.addAttribute("enviosList", envioService.findAll());
+
+				model.addAttribute("asignacionList", a);
+
+			} else {
+
+				return "redirect:/logistica/asignaciones";
+			}
+
+		} else {
+
+			model.addAttribute("asignacionList", asigService.findAll());
+
+		}
 
 		model.addAttribute("asignacion", new Asignacion());
-		
-		model.addAttribute("repartidoresList", repartidorService.findAll());
-		
-		model.addAttribute("rutaList", rutaService.findAll());
 
-		model.addAttribute("enviosList",envioService.findAll());
-		
-		
-		
 		return "logistica/asignaciones";
+
+	}
+
+	@GetMapping("/asignaciones/editar/{idAsignacion}")
+	public String editarAsignacion(@PathVariable("idAsignacion") Long idAsignacion, Model model) {
+
+		Optional<Asignacion> asignacion = asigService.findById(idAsignacion);
+
+		if (asignacion.isPresent()) {
+
+			model.addAttribute("asignacion", asignacion.get());
+
+			model.addAttribute("asignacionList", asigService.findAll());
+
+			model.addAttribute("repartidoresList", repartidorService.findAll());
+
+			model.addAttribute("enviosList", envioService.findAll());
+
+			model.addAttribute("modoEdicion", true);
+
+			return "/logistica/asignaciones";
+
+		} else {
+
+			return "redirect:/logistica/asignaciones";
+
+		}
 
 	}
 
 	@PostMapping("/asignaciones")
 	public String asignaciones(@ModelAttribute("asignacion") Asignacion asignacion, Model model) {
+		
+		Envio envioAntiguo;
 
 		if (asigService.asignarRepartidor(asignacion) && asigService.asignarEnvio(asignacion)) {
-						
+		
+			envioAntiguo = asignacion.getEnvio();
+			envioAntiguo.setAsignacion(null);
+			envioService.save(envioAntiguo);
 			
 			asigService.save(asignacion);
 
