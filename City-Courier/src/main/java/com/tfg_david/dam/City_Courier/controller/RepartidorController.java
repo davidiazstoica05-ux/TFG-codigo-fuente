@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tfg_david.dam.City_Courier.model.Disponibilidad;
 import com.tfg_david.dam.City_Courier.model.Repartidor;
 import com.tfg_david.dam.City_Courier.service.RepartidorService;
 
@@ -30,6 +31,8 @@ public class RepartidorController {
 	public String rrhh(@RequestParam(required = false) String dni, Model model) {
 
 		List<Repartidor> r = new ArrayList();
+		
+		model.addAttribute("ridersDisponibles", repartidorService.countByEstado(Disponibilidad.DISPONIBLE));
 		
 		model.addAttribute("totalRiders", repartidorService.count());
 
