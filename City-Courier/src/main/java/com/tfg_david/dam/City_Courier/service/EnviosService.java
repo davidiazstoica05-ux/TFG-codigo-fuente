@@ -14,11 +14,13 @@ import lombok.RequiredArgsConstructor;
 public class EnviosService extends BaseService<Envio, Long, EnviosRepository> {
 
 	
-	public Long countlEnvios() {
+	public Long countEnvios() {
 		
 		return repo.count();
 		
 	}
+	
+
 	
 	
 }
