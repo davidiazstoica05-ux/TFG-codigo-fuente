@@ -12,14 +12,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RepartidorService extends BaseService<Repartidor, String, RepartidorRepository> {
 
+	public Long count() {
 
-		private final RepartidorRepository repartidorRepo; 
-	
-
-		
-		
-		
+		return repo.count();
 		
 	}
 
-
+}
