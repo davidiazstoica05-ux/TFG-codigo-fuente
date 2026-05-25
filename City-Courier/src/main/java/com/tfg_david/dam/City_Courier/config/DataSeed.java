@@ -115,7 +115,7 @@ public class DataSeed {
 		        .coste(2.5)
 		        .estadoPedido(false)
 		        .fechaAsignacion(LocalDateTime.of(2026, 2, 1, 16, 00))
-		        .fechaEntrega(LocalDateTime.of(2026, 2, 1, 14, 00))
+		        .fechaEntrega(LocalDateTime.of(2027, 3, 2, 14, 00))
 		        .motivoIncidencia(" ")
 		        .tiempoEstimado(null)
 		        .build();
@@ -124,7 +124,7 @@ public class DataSeed {
 		        .coste(4.0)
 		        .estadoPedido(false)
 		        .fechaAsignacion(LocalDateTime.of(2026, 2, 1, 8, 00))
-		        .fechaEntrega(LocalDateTime.of(2026, 2, 1, 10, 30))
+		        .fechaEntrega(LocalDateTime.of(2027, 3, 3, 10, 30))
 		        .motivoIncidencia(" ")
 		        .tiempoEstimado(null)
 		        .build();

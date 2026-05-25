@@ -3,6 +3,8 @@ package com.tfg_david.dam.City_Courier.model;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+import org.hibernate.validator.constraints.time.DurationMin;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +13,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,14 +27,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Asignacion {
-
+	
 	@Id
 	@GeneratedValue
 	private Long idAsignacion;
+
 	private boolean estadoPedido;
+
+	@NotNull(message = "Es obligatorio")
+	@Min(value = 1, message = "El valor no puede ser inferior a 1")
 	private double coste;
 
 	private LocalDateTime fechaAsignacion;
+
+	@Future(message = "La fecha de entrega debe de ser superior a la fecha de asignacion")
 	private LocalDateTime fechaEntrega;
 
 	private String motivoIncidencia;
@@ -41,6 +52,7 @@ public class Asignacion {
 	@OneToOne(mappedBy = "asignacion", cascade = CascadeType.ALL)
 	private Envio envio;
 
+	@DurationMin(minutes = 15, message = "El tiempo estimado tiene que ser mayor a 15 minutos")
 	private Duration tiempoEstimado; // fechaInicio-fechaFinal; acordarse hacerla en service
 
 	public void vincularEnvio(Envio envio) {

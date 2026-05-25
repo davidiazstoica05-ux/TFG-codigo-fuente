@@ -3,9 +3,9 @@ package com.tfg_david.dam.City_Courier.controller;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +20,7 @@ import com.tfg_david.dam.City_Courier.service.EnviosService;
 import com.tfg_david.dam.City_Courier.service.RepartidorService;
 import com.tfg_david.dam.City_Courier.utilidades.Utilidades;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -86,22 +87,35 @@ public class AsignacionController {
 
 	}
 
-
 	@PostMapping("/asignaciones")
-	public String asignaciones(@ModelAttribute("asignacion") Asignacion asignacion, Model model) {
+	public String asignaciones(@Valid @ModelAttribute("asignacion") Asignacion asignacion, BindingResult bindingResult,
+			Model model) {
 
 		Optional<Asignacion> asignacionAntigua;
 		Envio envioAntiguo;
+
+		if (bindingResult.hasErrors()) {
+
+			model.addAttribute("enviosList", envioService.findAll());
+			model.addAttribute("repartidoresList", repartidorService.findAll());
+			model.addAttribute("asignacionList", asigService.findAll());
+
+			return "/logistica/asignaciones";
+		}
 
 		if (asignacion.getIdAsignacion() != null) {
 
 			asignacionAntigua = asigService.findById(asignacion.getIdAsignacion());
 
-			if (asignacionAntigua.isPresent() && asignacionAntigua.get().getEnvio() != null) {
+			if (asignacionAntigua.isPresent() && asignacionAntigua.get()
+																  .getEnvio() != null) {
 
-				envioAntiguo = asignacionAntigua.get().getEnvio();
+				envioAntiguo = asignacionAntigua.get()
+											    .getEnvio();
 
-				if (!envioAntiguo.getCodEnvio().equals(asignacion.getEnvio().getCodEnvio())) {
+				if (!envioAntiguo.getCodEnvio()
+								 .equals(asignacion.getEnvio()
+										 		   .getCodEnvio())) {
 
 					envioAntiguo.setAsignacion(null);
 
