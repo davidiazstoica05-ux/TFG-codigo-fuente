@@ -31,6 +31,9 @@ public class RepartidorController {
 
 		List<Repartidor> r = new ArrayList();
 		
+		model.addAttribute("totalRiders", repartidorService.count());
+
+		
 		if (dni != null && !dni.isEmpty() ) {
 
 			Optional<Repartidor> repartidor = repartidorService.findById(dni);
@@ -53,7 +56,7 @@ public class RepartidorController {
 			model.addAttribute("repartidorList", repartidorService.findAll());
 
 
-		}
+		} 
 		
 		
 		model.addAttribute("repartidor", new Repartidor());
@@ -62,6 +65,10 @@ public class RepartidorController {
 
 
 	}
+	
+
+	
+	
 
 	@GetMapping("/editar/{dni}")
 	public String editarRepartidor(@PathVariable("dni") String dni, Model model) {
@@ -86,6 +93,7 @@ public class RepartidorController {
 	}
 
 
+	
 
 	@PostMapping("/repartidores")
 	public String submit(@ModelAttribute("repartidor") Repartidor repartidor, Model model) {
