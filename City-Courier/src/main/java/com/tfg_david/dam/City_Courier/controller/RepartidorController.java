@@ -32,6 +32,10 @@ public class RepartidorController {
 
 		List<Repartidor> r = new ArrayList();
 		
+		model.addAttribute("ridersEnVacaciones", repartidorService.countByEstado(Disponibilidad.VACACIONES));
+		
+		model.addAttribute("ridersEnBaja", repartidorService.countByEstado(Disponibilidad.DE_BAJA));
+		
 		model.addAttribute("ridersDisponibles", repartidorService.countByEstado(Disponibilidad.DISPONIBLE));
 		
 		model.addAttribute("totalRiders", repartidorService.count());
