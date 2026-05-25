@@ -30,11 +30,14 @@
                         </h3>
                         <p class="text-muted m-0 mt-1">Control de paquetería y registro de nuevos paquetes.</p>
                     </div>
+
                     <button type="button" class="btn btn-primary rounded-pill px-4 shadow-sm py-2 fw-medium"
                         data-bs-toggle="modal" data-bs-target="#modalCrearEnvio">
                         <i class="bi bi-plus-lg me-2"></i> Registrar Nuevo Envío
                     </button>
                 </div>
+
+
 
                 <form th:action="@{/logistica/principal}" method="get" class="mb-4">
                     <div
@@ -50,7 +53,6 @@
                         </div>
                     </div>
                 </form>
-
                 <div class="p-4 text-center bg-light rounded-4 border">
                     <div th:replace="~{fragments/logisticaTables :: listaEnvios}"></div>
                 </div>
