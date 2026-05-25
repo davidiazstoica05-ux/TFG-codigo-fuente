@@ -22,9 +22,7 @@ public class SecurityConfig {
 	            .requestMatchers("/logistica/**").hasRole("LOGISTICA")
 	            
 	            .requestMatchers("/rrhh/**").hasRole("RRHH")
-	            
-	            .requestMatchers("/rrhh/**").hasRole("RRHH")
-	            
+	         	     	            
 	            .requestMatchers("/login", "/css/**", "/js/**", "/img/**").permitAll()
 	            
 	            .anyRequest().authenticated()
@@ -34,6 +32,9 @@ public class SecurityConfig {
 	            requestCache.setMatchingRequestParameterName(null);
 	            cache.requestCache(requestCache);
 	        })
+	        .exceptionHandling(exception -> exception 
+	        .accessDeniedPage("/acceso-denegado")
+	        )
 	        .formLogin(form -> form
 	            .loginPage("/login")
 	            .successHandler(new CustomSuccessHandler())

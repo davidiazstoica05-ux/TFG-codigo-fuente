@@ -15,21 +15,29 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 
+		
 		String redirectUrl = "/";
 
 		for (GrantedAuthority rol : authentication.getAuthorities()) {
+			
 
 			if (rol.getAuthority().equals("ROLE_LOGISTICA")) {
 
 				redirectUrl = "/logistica/asignaciones";
+				
+				break; 
 
 			} else if (rol.getAuthority().equals("ROLE_RRHH")) {
 
-				redirectUrl = "/rrhh/rrhh";
+				redirectUrl = "/rrhh/repartidores";
+				break; 
+
 
 			} else if (rol.getAuthority().equals("ROLE_ADMIN")) {
 
 				redirectUrl = "/admin/admin";
+				break; 
+
 			}
 
 		}
