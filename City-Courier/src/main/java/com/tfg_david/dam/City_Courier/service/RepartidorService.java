@@ -21,9 +21,10 @@ public class RepartidorService extends BaseService<Repartidor, String, Repartido
 	
 	public Long countByEstado (Disponibilidad estado) {
 		
-		
 		return repo.countByEstado(estado);
 		
 	}
+	
+	
 
 }
