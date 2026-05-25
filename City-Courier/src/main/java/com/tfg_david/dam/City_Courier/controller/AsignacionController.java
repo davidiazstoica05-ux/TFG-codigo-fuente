@@ -86,29 +86,30 @@ public class AsignacionController {
 		}
 
 	}
-	
-	
-	
-	/*@GetMapping("/logisticaHome")
-	public String contarEstadoEnvio(boolean estado, Model model) {
-		
-		model.addAttribute("enviosPendientes", asigService.countByEstadoPedido(true));
-		
-		return "logistica/logisticaHome";
-		
-	}*/
-	
-	
+
+	/*
+	 * @GetMapping("/logisticaHome") public String contarEstadoEnvio(boolean estado,
+	 * Model model) {
+	 * 
+	 * model.addAttribute("enviosPendientes",
+	 * asigService.countByEstadoPedido(true));
+	 * 
+	 * return "logistica/logisticaHome";
+	 * 
+	 * }
+	 */
+
 	@GetMapping("/logisticaHome")
 	public String home(Model model) {
-		
+
 		model.addAttribute("totalEnvios", envioService.countEnvios());
 
-		return "logistica/logisticaHome";
-				
+		model.addAttribute("enviosPendientes", asigService.countByEstadoPedido(false));
+
 		
+		return "logistica/logisticaHome";
+
 	}
-	
 
 	@PostMapping("/asignaciones")
 	public String asignaciones(@ModelAttribute("asignacion") Asignacion asignacion, Model model) {
@@ -139,9 +140,5 @@ public class AsignacionController {
 
 		return "redirect:/logistica/asignaciones";
 	}
-	
-	
-	
-	
 
 }
