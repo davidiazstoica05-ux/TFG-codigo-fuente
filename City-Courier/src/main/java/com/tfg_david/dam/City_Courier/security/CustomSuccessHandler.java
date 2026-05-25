@@ -23,7 +23,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
 			if (rol.getAuthority().equals("ROLE_LOGISTICA")) {
 
-				redirectUrl = "/logistica/asignaciones";
+				redirectUrl = "/logistica/logisticaHome";
 				
 				break; 
 
@@ -35,7 +35,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
 			} else if (rol.getAuthority().equals("ROLE_ADMIN")) {
 
-				redirectUrl = "/admin/admin";
+				redirectUrl = "/admin/adminHome";
 				break; 
 
 			}

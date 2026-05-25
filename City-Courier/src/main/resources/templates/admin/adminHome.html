@@ -46,7 +46,7 @@
                                 <div class="card-body p-4 d-flex justify-content-between align-items-center">
                                     <div>
                                         <h6 class="text-muted fw-bold text-uppercase mb-2">Pendientes</h6>
-                                        <h2 class="display-6 fw-bold text-warning mb-0" th:text="${enviosPendientes}">0
+                                        <h2 class="display-6 fw-bold text-warning mb-0" th:text="${totalEnvios}">0
                                         </h2>
                                     </div>
                                     <div class="bg-warning bg-opacity-10 p-3 rounded-circle d-none d-xl-block">
@@ -61,7 +61,8 @@
                                 <div class="card-body p-4 d-flex justify-content-between align-items-center">
                                     <div>
                                         <h6 class="text-muted fw-bold text-uppercase mb-2">En Ruta</h6>
-                                        <h2 class="display-6 fw-bold text-primary mb-0" th:text="${enviosEnRuta}">0</h2>
+                                        <h2 class="display-6 fw-bold text-primary mb-0" th:text="${enviosPendientes}">0
+                                        </h2>
                                     </div>
                                     <div class="bg-primary bg-opacity-10 p-3 rounded-circle d-none d-xl-block">
                                         <i class="bi bi-truck text-primary fs-1"></i>
@@ -127,7 +128,8 @@
                                 <div class="card-body p-4 d-flex justify-content-between align-items-center">
                                     <div>
                                         <h6 class="text-muted fw-bold text-uppercase mb-2">Bajas / Vacaciones</h6>
-                                        <h2 class="display-6 fw-bold text-secondary mb-0" th:text="${ridersInactivos}">0
+                                        <h2 class="display-6 fw-bold text-secondary mb-0"
+                                            th:text="${ridersEnBaja} + ${ridersEnVacaciones}">0
                                         </h2>
                                     </div>
                                     <div class="bg-secondary bg-opacity-10 p-3 rounded-circle d-none d-xl-block">
@@ -163,7 +165,7 @@
                             </a>
                         </div>
                         <div class="col-6 col-md-3">
-                            <a th:href="@{/rrhh/rrhh}"
+                            <a th:href="@{/rrhh/repartidores}"
                                 class="btn btn-outline-primary w-100 py-3 rounded-4 fw-medium shadow-sm">
                                 <i class="bi bi-people d-block fs-3 mb-2"></i> Flota Repartidores
                             </a>
