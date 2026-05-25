@@ -10,4 +10,6 @@ public interface AsignacionRepository extends JpaRepository<Asignacion, Long> {
 
 	List<Asignacion> findByIdAsignacionOrRepartidorDni( Long idAsignacion, String dni);
 
+	Long countByEstadoPedido(boolean estado);
+	
 }

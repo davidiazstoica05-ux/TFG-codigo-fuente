@@ -78,6 +78,14 @@ public class AsignacionService extends BaseService<Asignacion, Long, AsignacionR
 		
 		
 	}
+	
+	
+	
+	public Long countByEstadoPedido( boolean estado) {
+			
+		return repo.countByEstadoPedido(estado);
+	
+	}
 
 
 	

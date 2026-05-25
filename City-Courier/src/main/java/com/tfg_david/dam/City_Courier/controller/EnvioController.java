@@ -102,13 +102,6 @@ public class EnvioController {
 
 	}
 
-	@GetMapping("logisticaHome")
-	public String contarEnvio(Model model) {
 
-		model.addAttribute("totalEnvios", envioService.countlEnvios());
-
-		return "logistica/logisticaHome";
-		
-	}
 
 }
