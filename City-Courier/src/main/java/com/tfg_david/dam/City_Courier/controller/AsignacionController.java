@@ -106,6 +106,7 @@ public class AsignacionController {
 
 		model.addAttribute("enviosPendientes", asigService.countByEstadoPedido(false));
 
+		model.addAttribute("enviosEntregados", asigService.countByEstadoPedido(true));
 		
 		return "logistica/logisticaHome";
 
