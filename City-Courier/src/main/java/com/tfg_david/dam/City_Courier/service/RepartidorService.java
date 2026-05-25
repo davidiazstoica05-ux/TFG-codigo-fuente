@@ -2,6 +2,7 @@ package com.tfg_david.dam.City_Courier.service;
 
 import org.springframework.stereotype.Service;
 
+import com.tfg_david.dam.City_Courier.model.Disponibilidad;
 import com.tfg_david.dam.City_Courier.model.Repartidor;
 import com.tfg_david.dam.City_Courier.repository.RepartidorRepository;
 import com.tfg_david.dam.City_Courier.service.base.BaseService;
@@ -13,8 +14,15 @@ import lombok.RequiredArgsConstructor;
 public class RepartidorService extends BaseService<Repartidor, String, RepartidorRepository> {
 
 	public Long count() {
-
+		
 		return repo.count();
+		
+	}
+	
+	public Long countByEstado (Disponibilidad estado) {
+		
+		
+		return repo.countByEstado(estado);
 		
 	}
 

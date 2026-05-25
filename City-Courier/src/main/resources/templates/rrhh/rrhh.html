@@ -57,7 +57,7 @@
                                 <h5 class="fw-bold mb-0 mt-2">Disponibles</h5>
                             </div>
                             <div class="card-body d-flex flex-column justify-content-center">
-                                <h2 class="display-6 fw-bold text-info">9</h2>
+                                <h2 class="display-6 fw-bold text-info" th:text="${ridersDisponibles}">9</h2>
                                 <p class="text-muted mb-0">Listos para asignar ruta</p>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                 <h5 class="fw-bold mb-0 mt-2">Bajas / Vacaciones</h5>
                             </div>
                             <div class="card-body d-flex flex-column justify-content-center">
-                                <h2 class="display-6 fw-bold text-secondary">3</h2>
+                                <h2 class="display-6 fw-bold text-secondary" th:text="${ridersBajasVacaciones}">3</h2>
                                 <p class="text-muted mb-0">Personal inactivo hoy</p>
                             </div>
                         </div>
