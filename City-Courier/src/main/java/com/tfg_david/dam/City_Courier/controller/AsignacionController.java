@@ -3,8 +3,7 @@ package com.tfg_david.dam.City_Courier.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -87,30 +86,6 @@ public class AsignacionController {
 
 	}
 
-	/*
-	 * @GetMapping("/logisticaHome") public String contarEstadoEnvio(boolean estado,
-	 * Model model) {
-	 * 
-	 * model.addAttribute("enviosPendientes",
-	 * asigService.countByEstadoPedido(true));
-	 * 
-	 * return "logistica/logisticaHome";
-	 * 
-	 * }
-	 */
-
-	@GetMapping("/logisticaHome")
-	public String home(Model model) {
-
-		model.addAttribute("totalEnvios", envioService.countEnvios());
-
-		model.addAttribute("enviosPendientes", asigService.countByEstadoPedido(false));
-
-		model.addAttribute("enviosEntregados", asigService.countByEstadoPedido(true));
-		
-		return "logistica/logisticaHome";
-
-	}
 
 	@PostMapping("/asignaciones")
 	public String asignaciones(@ModelAttribute("asignacion") Asignacion asignacion, Model model) {
