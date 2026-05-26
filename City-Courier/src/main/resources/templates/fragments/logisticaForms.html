@@ -227,7 +227,7 @@
 
             <div class="modal-header bg-info text-white border-0">
                 <h5 class="modal-title fw-bold" id="modalLabelAsignacion">
-                    <i class="bi bi-person-check-fill me-2"></i>Nueva Asignación
+                    <i class="bi bi-person-check-fill me-2"></i> Asignación
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                     aria-label="Close"></button>
@@ -235,16 +235,16 @@
 
             <div class="modal-body p-4 p-md-5">
 
-                <form method="post" th:action="@{/logistica/asignaciones}" id="asignacionFormulario"
-                    th:object="${asignacion}" class="needs-validation" novalidate>
+                <form method="post" th:action="@{/logistica/asignaciones}" th:object="${asignacion}"
+                    class="needs-validation" id="asignacionForm" novalidate>
 
-                    <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}">
 
                     <fieldset>
                         <h6 class="text-info fw-bold border-bottom pb-2 mb-4">Estado, Envío y Coste</h6>
 
                         <div class="row g-3 mb-4">
                             <div class="col-12 col-md-4">
+                                <input type="hidden" th:field="*{idAsignacion}" />
                                 <label for="coste" class="form-label fw-medium">Coste del Servicio (€)</label>
                                 <input type="number" min="0" step="0.5" class="form-control bg-light border-0"
                                     id="coste" th:field="*{coste}" placeholder="Ej. 15" required>
@@ -282,14 +282,14 @@
 
                         <div class="row g-3 mb-4">
                             <div class="col-12 col-md-6">
-                                <label for="fechaEntrega" class="form-label fw-medium">Fecha de Entrega (Real)</label>
+                                <label for="fechaEntrega" class="form-label fw-medium">Fecha de Entrega </label>
                                 <input type="datetime-local" class="form-control bg-light border-0" id="fechaEntrega"
-                                    th:field="*{fechaEntrega}">
-                                <div class="error" th:if="${#fields.hasErrors('fechaEntrega')}"
+                                    name="fechaEntrega"
+                                    th:value="${asignacion.fechaEntrega != null ? #temporals.format(asignacion.fechaEntrega, 'yyyy-MM-dd''T''HH:mm') : ''}">
+                                <div class=" error text-danger" th:if="${#fields.hasErrors('fechaEntrega')}"
                                     th:errors="*{fechaEntrega}">
                                     Error en la fecha de entrega
                                 </div>
-                                <div class="form-text">Dejar en blanco si aún no se ha entregado.</div>
                             </div>
 
                             <div class="col-12 col-md-6">

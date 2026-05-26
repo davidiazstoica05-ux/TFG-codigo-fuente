@@ -13,6 +13,8 @@ modalCrearRepartidor.addEventListener("hidden.bs.modal", function () {
         input.value = "";
     })
 
+    window.location.replace("/logistica/rutas");
+
 })
 
 

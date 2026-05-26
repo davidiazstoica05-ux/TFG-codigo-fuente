@@ -10,8 +10,11 @@ modalCrearRepartidor.addEventListener("hidden.bs.modal", function () {
     console.log("pasa por aqui");
 
     inputs.forEach(function (input) {
+
         input.value = "";
     })
+
+    window.location.replace("/rrhh/repartidores");
 
 })
 

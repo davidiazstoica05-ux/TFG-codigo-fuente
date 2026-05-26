@@ -68,9 +68,12 @@
     <script id="accionesAsignaciones" th:src="@{/script/accionesAsignaciones.js}"></script>
 
     <script th:if="${modoEdicion}">
-        var modalCrearAsignacion = new bootstrap.Modal(document.getElementById('modalCrearAsignacion'));
-        modalCrearAsignacion.show();
+        document.addEventListener("DOMContentLoaded", function () {
+            var modalEdit = new bootstrap.Modal(document.getElementById('modalCrearAsignacion'));
+            modalEdit.show();
+        });
     </script>
+
 
 </body>
 
