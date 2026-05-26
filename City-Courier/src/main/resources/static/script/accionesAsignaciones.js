@@ -6,7 +6,6 @@ var inputs = form.querySelectorAll("input:not([type='hidden']), select, textarea
 
 modalCrearAsignacion.addEventListener("hidden.bs.modal", function () {
 
-    console.log("Limpiando datos visuales y manteniendo el ID oculto intacto");
 
     inputs.forEach(function (input) {
         input.value = "";

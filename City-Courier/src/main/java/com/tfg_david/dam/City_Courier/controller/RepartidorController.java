@@ -1,12 +1,12 @@
 package com.tfg_david.dam.City_Courier.controller;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +18,7 @@ import com.tfg_david.dam.City_Courier.model.Disponibilidad;
 import com.tfg_david.dam.City_Courier.model.Repartidor;
 import com.tfg_david.dam.City_Courier.service.RepartidorService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -103,7 +104,17 @@ public class RepartidorController {
 	
 
 	@PostMapping("/repartidores")
-	public String submit(@ModelAttribute("repartidor") Repartidor repartidor, Model model) {
+	public String submit(@Valid @ModelAttribute("repartidor") Repartidor repartidor, BindingResult bindingResult, Model model) {
+		
+		
+	if (bindingResult.hasErrors()) {
+			
+			
+			model.addAttribute("repartidorList", repartidorService.findAll());
+			
+			return "/rrhh/rrhh";
+
+		}
 		repartidorService.save(repartidor);
 		return "redirect:/rrhh/repartidores";
 	}

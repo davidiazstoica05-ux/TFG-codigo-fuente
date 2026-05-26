@@ -41,6 +41,7 @@ public class Asignacion {
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private LocalDateTime fechaAsignacion;
 
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private LocalDateTime fechaEntrega;
 

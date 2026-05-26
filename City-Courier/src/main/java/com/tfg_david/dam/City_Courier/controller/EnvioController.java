@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import com.tfg_david.dam.City_Courier.model.Asignacion;
 import com.tfg_david.dam.City_Courier.model.Envio;
 import com.tfg_david.dam.City_Courier.service.EnviosService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -59,9 +61,21 @@ public class EnvioController {
 	}
 
 	@PostMapping("/principal")
-	public String submit(@ModelAttribute("envio") Envio envio, Model model) {
+	public String submit( @Valid @ModelAttribute("envio") Envio envio, BindingResult bindingResult,  Model model) {
 
 		Asignacion asigid;
+		
+		
+		
+		if (bindingResult.hasErrors()) {
+			
+			
+			model.addAttribute("envioList", envioService.findAll());
+			
+			return "/logistica/envios";
+
+		}
+		
 
 		if (envio.getCodEnvio() != null) {
 

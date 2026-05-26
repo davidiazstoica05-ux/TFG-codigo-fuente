@@ -1,5 +1,7 @@
 package com.tfg_david.dam.City_Courier.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -93,6 +95,17 @@ public class AsignacionController {
 
 		Optional<Asignacion> asignacionAntigua;
 		Envio envioAntiguo;
+		
+		if (asignacion.getFechaEntrega() != null) {
+
+			if (asignacion.getIdAsignacion() == null) {
+
+				if (asignacion.getFechaEntrega().isBefore(LocalDateTime.now())) {
+
+					bindingResult.rejectValue("fechaEntrega", "error.fecha", "La fecha no puede ser anterior a hoy");
+				}
+			}
+		}
 
 		if (bindingResult.hasErrors()) {
 
@@ -107,19 +120,13 @@ public class AsignacionController {
 
 			asignacionAntigua = asigService.findById(asignacion.getIdAsignacion());
 
-			if (asignacionAntigua.isPresent() && asignacionAntigua.get()
-																  .getEnvio() != null) {
+			if (asignacionAntigua.isPresent() && asignacionAntigua.get().getEnvio() != null) {
 
-				envioAntiguo = asignacionAntigua.get()
-											    .getEnvio();
+				envioAntiguo = asignacionAntigua.get().getEnvio();
 
-				asignacion.setFechaAsignacion(asignacionAntigua.get()
-															   .getFechaAsignacion());
-				
-				
-				if (!envioAntiguo.getCodEnvio()
-								 .equals(asignacion.getEnvio()
-										 		   .getCodEnvio())) {
+				asignacion.setFechaAsignacion(asignacionAntigua.get().getFechaAsignacion());
+
+				if (!envioAntiguo.getCodEnvio().equals(asignacion.getEnvio().getCodEnvio())) {
 
 					envioAntiguo.setAsignacion(null);
 

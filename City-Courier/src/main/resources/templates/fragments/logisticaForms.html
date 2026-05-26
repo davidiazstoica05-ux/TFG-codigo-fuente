@@ -25,22 +25,35 @@
                                 <label for="destinatario" class="form-label fw-medium">Nombre del Destinatario</label>
                                 <input type="text" class="form-control bg-light border-0" id="destinatario"
                                     th:field="*{destinatario}" placeholder="Ej. Juan Pérez" required>
-                                <div class="invalid-feedback">Debe introducir un nombre de destinatario válido.</div>
+
+                                <div class="text-danger mt-1 small" th:if="${#fields.hasErrors('destinatario')}"
+                                    th:errors="*{destinatario}">
+                                    Error en el destinatario
+                                </div>
                             </div>
                         </div>
+
                         <div class="row mb-4">
                             <div class="col-12 col-md-6 mb-3 mb-md-0">
                                 <label for="direccion" class="form-label fw-medium">Dirección Completa</label>
                                 <input type="text" class="form-control bg-light border-0" id="direccion"
                                     th:field="*{direccion}" placeholder="Ej. Calle Mayor, 123" required>
-                                <div class="invalid-feedback">Debe introducir una dirección válida.</div>
+
+                                <div class="text-danger mt-1 small" th:if="${#fields.hasErrors('direccion')}"
+                                    th:errors="*{direccion}">
+                                    Error en la dirección de entrega
+                                </div>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <label for="codigoPostal" class="form-label fw-medium">Código Postal</label>
-                                <input type="text" class="form-control bg-light border-0" maxlength="5" minlength="5"
-                                    id="codigoPostal" th:field="*{codPostal}" placeholder="Ej. 41001" required>
-                                <div class="invalid-feedback">Debe introducir un código postal válido.</div>
+                                <input type="text" class="form-control bg-light border-0" id="codigoPostal"
+                                    th:field="*{codPostal}" placeholder="Ej. 41001">
+
+                                <div class="text-danger mt-1 small" th:if="${#fields.hasErrors('codPostal')}"
+                                    th:errors="*{codPostal}">
+                                    Error en el código postal
+                                </div>
                             </div>
                         </div>
 
@@ -52,18 +65,19 @@
                         <div class="row mb-4">
                             <div class="col-sm-12 col-md-6 mb-3 mb-md-0">
                                 <label for="peso" class="form-label fw-medium">Peso (kg)</label>
-                                <input type="number" max="25" min="0.25" step="0.25"
-                                    class="form-control bg-light border-0" id="peso" th:field="*{peso}"
-                                    placeholder="Ej. 5.5" required>
-                                <div class="invalid-feedback">Debe introducir un peso válido.</div>
-                            </div>
+                                <input type="number" step="0.25" class="form-control bg-light border-0" id="peso"
+                                    th:field="*{peso}" placeholder="Ej. 5.5" required>
 
+                                <div class="text-danger mt-1 small" th:if="${#fields.hasErrors('peso')}"
+                                    th:errors="*{peso}">
+                                    Error en el peso
+                                </div>
+                            </div>
 
                             <div class="col-12">
                                 <input type="hidden" class="form-control bg-light border-0" id="idEnvio"
                                     th:field="*{codEnvio}" placeholder="Ej. ENV-001">
                             </div>
-
 
                         </div>
                     </fieldset>
@@ -82,8 +96,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 <!--Formulario para crear una nueva ruta-->
@@ -114,7 +126,6 @@
                                 <label for="nombreRuta" class="form-label fw-medium">Nombre de la Ruta</label>
                                 <input type="text" class="form-control bg-light border-0" id="nombreRuta"
                                     th:field="*{nombreRuta}" placeholder="Ej. Ruta Centro" required>
-                                <div class="invalid-feedback">Debe introducir un nombre de ruta válido.</div>
                             </div>
                             <div class="col-12 col-md-6">
                                 <label for="distancia" class="form-label fw-medium">Distancia (km)</label>
