@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import org.hibernate.validator.constraints.time.DurationMin;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -13,7 +14,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
-import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Asignacion {
-	
+
 	@Id
 	@GeneratedValue
 	private Long idAsignacion;
@@ -38,9 +38,10 @@ public class Asignacion {
 	@Min(value = 1, message = "El valor no puede ser inferior a 1")
 	private double coste;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private LocalDateTime fechaAsignacion;
 
-	@Future(message = "La fecha de entrega debe de ser superior a la fecha de asignacion")
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private LocalDateTime fechaEntrega;
 
 	private String motivoIncidencia;
@@ -69,17 +70,13 @@ public class Asignacion {
 
 	@PrePersist
 	public void configurarHoraActural() {
-		
-		
+
 		if (fechaAsignacion == null) {
-			
-			
+
 			fechaAsignacion = LocalDateTime.now();
-			
+
 		}
-		
-		
-		
+
 	}
 
 }
