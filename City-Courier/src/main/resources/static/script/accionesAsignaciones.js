@@ -1,21 +1,17 @@
-//Esta tiene que vigilar siempre que se abra el modal 
-
-var modalCrearRepartidor = document.getElementById("modalCrearAsignacion");
+//Esta tiene que vigilar siempre que se cierre el modal 
+var modalCrearAsignacion = document.getElementById("modalCrearAsignacion");
 var form = document.getElementById("asignacionForm");
-var inputs = form.querySelectorAll("input, select, textarea");
 
+var inputs = form.querySelectorAll("input:not([type='hidden']), select, textarea");
 
+modalCrearAsignacion.addEventListener("hidden.bs.modal", function () {
 
-modalCrearRepartidor.addEventListener("hidden.bs.modal", function () {
-
-
-    console.log("pasa por aqui");
+    console.log("Limpiando datos visuales y manteniendo el ID oculto intacto");
 
     inputs.forEach(function (input) {
         input.value = "";
-    })
+    });
 
     window.location.replace("/logistica/asignaciones");
 
-
-})
+});

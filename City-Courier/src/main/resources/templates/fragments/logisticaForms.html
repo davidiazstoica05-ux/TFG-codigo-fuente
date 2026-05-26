@@ -238,7 +238,6 @@
                 <form method="post" th:action="@{/logistica/asignaciones}" th:object="${asignacion}"
                     class="needs-validation" id="asignacionForm" novalidate>
 
-                    <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}">
 
                     <fieldset>
                         <h6 class="text-info fw-bold border-bottom pb-2 mb-4">Estado, Envío y Coste</h6>
@@ -283,9 +282,10 @@
 
                         <div class="row g-3 mb-4">
                             <div class="col-12 col-md-6">
-                                <label for="fechaEntrega" class="form-label fw-medium">Fecha de Entrega (Real)</label>
+                                <label for="fechaEntrega" class="form-label fw-medium">Fecha de Entrega </label>
                                 <input type="datetime-local" class="form-control bg-light border-0" id="fechaEntrega"
-                                    th:field="*{fechaEntrega}">
+                                    name="fechaEntrega"
+                                    th:value="${asignacion.fechaEntrega != null ? #temporals.format(asignacion.fechaEntrega, 'yyyy-MM-dd''T''HH:mm') : ''}">
                                 <div class=" error text-danger" th:if="${#fields.hasErrors('fechaEntrega')}"
                                     th:errors="*{fechaEntrega}">
                                     Error en la fecha de entrega

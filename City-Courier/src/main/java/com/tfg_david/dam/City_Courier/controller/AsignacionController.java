@@ -113,6 +113,10 @@ public class AsignacionController {
 				envioAntiguo = asignacionAntigua.get()
 											    .getEnvio();
 
+				asignacion.setFechaAsignacion(asignacionAntigua.get()
+															   .getFechaAsignacion());
+				
+				
 				if (!envioAntiguo.getCodEnvio()
 								 .equals(asignacion.getEnvio()
 										 		   .getCodEnvio())) {
