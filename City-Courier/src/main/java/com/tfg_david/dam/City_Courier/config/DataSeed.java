@@ -92,7 +92,6 @@ public class DataSeed {
 		        .direccion("Plaza Juan de mesa")
 		        .zona("Osuna")
 		        .peso(1.7)
-		        .fechaEntregaEstimada(LocalDateTime.of(2026, 2, 1, 14, 00))
 		        .build();
 
 		Envio e2 = Envio.builder()
@@ -100,7 +99,6 @@ public class DataSeed {
 		        .direccion("Calle Corredera 45")
 		        .peso(3.2)
 		        .zona("Osuna")
-		        .fechaEntregaEstimada(LocalDateTime.of(2026, 2, 1, 10, 30))
 		        .build();
 
 		Envio e3 = Envio.builder()
@@ -108,7 +106,6 @@ public class DataSeed {
 		        .direccion("Avenida de la Constitución 15")
 		        .peso(0.8)
 		        .zona("Sevilla Centro")
-		        .fechaEntregaEstimada(LocalDateTime.of(2026, 2, 2, 11, 15))
 		        .build();
 
 		Asignacion a = Asignacion.builder()

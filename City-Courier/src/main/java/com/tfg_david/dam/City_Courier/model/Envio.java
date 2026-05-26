@@ -28,7 +28,6 @@ public class Envio {
 	private String zona;
 	private String codPostal;
 	private double peso;
-	private LocalDateTime fechaEntregaEstimada; 
 	private String destinatario; 
 	
 	@OneToOne
