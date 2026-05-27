@@ -13,6 +13,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,11 +35,24 @@ public class Repartidor {
 
 	@Id
 	private String dni; 
+	
+	@NotBlank(message = "La zona no puede estar en blanco")
 	private String zona;
+	
+	@NotBlank(message = "Los apellidos no pueden estar en blanco")
 	private String apellidos; 
+	
+	@NotBlank(message = "El nombre no puede estar en blanco")
 	private String nombre; 
-	private String email; 
-	private int telefono; 
+	
+	@NotBlank(message = "El email es obligatorio")
+	@Email(message = "El email no tiene un formato válido")	private String email; 
+	
+	@NotBlank(message = "El telefono es obligatorio")
+	@Pattern(regexp = "^[6-9]\\d{8}$", message = "El teléfono debe tener 9 dígitos y empezar por 6, 7, 8 o 9")
+	private String telefono; 
+	
+	@NotBlank(message = "El genero no puede estar en blanco")
 	private String genero; 
 		
 	@Enumerated(EnumType.STRING)
@@ -42,6 +62,9 @@ public class Repartidor {
 	private TipoVehiculo vehiculo;
 	
 	private LocalDate fechaAlta; 
+	
+	@NotNull
+	@DecimalMin(value = "0.5", message = "El valor minimo es 0,5")
 	private Double cargaMax;
 	
 	@ManyToOne 

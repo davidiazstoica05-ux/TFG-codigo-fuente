@@ -68,7 +68,7 @@ public class DataSeed {
 		        .fechaAlta(LocalDate.of(2026, 1, 1))
 		        .genero("Male")
 		        .zona("Osuna")
-		        .telefono(697386581)
+		        .telefono("697386581")
 		        .estado(Disponibilidad.DISPONIBLE)
 		        .vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.Furgoneta)
 		        .build();
@@ -82,7 +82,7 @@ public class DataSeed {
 		        .fechaAlta(LocalDate.of(2026, 7, 1))
 		        .genero("Male")
 		        .zona("Osuna")
-		        .telefono(697386581)
+		        .telefono("697386581")
 		        .estado(Disponibilidad.VACACIONES)
 		        .vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.moto_ecologica)
 		        .build();
