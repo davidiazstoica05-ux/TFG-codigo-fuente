@@ -55,6 +55,9 @@
                                 <input type="text" class="form-control bg-light border-0 shadow-sm py-2" id="nombreRuta"
                                     th:field="*{nombreRuta}" placeholder="Ej. Ruta Centro y Nervión" required>
                                 <div class="invalid-feedback">Debe introducir un nombre de ruta válido.</div>
+                                <div th:if="${#fields.hasErrors('nombreRuta')}" class="text-danger small">
+                                    <span th:errors="*{nombreRuta}"></span>
+                                </div>
                             </div>
                             <div class="col-12 col-md-4 col-lg-3 offset-lg-1">
                                 <label for="distancia"
@@ -134,21 +137,28 @@
                                 <label for="fechaInicio"
                                     class="form-label fw-medium text-secondary small text-uppercase">Hora de Salida
                                     Estimada</label>
-                                <input type="time" class="form-control bg-light border-0 shadow-sm py-2" id="fechaFinal"
-                                    name="fechaFinal"
-                                    th:value="${ruta.fechaFinal != null} ? ${#temporals.format(ruta.fechaFinal, 'HH:mm')} : ''"
+                                <input type="time" class="form-control bg-light border-0 shadow-sm py-2"
+                                    id="fechaInicio" name="fechaInicio"
+                                    th:value="${ruta.fechaInicio != null} ? ${#temporals.format(ruta.fechaInicio, 'HH:mm')} : ''"
                                     required>
+                                <div class="invalid-feedback">Requerido.</div>
+                                <div th:if="${#fields.hasErrors('fechaInicio')}" class="text-danger small">
+                                    <span th:errors="*{fechaInicio}"></span>
+                                </div>
                             </div>
 
                             <div class="col-12 col-md-6 col-lg-5 offset-lg-1">
                                 <label for="fechaFinal"
                                     class="form-label fw-medium text-secondary small text-uppercase">Hora de Llegada
                                     Estimada</label>
-                                <input type="time" class="form-control bg-light border-0 shadow-sm py-2"
-                                    id="fechaInicio" name="fechaInicio"
-                                    th:value="${ruta.fechaInicio != null} ? ${#temporals.format(ruta.fechaInicio, 'HH:mm')} : ''"
+                                <input type="time" class="form-control bg-light border-0 shadow-sm py-2" id="fechaFinal"
+                                    name="fechaFinal"
+                                    th:value="${ruta.fechaFinal != null} ? ${#temporals.format(ruta.fechaFinal, 'HH:mm')} : ''"
                                     required>
                                 <div class="invalid-feedback">Requerido.</div>
+                                <div th:if="${#fields.hasErrors('fechaFinal')}" class="text-danger small">
+                                    <span th:errors="*{fechaFinal}"></span>
+                                </div>
                             </div>
                         </div>
                     </fieldset>

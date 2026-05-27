@@ -58,6 +58,9 @@
                                     id="destinatario" th:field="*{destinatario}" placeholder="Ej. Juan Pérez García"
                                     required>
                                 <div class="invalid-feedback">Debe introducir un nombre de destinatario válido.</div>
+                                <div th:if="${#fields.hasErrors('destinatario')}" class="text-danger small">
+                                    <span th:errors="*{destinatario}"></span>
+                                </div>
                             </div>
                         </div>
 
@@ -69,6 +72,9 @@
                                 <input type="text" class="form-control bg-light border-0 shadow-sm py-2" id="direccion"
                                     th:field="*{direccion}" placeholder="Ej. Calle Mayor, 123, 2ºA" required>
                                 <div class="invalid-feedback">Debe introducir una dirección válida.</div>
+                                <div th:if="${#fields.hasErrors('direccion')}" class="text-danger small">
+                                    <span th:errors="*{direccion}"></span>
+                                </div>
                             </div>
 
                             <div class="col-6 col-md-6 col-lg-2">
@@ -78,6 +84,9 @@
                                     minlength="5" id="codigoPostal" th:field="*{codPostal}" placeholder="Ej. 41001"
                                     required>
                                 <div class="invalid-feedback">Requerido (5 dígitos).</div>
+                                <div th:if="${#fields.hasErrors('codPostal')}" class="text-danger small">
+                                    <span th:errors="*{codPostal}"></span>
+                                </div>
                             </div>
 
                             <div class="col-6 col-md-6 col-lg-4">
@@ -86,6 +95,9 @@
                                 <input type="text" class="form-control bg-light border-0 shadow-sm py-2" id="zona"
                                     th:field="*{zona}" placeholder="Ej. Centro / Nervión" required>
                                 <div class="invalid-feedback">Debe especificar la zona.</div>
+                                <div th:if="${#fields.hasErrors('zona')}" class="text-danger small">
+                                    <span th:errors="*{zona}"></span>
+                                </div>
                             </div>
                         </div>
                     </fieldset>
@@ -105,7 +117,9 @@
                                         placeholder="Ej. 5.5" required>
                                     <span class="input-group-text bg-light border-0 text-muted">kg</span>
                                 </div>
-                                <div class="invalid-feedback">Debe introducir un peso válido (Máx. 25kg).</div>
+                                <div th:if="${#fields.hasErrors('peso')}" class="text-danger small">
+                                    <span th:errors="*{peso}"></span>
+                                </div>
                             </div>
 
                             <div class="col-12 col-md-8 col-lg-5 offset-lg-1">
@@ -117,6 +131,9 @@
                                     th:value="${envio.fechaEntregaEstimada != null} ? ${#temporals.format(envio.fechaEntregaEstimada, 'yyyy-MM-dd''T''HH:mm')} : ''"
                                     required>
                                 <div class="invalid-feedback">Debe planificar una fecha válida.</div>
+                                <div th:if="${#fields.hasErrors('fechaEntregaEstimada')}" class="text-danger small">
+                                    <span th:errors="*{fechaEntregaEstimada}"></span>
+                                </div>
                             </div>
                         </div>
                     </fieldset>

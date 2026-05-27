@@ -12,6 +12,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,10 +33,16 @@ public class Ruta {
 	@GeneratedValue
 	private Long codigoRuta;
 
+	@NotBlank(message = "El nombre de la ruta no puede estar en blanco")
 	private String nombreRuta;
+	
+	@NotNull(message = "La hora de inicio es obligatoria")
 	private LocalTime fechaInicio;
+
+	@NotNull(message = "La hora final es obligatoria")
 	private LocalTime fechaFinal;
 
+	@NotNull
 	@ElementCollection
 	private Map<String, Double> puntosEntregas = new LinkedHashMap<>();
 
