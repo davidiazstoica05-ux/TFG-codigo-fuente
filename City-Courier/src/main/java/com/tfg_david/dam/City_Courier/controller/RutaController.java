@@ -7,6 +7,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +20,7 @@ import com.tfg_david.dam.City_Courier.model.Ruta;
 import com.tfg_david.dam.City_Courier.service.RutaService;
 import com.tfg_david.dam.City_Courier.utilidades.Utilidades;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -44,20 +47,57 @@ public class RutaController {
 
 	@GetMapping("/rutas/nuevo")
 	public String nuevaRuta(Model model) {
-		
+
 		model.addAttribute("ruta", new Ruta());
-		
+
 		return "logistica/forms/ruta-form";
 	}
 
 	@PostMapping("/rutas")
-	public String submit(@ModelAttribute("ruta") Ruta ruta,
-			@RequestParam("zonaSeleccionada") List<String> zonaSeleccionada,
-			@RequestParam("distancia") Double distancia, Model model) {
+	public String submit(@Valid @ModelAttribute("ruta") Ruta ruta, BindingResult bindingResult,
+			@RequestParam(value = "zonaSeleccionada", required = false) List<String> zonaSeleccionada,
+			@RequestParam(value = "distancia", required = false) Double distancia, Model model) {
 
 		Map<String, Double> puntosEntregas = new LinkedHashMap<>();
 
+		if (ruta.getFechaFinal() != null && ruta.getFechaInicio() != null) {
+			if (ruta.getFechaFinal().isBefore(ruta.getFechaInicio())) {
+				bindingResult.rejectValue("fechaFinal", "error", "La fecha final no puede ser anterior a la de inicio");
+			}
+		}
+
+		if (bindingResult.hasErrors()) {
+
+			return "logistica/forms/ruta-form";
+
+		}
+
 		puntosEntregas = rutaService.transformarString(zonaSeleccionada, distancia);
+		ruta.setPuntosEntregas(puntosEntregas);
+
+		rutaService.save(ruta);
+
+		return "redirect:/logistica/rutas";
+	}
+
+	// Editar
+
+	@PostMapping("/rutas/editar")
+	public String submitEdicion(@Valid @ModelAttribute("ruta") Ruta ruta, BindingResult bindingResult,
+			@RequestParam(value = "zonaSeleccionada", required = false) List<String> zonaSeleccionada,
+			@RequestParam(value = "distancia", required = false) Double distancia, Model model) {
+
+		if (ruta.getFechaFinal() != null && ruta.getFechaInicio() != null) {
+			if (ruta.getFechaFinal().isBefore(ruta.getFechaInicio())) {
+				bindingResult.rejectValue("fechaFinal", "error", "La fecha final no puede ser anterior a la de inicio");
+			}
+		}
+
+		if (bindingResult.hasErrors()) {
+			return "logistica/forms/ruta-form-edit";
+		}
+
+		Map<String, Double> puntosEntregas = rutaService.transformarString(zonaSeleccionada, distancia);
 		ruta.setPuntosEntregas(puntosEntregas);
 
 		rutaService.save(ruta);
@@ -72,7 +112,7 @@ public class RutaController {
 
 		if (ruta.isPresent()) {
 			model.addAttribute("ruta", ruta.get());
-			
+
 			return "logistica/forms/ruta-form-edit";
 		} else {
 			return "redirect:/logistica/rutas";

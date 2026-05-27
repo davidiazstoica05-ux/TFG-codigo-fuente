@@ -36,7 +36,7 @@
                     <i class="bi bi-pencil-square me-2"></i> Editar Tiempos de Ruta
                 </h3>
 
-                <form method="post" th:action="@{/logistica/rutas}" id="rutaForm" th:object="${ruta}"
+                <form method="post" th:action="@{/logistica/rutas/editar}" id="rutaForm" th:object="${ruta}"
                     class="needs-validation" novalidate>
 
                     <input type="hidden" id="codigoRuta" th:field="*{codigoRuta}">
@@ -58,8 +58,10 @@
                                 <input type="text" class="form-control bg-light border-0 shadow-sm py-2" id="nombreRuta"
                                     th:field="*{nombreRuta}" placeholder="Ej. Ruta Centro" required>
                                 <div class="invalid-feedback">Debe introducir un nombre de ruta válido.</div>
+                                <div th:if="${#fields.hasErrors('nombreRuta')}" class="text-danger small">
+                                    <span th:errors="*{nombreRuta}"></span>
+                                </div>
                             </div>
-                        </div>
                     </fieldset>
 
                     <fieldset class="mb-5 border-top pt-4">
@@ -77,6 +79,9 @@
                                     th:value="${ruta.fechaInicio != null} ? ${#temporals.format(ruta.fechaInicio, 'HH:mm')} : ''"
                                     required>
                                 <div class="invalid-feedback">Requerido.</div>
+                                <div th:if="${#fields.hasErrors('fechaInicio')}" class="text-danger small">
+                                    <span th:errors="*{fechaInicio}"></span>
+                                </div>
                             </div>
 
                             <div class="col-12 col-md-6 col-lg-5 offset-lg-1">
@@ -88,6 +93,9 @@
                                     th:value="${ruta.fechaFinal != null} ? ${#temporals.format(ruta.fechaFinal, 'HH:mm')} : ''"
                                     required>
                                 <div class="invalid-feedback">Requerido.</div>
+                                <div th:if="${#fields.hasErrors('fechaFinal')}" class="text-danger small">
+                                    <span th:errors="*{fechaFinal}"></span>
+                                </div>
                             </div>
                         </div>
                     </fieldset>

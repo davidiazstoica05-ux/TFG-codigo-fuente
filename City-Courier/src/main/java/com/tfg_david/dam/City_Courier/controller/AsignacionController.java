@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import com.tfg_david.dam.City_Courier.service.EnviosService;
 import com.tfg_david.dam.City_Courier.service.RepartidorService;
 import com.tfg_david.dam.City_Courier.utilidades.Utilidades;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -81,44 +83,51 @@ public class AsignacionController {
 	}
 
 	@PostMapping("/asignaciones")
-	public String asignaciones(@ModelAttribute("asignacion") Asignacion asignacionForm, Model model) {
+	public String asignaciones(@Valid @ModelAttribute("asignacion") Asignacion asignacionForm,
+			BindingResult bindingResult, Model model) {
 
-	    if (asignacionForm.getIdAsignacion() != null) {
-	        
-	        Optional<Asignacion> asignacionOpt = asigService.findById(asignacionForm.getIdAsignacion());
-	        Envio envioAntiguo; 
-	        
-	        if (asignacionOpt.isPresent()) {
-	            Asignacion asigGuardada = asignacionOpt.get(); 
+		if (bindingResult.hasErrors()) {
 
-	            if (asigGuardada.getEnvio() != null &&
-	                !asigGuardada.getEnvio().getCodEnvio().equals(asignacionForm.getEnvio().getCodEnvio())) {
-	                
-	                envioAntiguo = asigGuardada.getEnvio();
-	                envioAntiguo.setAsignacion(null);
-	                envioService.save(envioAntiguo);
-	            }
+			return "logistica/forms/asignacion-form";
 
-	            //Hecho para no tener que tener todos los campos en el form
-	            asigGuardada.setCoste(asignacionForm.getCoste());
-	            asigGuardada.setEstadoPedido(asignacionForm.isEstadoPedido());
-	            asigGuardada.setFechaEntrega(asignacionForm.getFechaEntrega()); 
-	            asigGuardada.setMotivoIncidencia(asignacionForm.getMotivoIncidencia());
-	            asigGuardada.setRepartidor(asignacionForm.getRepartidor());
-	            asigGuardada.setEnvio(asignacionForm.getEnvio());
+		}
 
-	            if (asigService.asignarRepartidor(asigGuardada) && asigService.asignarEnvio(asigGuardada)) {
-	                asigService.save(asigGuardada);
-	            }
-	        }
-	    } 
+		if (asignacionForm.getIdAsignacion() != null) {
 
-	    else {
-	        if (asigService.asignarRepartidor(asignacionForm) && asigService.asignarEnvio(asignacionForm)) {
-	            asigService.save(asignacionForm);
-	        }
-	    }
+			Optional<Asignacion> asignacionOpt = asigService.findById(asignacionForm.getIdAsignacion());
+			Envio envioAntiguo;
 
-	    return "redirect:/logistica/asignaciones";
+			if (asignacionOpt.isPresent()) {
+				Asignacion asigGuardada = asignacionOpt.get();
+
+				if (asigGuardada.getEnvio() != null
+						&& !asigGuardada.getEnvio().getCodEnvio().equals(asignacionForm.getEnvio().getCodEnvio())) {
+
+					envioAntiguo = asigGuardada.getEnvio();
+					envioAntiguo.setAsignacion(null);
+					envioService.save(envioAntiguo);
+				}
+
+				// Hecho para no tener que tener todos los campos en el form
+				asigGuardada.setCoste(asignacionForm.getCoste());
+				asigGuardada.setEstadoPedido(asignacionForm.isEstadoPedido());
+				asigGuardada.setFechaEntrega(asignacionForm.getFechaEntrega());
+				asigGuardada.setMotivoIncidencia(asignacionForm.getMotivoIncidencia());
+				asigGuardada.setRepartidor(asignacionForm.getRepartidor());
+				asigGuardada.setEnvio(asignacionForm.getEnvio());
+
+				if (asigService.asignarRepartidor(asigGuardada) && asigService.asignarEnvio(asigGuardada)) {
+					asigService.save(asigGuardada);
+				}
+			}
+		}
+
+		else {
+			if (asigService.asignarRepartidor(asignacionForm) && asigService.asignarEnvio(asignacionForm)) {
+				asigService.save(asignacionForm);
+			}
+		}
+
+		return "redirect:/logistica/asignaciones";
 	}
 }

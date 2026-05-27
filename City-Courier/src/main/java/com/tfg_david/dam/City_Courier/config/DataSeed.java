@@ -68,7 +68,7 @@ public class DataSeed {
 		        .fechaAlta(LocalDate.of(2026, 1, 1))
 		        .genero("Male")
 		        .zona("Osuna")
-		        .telefono(697386581)
+		        .telefono("697386581")
 		        .estado(Disponibilidad.DISPONIBLE)
 		        .vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.Furgoneta)
 		        .build();
@@ -82,7 +82,7 @@ public class DataSeed {
 		        .fechaAlta(LocalDate.of(2026, 7, 1))
 		        .genero("Male")
 		        .zona("Osuna")
-		        .telefono(697386581)
+		        .telefono("697386581")
 		        .estado(Disponibilidad.VACACIONES)
 		        .vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.moto_ecologica)
 		        .build();
@@ -93,7 +93,7 @@ public class DataSeed {
 		        .codPostal("41640")
 		        .zona("Osuna")
 		        .peso(1.7)
-		        .fechaEntregaEstimada(LocalDateTime.of(2026, 2, 1, 14, 00))
+		        .fechaEntregaEstimada(LocalDateTime.of(2027, 2, 1, 14, 00))
 		        .build();
 
 		Envio e2 = Envio.builder()
@@ -102,7 +102,7 @@ public class DataSeed {
 		        .codPostal("47902")
 		        .peso(3.2)
 		        .zona("Osuna")
-		        .fechaEntregaEstimada(LocalDateTime.of(2026, 2, 1, 10, 30))
+		        .fechaEntregaEstimada(LocalDateTime.of(2027, 2, 1, 10, 30))
 		        .build();
 
 		Envio e3 = Envio.builder()
@@ -111,24 +111,20 @@ public class DataSeed {
 		        .codPostal("42321")
 		        .peso(0.8)
 		        .zona("Sevilla Centro")
-		        .fechaEntregaEstimada(LocalDateTime.of(2026, 2, 2, 11, 15))
+		        .fechaEntregaEstimada(LocalDateTime.of(2027, 2, 2, 11, 15))
 		        .build();
 
 		Asignacion a = Asignacion.builder()
 		        .coste(2.5)
 		        .estadoPedido(false)
-		        .fechaAsignacion(LocalDateTime.of(2026, 2, 1, 16, 00))
-		        .fechaEntrega(LocalDateTime.of(2026, 2, 1, 14, 00))
-		        .motivoIncidencia(" ")
+		        .fechaEntrega(LocalDateTime.of(2027, 2, 1, 14, 00))
 		        .tiempoEstimado(null)
 		        .build();
 
 		Asignacion a2 = Asignacion.builder()
 		        .coste(4.0)
 		        .estadoPedido(false)
-		        .fechaAsignacion(LocalDateTime.of(2026, 2, 1, 8, 00))
-		        .fechaEntrega(LocalDateTime.of(2026, 2, 1, 10, 30))
-		        .motivoIncidencia(" ")
+		        .fechaEntrega(LocalDateTime.of(2027, 2, 1, 10, 30))
 		        .tiempoEstimado(null)
 		        .build();
 

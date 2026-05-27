@@ -57,6 +57,9 @@
                                     class="form-control bg-light border-0 shadow-sm py-2" id="dni" th:field="*{dni}"
                                     placeholder="Ej. 12345678A" th:readonly="${repartidor.dni != null}" required>
                                 <div class="invalid-feedback">Debe introducir un DNI válido (8 números y 1 letra).</div>
+                                <div th:if="${#fields.hasErrors('dni')}" class="text-danger small">
+                                    <span th:errors="*{dni}"></span>
+                                </div>
                             </div>
 
                             <div class="col-12 col-md-6 col-lg-4">
@@ -66,6 +69,9 @@
                                     class="form-control bg-light border-0 shadow-sm py-2" id="nombre"
                                     th:field="*{nombre}" placeholder="Ej. Juan" required>
                                 <div class="invalid-feedback">Debe introducir un nombre válido.</div>
+                                <div th:if="${#fields.hasErrors('nombre')}" class="text-danger small">
+                                    <span th:errors="*{nombre}"></span>
+                                </div>
                             </div>
 
                             <div class="col-12 col-md-6 col-lg-4">
@@ -75,6 +81,9 @@
                                     class="form-control bg-light border-0 shadow-sm py-2" id="apellidos"
                                     th:field="*{apellidos}" placeholder="Ej. Pérez Gómez" required>
                                 <div class="invalid-feedback">Debe introducir los apellidos.</div>
+                                <div th:if="${#fields.hasErrors('apellidos')}" class="text-danger small">
+                                    <span th:errors="*{apellidos}"></span>
+                                </div>
                             </div>
 
                             <div class="col-12 col-md-6 col-lg-4">
@@ -84,6 +93,9 @@
                                 <input type="email" class="form-control bg-light border-0 shadow-sm py-2" id="email"
                                     th:field="*{email}" placeholder="correo@ejemplo.com" required>
                                 <div class="invalid-feedback">Debe introducir un correo electrónico válido.</div>
+                                <div th:if="${#fields.hasErrors('email')}" class="text-danger small">
+                                    <span th:errors="*{email}"></span>
+                                </div>
                             </div>
 
                             <div class="col-12 col-md-6 col-lg-4">
@@ -94,6 +106,9 @@
                                     class="form-control bg-light border-0 shadow-sm py-2" id="telefono"
                                     th:field="*{telefono}" placeholder="Ej. 600123456" required>
                                 <div class="invalid-feedback">Debe introducir un número de teléfono válido.</div>
+                                <div th:if="${#fields.hasErrors('telefono')}" class="text-danger small">
+                                    <span th:errors="*{telefono}"></span>
+                                </div>
                             </div>
 
                             <div class="col-12 col-md-6 col-lg-4">
@@ -106,7 +121,9 @@
                                     <option value="Femenino">Femenino</option>
                                     <option value="Otro">Otro / Prefiero no decirlo</option>
                                 </select>
-                                <div class="invalid-feedback">Debe seleccionar un género.</div>
+                                <div th:if="${#fields.hasErrors('genero')}" class="text-danger small">
+                                    <span th:errors="*{genero}"></span>
+                                </div>
                             </div>
                         </div>
                     </fieldset>
@@ -124,6 +141,9 @@
                                 <input type="date" class="form-control bg-light border-0 shadow-sm py-2" id="fechaAlta"
                                     th:field="*{fechaAlta}" th:readonly="${repartidor.dni != null}" required>
                                 <div class="invalid-feedback">Debe introducir la fecha de alta.</div>
+                                <div th:if="${#fields.hasErrors('fechaAlta')}" class="text-danger small">
+                                    <span th:errors="*{fechaAlta}"></span>
+                                </div>
                             </div>
 
                             <div class="col-12 col-md-4">
@@ -138,6 +158,9 @@
                                         th:value="${dispOpt}" th:text="${dispOpt.descripcion}"></option>
                                 </select>
                                 <div class="invalid-feedback">Seleccione la situación del trabajador.</div>
+                                <div th:if="${#fields.hasErrors('estado')}" class="text-danger small">
+                                    <span th:errors="*{estado}"></span>
+                                </div>
                             </div>
 
                             <div class="col-12 col-md-4">
@@ -152,10 +175,11 @@
                                         th:value="${vehOpt}" th:text="${vehOpt.descripcion}"></option>
                                 </select>
                                 <div class="invalid-feedback">Debe asignar un medio de transporte.</div>
+                                <div th:if="${#fields.hasErrors('vehiculo')}" class="text-danger small">
+                                    <span th:errors="*{vehiculo}"></span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row g-4 mt-1">
                             <div class="col-12 col-md-8">
                                 <label for="zona" class="form-label fw-medium text-secondary small text-uppercase">Zona
                                     Principal de Reparto</label>
@@ -174,6 +198,9 @@
                                     <option value="Utrera">Utrera</option>
                                 </select>
                                 <div class="invalid-feedback">Debe seleccionar una zona de trabajo.</div>
+                                <div th:if="${#fields.hasErrors('zona')}" class="text-danger small">
+                                    <span th:errors="*{zona}"></span>
+                                </div>
                             </div>
 
                             <div class="col-12 col-md-4">
@@ -186,7 +213,10 @@
                                         placeholder="Ej. 150.00" required>
                                     <span class="input-group-text bg-light border-0 text-muted">kg</span>
                                 </div>
-                                <div class="invalid-feedback">Introduzca un valor válido.</div>
+                                <div class="invalid-feedback">Debe introducir una capacidad válida.</div>
+                                <div th:if="${#fields.hasErrors('cargaMax')}" class="text-danger small">
+                                    <span th:errors="*{cargaMax}"></span>
+                                </div>
                             </div>
                         </div>
                     </fieldset>

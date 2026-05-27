@@ -217,6 +217,8 @@
                     <td th:text="${asig.coste + ' €/km'}">0.0 €</td>
 
                     <td th:text="${#temporals.format(asig.fechaAsignacion, 'dd/MM/yyyy HH:mm')}">14/05/2026</td>
+                    <td th:text="${#temporals.format(asig.fechaEntrega, 'dd/MM/yyyy HH:mm')} ?: 'Sin fecha'">Sin fecha
+                    </td>
 
                     <td class="text-danger small" th:text="${asig.motivoIncidencia ?: 'Ninguna'}">Ninguna</td>
 
