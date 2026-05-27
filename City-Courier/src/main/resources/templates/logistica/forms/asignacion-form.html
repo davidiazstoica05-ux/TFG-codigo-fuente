@@ -61,6 +61,9 @@
                                     <span class="input-group-text bg-light border-0 text-muted">€</span>
                                 </div>
                                 <div class="invalid-feedback">Debe introducir un coste válido.</div>
+                                <div th:if="${#fields.hasErrors('coste')}" class="text-danger small">
+                                    <span th:errors="*{coste}"></span>
+                                </div>
                             </div>
 
                             <div class="col-12 col-md-4 col-lg-4">
@@ -73,6 +76,9 @@
                                     <option value="true">Completado</option>
                                 </select>
                                 <div class="invalid-feedback">Debe seleccionar un estado válido.</div>
+                                <div th:if="${#fields.hasErrors('estadoPedido')}" class="text-danger small">
+                                    <span th:errors="*{estadoPedido}"></span>
+                                </div>
                             </div>
 
                             <div class="col-12 col-md-4 col-lg-5">
@@ -86,6 +92,10 @@
                                         th:text="${env.codEnvio}"></option>
                                 </select>
                                 <div class="invalid-feedback">Debe seleccionar un código de envío válido.</div>
+                                <div th:if="${#fields.hasErrors('envio.codEnvio')}" class="text-danger small">
+                                    <span th:errors="*{envio.codEnvio}"></span>
+                                </div>
+
                             </div>
                         </div>
                     </fieldset>
@@ -109,19 +119,23 @@
                                         th:text="${rep.nombre} + ' ' + ${rep.apellidos}"></option>
                                 </datalist>
                                 <div class="invalid-feedback">Debe asignar un DNI válido.</div>
+                                <div th:if="${#fields.hasErrors('repartidor.dni')}" class="text-danger small">
+                                    <span th:errors="*{repartidor.dni}"></span>
+                                </div>
                             </div>
 
                             <div class="col-12 col-md-6 col-lg-5 offset-lg-1">
                                 <label for="fechaEntrega"
                                     class="form-label fw-medium text-secondary small text-uppercase">Fecha de Entrega
-                                    (Real)</label>
+                                    (Estimacion)</label>
                                 <input type="datetime-local" class="form-control bg-light border-0 shadow-sm py-2"
-                                    id="fechaEntrega" name="fechaEntrega"
+                                    id="fechaEntrega" name="fechaEntrega" required
                                     th:value="${asignacion.fechaEntrega != null} ? ${#temporals.format(asignacion.fechaEntrega, 'yyyy-MM-dd''T''HH:mm')} : ''">
-                                <div class="form-text mt-2 text-muted"><i class="bi bi-info-circle me-1"></i>Dejar en
-                                    blanco si aún no se ha entregado.</div>
+                                <div class="invalid-feedback">Debe introducir una fecha de entrega válida.</div>
+                                <div th:if="${#fields.hasErrors('fechaEntrega')}" class="text-danger small">
+                                    <span th:errors="*{fechaEntrega}"></span>
+                                </div>
                             </div>
-                        </div>
                     </fieldset>
 
                     <fieldset class="mb-5 border-top pt-4">

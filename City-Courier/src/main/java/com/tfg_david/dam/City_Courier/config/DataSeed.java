@@ -117,18 +117,14 @@ public class DataSeed {
 		Asignacion a = Asignacion.builder()
 		        .coste(2.5)
 		        .estadoPedido(false)
-		        .fechaAsignacion(LocalDateTime.of(2026, 2, 1, 16, 00))
-		        .fechaEntrega(LocalDateTime.of(2026, 2, 1, 14, 00))
-		        .motivoIncidencia(" ")
+		        .fechaEntrega(LocalDateTime.of(2027, 2, 1, 14, 00))
 		        .tiempoEstimado(null)
 		        .build();
 
 		Asignacion a2 = Asignacion.builder()
 		        .coste(4.0)
 		        .estadoPedido(false)
-		        .fechaAsignacion(LocalDateTime.of(2026, 2, 1, 8, 00))
-		        .fechaEntrega(LocalDateTime.of(2026, 2, 1, 10, 30))
-		        .motivoIncidencia(" ")
+		        .fechaEntrega(LocalDateTime.of(2027, 2, 1, 10, 30))
 		        .tiempoEstimado(null)
 		        .build();
 
