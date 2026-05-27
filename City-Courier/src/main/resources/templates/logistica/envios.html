@@ -31,13 +31,10 @@
                         <p class="text-muted m-0 mt-1">Control de paquetería y registro de nuevos paquetes.</p>
                     </div>
 
-                    <button type="button" class="btn btn-primary rounded-pill px-4 shadow-sm py-2 fw-medium"
-                        data-bs-toggle="modal" data-bs-target="#modalCrearEnvio">
+                    <a class="btn btn-primary rounded-pill px-4 shadow-sm py-2 fw-medium" th:href="@{/logistica/nuevo}">
                         <i class="bi bi-plus-lg me-2"></i> Registrar Nuevo Envío
-                    </button>
+                    </a>
                 </div>
-
-
 
                 <form th:action="@{/logistica/principal}" method="get" class="mb-4">
                     <div
@@ -61,17 +58,9 @@
         </main>
     </div>
 
-    <div th:replace="~{fragments/logisticaForms :: envioForm}"></div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
-    <script id="validationForm" th:src="@{/script/validationForm.js}"></script>
     <script id="accionesEnvio" th:src="@{/script/accionesEnvio.js}"></script>
-
-    <script th:if="${modoEdicion}">
-        var modalCrearEnvio = new bootstrap.Modal(document.getElementById('modalCrearEnvio'));
-        modalCrearEnvio.show();
-    </script>
 
 </body>
 

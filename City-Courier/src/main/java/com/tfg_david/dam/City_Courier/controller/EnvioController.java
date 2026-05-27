@@ -29,33 +29,29 @@ public class EnvioController {
 	@GetMapping("/principal")
 	public String logisticaEnvio(@RequestParam(required = false) Long codEnvio, Model model) {
 
-		List<Envio> e = new ArrayList();
+		List<Envio> e = new ArrayList<>();
 
 		if (codEnvio != null && codEnvio != 0) {
-
 			Optional<Envio> envio = envioService.findById(codEnvio);
-
 			if (envio.isPresent()) {
-
 				e.add(envio.get());
-
 				model.addAttribute("envioList", e);
-
 			} else {
-
 				return "redirect:/logistica/principal";
 			}
-
 		} else {
-
 			model.addAttribute("envioList", envioService.findAll());
-
 		}
 
-		model.addAttribute("envio", new Envio());
-
 		return "logistica/envios";
+	}
 
+	@GetMapping("/nuevo")
+	public String nuevoEnvio(Model model) {
+		
+		model.addAttribute("envio", new Envio());
+		
+		return "logistica/forms/envio-form";
 	}
 
 	@PostMapping("/principal")
@@ -64,23 +60,16 @@ public class EnvioController {
 		Asignacion asigid;
 
 		if (envio.getCodEnvio() != null) {
-
 			Optional<Envio> envioRecibido = envioService.findById(envio.getCodEnvio());
-
 			if (envioRecibido.isPresent()) {
-
 				asigid = envioRecibido.get().getAsignacion();
-
 				envio.setAsignacion(asigid);
-
 			}
-
 		}
 
 		envioService.save(envio);
 
 		return "redirect:/logistica/principal";
-
 	}
 
 	@GetMapping("/editar/{codEnvio}")
@@ -88,20 +77,14 @@ public class EnvioController {
 
 		Optional<Envio> envio = envioService.findById(codEnvio);
 
+		
+		
 		if (envio.isPresent()) {
-
 			model.addAttribute("envio", envio.get());
-			model.addAttribute("envioList", envioService.findAll());
-			model.addAttribute("modoEdicion", true);
-			return "logistica/envios";
-
+			
+			return "logistica/forms/envio-form";
 		} else {
-
 			return "redirect:/logistica/principal";
 		}
-
 	}
-
-
-
 }
