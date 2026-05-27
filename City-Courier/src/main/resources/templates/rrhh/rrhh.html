@@ -29,10 +29,9 @@
 
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h3 class="fw-bold text-primary m-0">Gestión de Personal (RRHH)</h3>
-                    <button type="button" class="btn btn-primary rounded-pill px-4 shadow-sm" data-bs-toggle="modal"
-                        data-bs-target="#modalCrearRepartidor">
+                    <a th:href="@{/rrhh/repartidores/nuevo}" class="btn btn-primary rounded-pill px-4 shadow-sm">
                         <i class="bi bi-person-plus-fill me-2"></i> Nuevo Repartidor
-                    </button>
+                    </a>
                 </div>
 
                 <div id="rowResumen" class="row row-cols-1 row-cols-md-3 g-4 text-center">
@@ -79,8 +78,8 @@
                 </div>
 
                 <hr class="my-5 text-secondary opacity-25">
-                <form th:action="@{/rrhh/repartidores}" method="get">
 
+                <form th:action="@{/rrhh/repartidores}" method="get">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h4 class="fw-bold text-primary m-0">Listado de Repartidores</h4>
                         <div class="input-group w-auto">
@@ -94,32 +93,17 @@
                     </div>
                 </form>
 
-                <div class="p-5 text-center bg-light">
+                <div class="p-5 text-center bg-light rounded-4">
                     <div th:replace="~{fragments/riderTable :: listaRiders}"></div>
                 </div>
             </div>
         </main>
     </div>
 
-    <div th:replace="~{fragments/riderForm :: riderForm}"></div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 
-
-
-    <script id="validationRiderForm" th:src="@{/script/validationForm.js}"></script>
     <script id="accionesRepartidor" th:src="@{/script/acciones.js}"></script>
-
-
-
-    <script th:if="${modoEdicion}">
-        //Esta función solo se ejecuta al pulsar el botón de crear repartidor
-        var modalCrearRepartidor = new bootstrap.Modal(document.getElementById('modalCrearRepartidor'));
-        modalCrearRepartidor.show();
-        console.log("abierto modal ");
-
-    </script>
 
 </body>
 
