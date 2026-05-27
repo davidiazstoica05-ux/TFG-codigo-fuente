@@ -33,19 +33,21 @@ public class RutaController {
 		Long stringConvertido;
 
 		if (busqueda != null && !busqueda.trim().isEmpty()) {
-
 			stringConvertido = Utilidades.extraerCodigoSiEsNumerico(busqueda);
-
 			model.addAttribute("rutaList", rutaService.findByIdOrNombreRuta(busqueda, stringConvertido));
-
 		} else {
-			
 			model.addAttribute("rutaList", rutaService.findAll());
 		}
 
-		model.addAttribute("ruta", new Ruta());
-
 		return "logistica/rutas";
+	}
+
+	@GetMapping("/rutas/nuevo")
+	public String nuevaRuta(Model model) {
+		
+		model.addAttribute("ruta", new Ruta());
+		
+		return "logistica/forms/ruta-form";
 	}
 
 	@PostMapping("/rutas")
@@ -56,32 +58,24 @@ public class RutaController {
 		Map<String, Double> puntosEntregas = new LinkedHashMap<>();
 
 		puntosEntregas = rutaService.transformarString(zonaSeleccionada, distancia);
-
 		ruta.setPuntosEntregas(puntosEntregas);
 
 		rutaService.save(ruta);
 
 		return "redirect:/logistica/rutas";
-
 	}
 
-	@GetMapping("/rutas/{codigoRuta}")
+	@GetMapping("/rutas/editar/{codigoRuta}")
 	public String editarRuta(@PathVariable("codigoRuta") Long codigoRuta, Model model) {
 
 		Optional<Ruta> ruta = rutaService.findById(codigoRuta);
 
 		if (ruta.isPresent()) {
-
 			model.addAttribute("ruta", ruta.get());
-			model.addAttribute("rutaList", rutaService.findAll());
-			model.addAttribute("modoEdicion", true);
-			return "logistica/rutas";
-
+			
+			return "logistica/forms/ruta-form-edit";
 		} else {
-
 			return "redirect:/logistica/rutas";
 		}
-
 	}
-
 }

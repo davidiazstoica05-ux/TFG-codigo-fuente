@@ -3,6 +3,8 @@ package com.tfg_david.dam.City_Courier.model;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +32,8 @@ public class Asignacion {
 	private double coste;
 
 	private LocalDateTime fechaAsignacion;
+	
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime fechaEntrega;
 
 	private String motivoIncidencia;

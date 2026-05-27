@@ -3,7 +3,6 @@ package com.tfg_david.dam.City_Courier.controller;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,19 +36,13 @@ public class AsignacionController {
 		List<Asignacion> listaResultados;
 		Long stringConvertido = null;
 
-		model.addAttribute("repartidoresList", repartidorService.findAll());
-		model.addAttribute("enviosList", envioService.findAll());
-		model.addAttribute("asignacion", new Asignacion());
-
 		if (busqueda != null && !busqueda.trim().isEmpty()) {
-
 			if (Utilidades.comprobarSiEsDNI(busqueda)) {
 				listaResultados = asigService.findByIdAsignacionOrRepartidorDni(stringConvertido, busqueda);
 			} else {
 				stringConvertido = Utilidades.extraerCodigoSiEsNumerico(busqueda);
 				listaResultados = asigService.findByIdAsignacionOrRepartidorDni(stringConvertido, busqueda);
 			}
-
 		} else {
 			listaResultados = asigService.findAll();
 		}
@@ -59,62 +52,73 @@ public class AsignacionController {
 		return "logistica/asignaciones";
 	}
 
+	@GetMapping("/asignaciones/nuevo")
+	public String nuevaAsignacion(Model model) {
+
+		model.addAttribute("asignacion", new Asignacion());
+
+		model.addAttribute("repartidoresList", repartidorService.findAll());
+		model.addAttribute("enviosList", envioService.findAll());
+
+		return "logistica/forms/asignacion-form";
+	}
+
 	@GetMapping("/asignaciones/editar/{idAsignacion}")
 	public String editarAsignacion(@PathVariable("idAsignacion") Long idAsignacion, Model model) {
 
 		Optional<Asignacion> asignacion = asigService.findById(idAsignacion);
 
 		if (asignacion.isPresent()) {
-
 			model.addAttribute("asignacion", asignacion.get());
 
-			model.addAttribute("asignacionList", asigService.findAll());
-
 			model.addAttribute("repartidoresList", repartidorService.findAll());
-
 			model.addAttribute("enviosList", envioService.findAll());
 
-			model.addAttribute("modoEdicion", true);
-
-			return "/logistica/asignaciones";
-
+			return "logistica/forms/asignacion-form";
 		} else {
-
 			return "redirect:/logistica/asignaciones";
-
 		}
-
 	}
-
 
 	@PostMapping("/asignaciones")
-	public String asignaciones(@ModelAttribute("asignacion") Asignacion asignacion, Model model) {
+	public String asignaciones(@ModelAttribute("asignacion") Asignacion asignacionForm, Model model) {
 
-		Optional<Asignacion> asignacionAntigua;
-		Envio envioAntiguo;
+	    if (asignacionForm.getIdAsignacion() != null) {
+	        
+	        Optional<Asignacion> asignacionOpt = asigService.findById(asignacionForm.getIdAsignacion());
+	        Envio envioAntiguo; 
+	        
+	        if (asignacionOpt.isPresent()) {
+	            Asignacion asigGuardada = asignacionOpt.get(); 
 
-		if (asignacion.getIdAsignacion() != null) {
+	            if (asigGuardada.getEnvio() != null &&
+	                !asigGuardada.getEnvio().getCodEnvio().equals(asignacionForm.getEnvio().getCodEnvio())) {
+	                
+	                envioAntiguo = asigGuardada.getEnvio();
+	                envioAntiguo.setAsignacion(null);
+	                envioService.save(envioAntiguo);
+	            }
 
-			asignacionAntigua = asigService.findById(asignacion.getIdAsignacion());
+	            //Hecho para no tener que tener todos los campos en el form
+	            asigGuardada.setCoste(asignacionForm.getCoste());
+	            asigGuardada.setEstadoPedido(asignacionForm.isEstadoPedido());
+	            asigGuardada.setFechaEntrega(asignacionForm.getFechaEntrega()); 
+	            asigGuardada.setMotivoIncidencia(asignacionForm.getMotivoIncidencia());
+	            asigGuardada.setRepartidor(asignacionForm.getRepartidor());
+	            asigGuardada.setEnvio(asignacionForm.getEnvio());
 
-			if (asignacionAntigua.isPresent() && asignacionAntigua.get().getEnvio() != null) {
+	            if (asigService.asignarRepartidor(asigGuardada) && asigService.asignarEnvio(asigGuardada)) {
+	                asigService.save(asigGuardada);
+	            }
+	        }
+	    } 
 
-				envioAntiguo = asignacionAntigua.get().getEnvio();
+	    else {
+	        if (asigService.asignarRepartidor(asignacionForm) && asigService.asignarEnvio(asignacionForm)) {
+	            asigService.save(asignacionForm);
+	        }
+	    }
 
-				if (!envioAntiguo.getCodEnvio().equals(asignacion.getEnvio().getCodEnvio())) {
-
-					envioAntiguo.setAsignacion(null);
-
-					envioService.save(envioAntiguo);
-				}
-			}
-		}
-
-		if (asigService.asignarRepartidor(asignacion) && asigService.asignarEnvio(asignacion)) {
-			asigService.save(asignacion);
-		}
-
-		return "redirect:/logistica/asignaciones";
+	    return "redirect:/logistica/asignaciones";
 	}
-
 }

@@ -25,8 +25,7 @@ public class SecurityConfig {
 	            
 	            .requestMatchers("/admin/**").hasRole("ADMIN")
 	            	         	     	            
-	            .requestMatchers("/login", "/css/**", "/js/**", "/img/**").permitAll()
-	            
+	            .requestMatchers("/login", "/css/**", "/js/**", "/img/**", "/h2/**").permitAll()	            
 	            .anyRequest().authenticated()
 	        )
 	        .requestCache(cache -> {

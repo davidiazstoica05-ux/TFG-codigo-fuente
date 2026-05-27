@@ -1,7 +1,6 @@
 package com.tfg_david.dam.City_Courier.controller;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,52 +29,36 @@ public class RepartidorController {
 	@GetMapping("/repartidores")
 	public String rrhh(@RequestParam(required = false) String dni, Model model) {
 
-		List<Repartidor> r = new ArrayList();
+		List<Repartidor> r = new ArrayList<>();
 		
 		model.addAttribute("ridersEnVacaciones", repartidorService.countByEstado(Disponibilidad.VACACIONES));
-		
 		model.addAttribute("ridersEnBaja", repartidorService.countByEstado(Disponibilidad.DE_BAJA));
-		
 		model.addAttribute("ridersDisponibles", repartidorService.countByEstado(Disponibilidad.DISPONIBLE));
-		
 		model.addAttribute("totalRiders", repartidorService.count());
-
 		
-		if (dni != null && !dni.isEmpty() ) {
-
+		if (dni != null && !dni.trim().isEmpty()) {
 			Optional<Repartidor> repartidor = repartidorService.findById(dni);
 
 			if (repartidor.isPresent()) {
-				
-				r.add(repartidor.get()); 
-
+				r.add(repartidor.get());
 				model.addAttribute("repartidorList", r);
-				
-
 			} else {
-
 				return "redirect:/rrhh/repartidores";
-
 			}
-
 		} else {
-
 			model.addAttribute("repartidorList", repartidorService.findAll());
-
-
 		} 
 		
+		return "rrhh/rrhh";
+	}
+	
+	@GetMapping("/repartidores/nuevo")
+	public String nuevoRepartidor(Model model) {
 		
 		model.addAttribute("repartidor", new Repartidor());
 		
-		return "rrhh/rrhh";
-
-
+		return "rrhh/forms/repartidor-form";
 	}
-	
-
-	
-	
 
 	@GetMapping("/editar/{dni}")
 	public String editarRepartidor(@PathVariable("dni") String dni, Model model) {
@@ -83,29 +66,37 @@ public class RepartidorController {
 		Optional<Repartidor> repartidor = repartidorService.findById(dni);
 
 		if (repartidor.isPresent()) {
-
 			model.addAttribute("repartidor", repartidor.get());
-
-			model.addAttribute("repartidorList", repartidorService.findAll());
-
-			model.addAttribute("modoEdicion", true);
-
-			return "rrhh/rrhh";
-
+			return "rrhh/forms/repartidor-form";
 		} else {
-
 			return "redirect:/rrhh/repartidores";
-
 		}
 	}
 
-
-	
-
 	@PostMapping("/repartidores")
-	public String submit(@ModelAttribute("repartidor") Repartidor repartidor, Model model) {
-		repartidorService.save(repartidor);
+	public String submit(@ModelAttribute("repartidor") Repartidor repartidorForm, Model model) {
+		
+		Optional<Repartidor> repartidorExistente = repartidorService.findById(repartidorForm.getDni());
+		Repartidor repGuardado;
+		if (repartidorExistente.isPresent()) {
+			
+			repGuardado = repartidorExistente.get();
+			
+			repGuardado.setNombre(repartidorForm.getNombre());
+			repGuardado.setApellidos(repartidorForm.getApellidos());
+			repGuardado.setTelefono(repartidorForm.getTelefono());
+			repGuardado.setEstado(repartidorForm.getEstado());
+			repGuardado.setVehiculo(repartidorForm.getVehiculo());
+			repGuardado.setCargaMax(repartidorForm.getCargaMax());
+			repGuardado.setEmail(repartidorForm.getEmail()); 
+			repGuardado.setGenero(repartidorForm.getGenero()); 
+			repGuardado.setZona(repartidorForm.getZona()); 
+			
+			repartidorService.save(repGuardado);
+		} else {
+			repartidorService.save(repartidorForm);
+		}
+		
 		return "redirect:/rrhh/repartidores";
 	}
-
 }
