@@ -25,7 +25,7 @@ public class SecurityConfig {
 	            
 	            .requestMatchers("/admin/**").hasRole("ADMIN")
 	            	         	     	            
-	            .requestMatchers("/login", "/css/**", "/js/**", "/img/**", "/h2/**").permitAll()	            
+	            .requestMatchers("/login", "/css/**", "/js/**", "/img/**", "/h2-console/**").permitAll()	            
 	            .anyRequest().authenticated()
 	        )
 	        .requestCache(cache -> {
@@ -43,7 +43,7 @@ public class SecurityConfig {
 	        );
 
 	    http.csrf(csrf -> csrf
-	        .ignoringRequestMatchers("/h2/**")
+	        .ignoringRequestMatchers("/h2-console/**")
 	    );
 	    
 	    http.headers(headers -> headers
