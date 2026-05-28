@@ -1,17 +1,27 @@
 package com.tfg_david.dam.City_Courier.service;
 
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.tfg_david.dam.City_Courier.model.Repartidor;
 import com.tfg_david.dam.City_Courier.model.Ruta;
+import com.tfg_david.dam.City_Courier.repository.RepartidorRepository;
 import com.tfg_david.dam.City_Courier.repository.RutaRepository;
 import com.tfg_david.dam.City_Courier.service.base.BaseService;
 
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class RutaService extends BaseService<Ruta, Long, RutaRepository> {
+
+	private final RepartidorRepository repoRepartidor;
 
 	public Map<String, Double> transformarString(List<String> zonaSeleccionada, Double distancia) {
 
@@ -33,6 +43,27 @@ public class RutaService extends BaseService<Ruta, Long, RutaRepository> {
 
 	}
 
-	
+	@Transactional
+	public void deleteRuta(Long codRuta) {
+
+		Optional<Ruta> ruta;
+		ruta = repo.findById(codRuta);
+		List<Repartidor> repartidoresEnRuta;
+
+		if (ruta.isPresent()) {
+
+			repartidoresEnRuta = repoRepartidor.findByRuta(ruta.get());
+
+			for (Repartidor repartidor : repartidoresEnRuta) {
+
+				repartidor.setRuta(null);
+
+			}
+
+			repo.deleteById(codRuta);
+
+		}
+
+	}
 
 }

@@ -1,4 +1,4 @@
-package com.tfg_david.dam.City_Courier.controller;
+ package com.tfg_david.dam.City_Courier.controller;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -80,7 +80,21 @@ public class RutaController {
 		return "redirect:/logistica/rutas";
 	}
 
-	// Editar
+	// Editar y borrar
+	
+	
+	
+	@GetMapping("rutas/borrar/{codigoRuta}")
+	public String borrarEnvio(@PathVariable("codigoRuta") Long codigoRuta) {
+		
+		
+		rutaService.deleteRuta(codigoRuta);
+		
+		return "redirect:/logistica/rutas";
+
+		
+		
+	}
 
 	@PostMapping("/rutas/editar")
 	public String submitEdicion(@Valid @ModelAttribute("ruta") Ruta ruta, BindingResult bindingResult,

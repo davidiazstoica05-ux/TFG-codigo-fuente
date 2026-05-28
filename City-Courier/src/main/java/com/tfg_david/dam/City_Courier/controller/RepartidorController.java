@@ -61,30 +61,6 @@ public class RepartidorController {
 
 		return "rrhh/forms/repartidor-form";
 	}
-	
-	
-	@GetMapping("/borrar/{dni}")
-	public String borrarRepartidor(@PathVariable("dni") String dni) {
-		
-		repartidorService.deleteRepartidor(dni);
-		
-		return "redirect:/rrhh/repartidores";
-	
-		
-	}
-
-	@GetMapping("/editar/{dni}")
-	public String editarRepartidor(@PathVariable("dni") String dni, Model model) {
-
-		Optional<Repartidor> repartidor = repartidorService.findById(dni);
-
-		if (repartidor.isPresent()) {
-			model.addAttribute("repartidor", repartidor.get());
-			return "rrhh/forms/repartidor-form";
-		} else {
-			return "redirect:/rrhh/repartidores";
-		}
-	}
 
 	@PostMapping("/repartidores")
 	public String submit(@Valid @ModelAttribute("repartidor") Repartidor repartidorForm, BindingResult bindingResult,
@@ -92,13 +68,11 @@ public class RepartidorController {
 
 		Optional<Repartidor> repartidorExistente = repartidorService.findById(repartidorForm.getDni());
 		Repartidor repGuardado;
-		
-		
+
 		if (bindingResult.hasErrors()) {
-			
-			
+
 			return "rrhh/forms/repartidor-form";
-			
+
 		}
 
 		if (repartidorExistente.isPresent()) {
@@ -122,4 +96,28 @@ public class RepartidorController {
 
 		return "redirect:/rrhh/repartidores";
 	}
+
+	// Editar y Borrar
+	@GetMapping("/borrar/{dni}")
+	public String borrarRepartidor(@PathVariable("dni") String dni) {
+
+		repartidorService.deleteRepartidor(dni);
+
+		return "redirect:/rrhh/repartidores";
+
+	}
+
+	@GetMapping("/editar/{dni}")
+	public String editarRepartidor(@PathVariable("dni") String dni, Model model) {
+
+		Optional<Repartidor> repartidor = repartidorService.findById(dni);
+
+		if (repartidor.isPresent()) {
+			model.addAttribute("repartidor", repartidor.get());
+			return "rrhh/forms/repartidor-form";
+		} else {
+			return "redirect:/rrhh/repartidores";
+		}
+	}
+
 }

@@ -58,7 +58,7 @@
                     <th class="fw-semibold">Nombre Ruta</th>
                     <th class="fw-semibold">Fecha Inicio</th>
                     <th class="fw-semibold text-center">Fecha Fin</th>
-                    <th class="fw-semibold text-center" colspan="2">Acciones</th>
+                    <th class="fw-semibold text-center" colspan="3">Acciones</th>
                 </tr>
             </thead>
             <tbody class="border-top-0">
@@ -82,6 +82,15 @@
                             <i class="bi bi-pencil-square"></i>
                         </a>
                     </td>
+
+                    <td class="text-center">
+                        <a th:href="@{/logistica/rutas/borrar/{id}(id=${ruta.codigoRuta})}"
+                            class="btn btn-sm btn-outline-danger rounded-circle" title="Eliminar Ruta"
+                            th:onclick="return confirm('¿Estás seguro de que deseas eliminar esta ruta?');">
+                            <i class="bi bi-trash text-danger"></i>
+                        </a>
+                    </td>
+
 
                     <div class="modal fade text-start" th:id="'modalVerRuta' + ${ruta.codigoRuta}" tabindex="-1"
                         aria-hidden="true">
@@ -116,7 +125,8 @@
                                         <div class="col-6">
                                             <div class="p-3 bg-light rounded-4 border text-center h-100">
                                                 <i class="bi bi-box-seam text-success mb-2 fs-4 d-block"></i>
-                                                <p class="text-muted mb-0" style="font-size: 0.8rem;">Asignaciones</p>
+                                                <p class="text-muted mb-0" style="font-size: 0.8rem;">Asignaciones
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="col-6">

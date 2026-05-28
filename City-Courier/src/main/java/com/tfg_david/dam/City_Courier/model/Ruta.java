@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -69,5 +70,8 @@ public class Ruta {
 		repartidor.setRuta(null);
 
 	}
+	
+	
+
 
 }
