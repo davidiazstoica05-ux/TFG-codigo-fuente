@@ -25,14 +25,14 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/logistica")
+@RequestMapping("/logistica/asignaciones")
 public class AsignacionController {
 
 	private final AsignacionService asigService;
 	private final EnviosService envioService;
 	private final RepartidorService repartidorService;
 
-	@GetMapping("/asignaciones")
+	@GetMapping
 	public String asignacion(@RequestParam(value = "criterio", required = false) String busqueda, Model model) {
 
 		List<Asignacion> listaResultados;
@@ -59,7 +59,7 @@ public class AsignacionController {
 	
 	
 	
-	@GetMapping("/asignaciones/nuevo")
+	@GetMapping("/nuevo")
 	public String nuevaAsignacion(Model model) {
 
 		model.addAttribute("asignacion", new Asignacion());
@@ -70,22 +70,7 @@ public class AsignacionController {
 		return "logistica/forms/asignacion-form";
 	}
 
-	@GetMapping("/asignaciones/editar/{idAsignacion}")
-	public String editarAsignacion(@PathVariable("idAsignacion") Long idAsignacion, Model model) {
 
-		Optional<Asignacion> asignacion = asigService.findById(idAsignacion);
-
-		if (asignacion.isPresent()) {
-			model.addAttribute("asignacion", asignacion.get());
-
-			model.addAttribute("repartidoresList", repartidorService.findAll());
-			model.addAttribute("enviosList", envioService.findAll());
-
-			return "logistica/forms/asignacion-form";
-		} else {
-			return "redirect:/logistica/asignaciones";
-		}
-	}
 
 	@PostMapping("/asignaciones")
 	public String asignaciones(@Valid @ModelAttribute("asignacion") Asignacion asignacionForm,
@@ -134,5 +119,36 @@ public class AsignacionController {
 		}
 
 		return "redirect:/logistica/asignaciones";
+	}
+	
+	
+	//Editar y borrar
+	
+	@GetMapping("/borrar/{idAsignacion}")
+	public String borrarRepartidor(@PathVariable("idAsignacion") Long idAsignacion) {
+		
+
+		asigService.deleteAsignacion(idAsignacion);
+		
+		return "redirect:/logistica/asignaciones";
+	
+		
+	}
+	
+	@GetMapping("/editar/{idAsignacion}")
+	public String editarAsignacion(@PathVariable("idAsignacion") Long idAsignacion, Model model) {
+
+		Optional<Asignacion> asignacion = asigService.findById(idAsignacion);
+
+		if (asignacion.isPresent()) {
+			model.addAttribute("asignacion", asignacion.get());
+
+			model.addAttribute("repartidoresList", repartidorService.findAll());
+			model.addAttribute("enviosList", envioService.findAll());
+
+			return "logistica/forms/asignacion-form";
+		} else {
+			return "redirect:/logistica/asignaciones";
+		}
 	}
 }

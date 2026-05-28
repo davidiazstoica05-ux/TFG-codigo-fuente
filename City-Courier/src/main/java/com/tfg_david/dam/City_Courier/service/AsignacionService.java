@@ -70,24 +70,31 @@ public class AsignacionService extends BaseService<Asignacion, Long, AsignacionR
 		return false;
 
 	}
-	
-	public List<Asignacion> findByIdAsignacionOrRepartidorDni( Long idAsignacion,String busqueda) {
-		
-		
-		return repo.findByIdAsignacionOrRepartidorDni(idAsignacion,busqueda); 
-		
-		
+
+	public List<Asignacion> findByIdAsignacionOrRepartidorDni(Long idAsignacion, String busqueda) {
+
+		return repo.findByIdAsignacionOrRepartidorDni(idAsignacion, busqueda);
+
 	}
-	
-	
-	
-	public Long countByEstadoPedido( boolean estado) {
-			
+
+	public Long countByEstadoPedido(boolean estado) {
+
 		return repo.countByEstadoPedido(estado);
-	
+
 	}
 
+	public void deleteAsignacion(Long idAsignacion) {
 
-	
+		Optional<Asignacion> asig;
+
+		asig = repo.findById(idAsignacion);
+
+		if (asig.isPresent()) {
+
+			repo.deleteById(idAsignacion);
+
+		}
+
+	}
 
 }
