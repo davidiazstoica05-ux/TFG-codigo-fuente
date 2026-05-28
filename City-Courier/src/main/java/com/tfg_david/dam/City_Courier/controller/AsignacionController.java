@@ -25,14 +25,14 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/logistica/asignaciones")
+@RequestMapping("/logistica")
 public class AsignacionController {
 
 	private final AsignacionService asigService;
 	private final EnviosService envioService;
 	private final RepartidorService repartidorService;
 
-	@GetMapping
+	@GetMapping("/asignaciones")
 	public String asignacion(@RequestParam(value = "criterio", required = false) String busqueda, Model model) {
 
 		List<Asignacion> listaResultados;
@@ -59,7 +59,7 @@ public class AsignacionController {
 	
 	
 	
-	@GetMapping("/nuevo")
+	@GetMapping("asignaciones/nuevo")
 	public String nuevaAsignacion(Model model) {
 
 		model.addAttribute("asignacion", new Asignacion());
@@ -124,7 +124,7 @@ public class AsignacionController {
 	
 	//Editar y borrar
 	
-	@GetMapping("/borrar/{idAsignacion}")
+	@GetMapping("asignaciones/borrar/{idAsignacion}")
 	public String borrarRepartidor(@PathVariable("idAsignacion") Long idAsignacion) {
 		
 
@@ -135,7 +135,7 @@ public class AsignacionController {
 		
 	}
 	
-	@GetMapping("/editar/{idAsignacion}")
+	@GetMapping("asignaciones/editar/{idAsignacion}")
 	public String editarAsignacion(@PathVariable("idAsignacion") Long idAsignacion, Model model) {
 
 		Optional<Asignacion> asignacion = asigService.findById(idAsignacion);
