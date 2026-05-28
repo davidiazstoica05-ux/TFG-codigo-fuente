@@ -61,6 +61,17 @@ public class RepartidorController {
 
 		return "rrhh/forms/repartidor-form";
 	}
+	
+	
+	@GetMapping("/borrar/{dni}")
+	public String borrarRepartidor(@PathVariable("dni") String dni) {
+		
+		repartidorService.deleteRepartidor(dni);
+		
+		return "redirect:/rrhh/repartidores";
+	
+		
+	}
 
 	@GetMapping("/editar/{dni}")
 	public String editarRepartidor(@PathVariable("dni") String dni, Model model) {

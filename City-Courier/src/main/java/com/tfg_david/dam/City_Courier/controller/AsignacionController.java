@@ -37,6 +37,8 @@ public class AsignacionController {
 
 		List<Asignacion> listaResultados;
 		Long stringConvertido = null;
+		
+		
 
 		if (busqueda != null && !busqueda.trim().isEmpty()) {
 			if (Utilidades.comprobarSiEsDNI(busqueda)) {
@@ -54,6 +56,9 @@ public class AsignacionController {
 		return "logistica/asignaciones";
 	}
 
+	
+	
+	
 	@GetMapping("/asignaciones/nuevo")
 	public String nuevaAsignacion(Model model) {
 
