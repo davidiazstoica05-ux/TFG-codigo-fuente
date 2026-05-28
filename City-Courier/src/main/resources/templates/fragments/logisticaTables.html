@@ -193,8 +193,9 @@
                     <th class="fw-semibold">Cod Envio</th>
                     <th class="fw-semibold">Coste</th>
                     <th class="fw-semibold">Fecha Asignación</th>
+                    <th class="fw-semibold">Fecha Entrega</th>
                     <th class="fw-semibold">Incidencia</th>
-                    <th class="fw-semibold text-center">Acciones</th>
+                    <th class="fw-semibold text-center" colspan="2">Acciones</th>
                 </tr>
             </thead>
             <tbody class="border-top-0">
@@ -226,6 +227,13 @@
                         <a th:href="@{/logistica/asignaciones/editar/{id}(id=${asig.idAsignacion})}"
                             class="text-decoration-none text-info">
                             <i class="bi bi-pencil-square fs-5"></i>
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <a th:href="@{/logistica/asignaciones/borrar/{id}(id=${asig.idAsignacion})}"
+                            class="text-decoration-none text-danger"
+                            th:onclick="return confirm('¿Estás seguro de que deseas eliminar esta asignación?');">
+                            <i class="bi bi-trash fs-5 text-danger"></i>
                         </a>
                     </td>
                 </tr>
