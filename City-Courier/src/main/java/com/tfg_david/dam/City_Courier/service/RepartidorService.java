@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class RepartidorService extends BaseService<Repartidor, String, RepartidorRepository> {
+public class RepartidorService extends BaseService<Repartidor, Long, RepartidorRepository> {
 
 	
 	private final AsignacionRepository repoAsig; 
@@ -34,12 +34,19 @@ public class RepartidorService extends BaseService<Repartidor, String, Repartido
 		
 	}
 	
+	public Optional<Repartidor> findByDni(String dni){
+		
+		
+		return repo.findByDni(dni);
+		
+	}
+	
 	
 	@Transactional
 	public void deleteRepartidor(String dni) {
 		
 		Optional<Repartidor> repartidor; 
-		repartidor = repo.findById(dni);
+		repartidor = repo.findByDni(dni);
 		List<Asignacion> asignacionesRepartidor; 
 		
 		if (repartidor.isPresent()) {
@@ -49,7 +56,7 @@ public class RepartidorService extends BaseService<Repartidor, String, Repartido
 		
 		repoAsig.deleteAll(asignacionesRepartidor);
 		
-		repo.deleteById(dni);
+		repo.deleteById(repartidor.get().getIdTrabajador());
 		
 		}
 		
