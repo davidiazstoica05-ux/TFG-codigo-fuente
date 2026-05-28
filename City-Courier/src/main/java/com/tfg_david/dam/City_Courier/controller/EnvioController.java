@@ -23,12 +23,12 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/logistica")
+@RequestMapping("/logistica/envios")
 public class EnvioController {
 
 	private final EnviosService envioService;
 
-	@GetMapping("/principal")
+	@GetMapping
 	public String logisticaEnvio(@RequestParam(required = false) Long codEnvio, Model model) {
 
 		List<Envio> e = new ArrayList<>();
@@ -39,7 +39,7 @@ public class EnvioController {
 				e.add(envio.get());
 				model.addAttribute("envioList", e);
 			} else {
-				return "redirect:/logistica/principal";
+				return "redirect:/logistica/envios";
 			}
 		} else {
 			model.addAttribute("envioList", envioService.findAll());
@@ -56,7 +56,7 @@ public class EnvioController {
 		return "logistica/forms/envio-form";
 	}
 
-	@PostMapping("/principal")
+	@PostMapping
 	public String submit( @Valid @ModelAttribute("envio") Envio envio, BindingResult bindingResult,  Model model) {
 
 		Asignacion asigid;
@@ -78,9 +78,26 @@ public class EnvioController {
 
 		envioService.save(envio);
 
-		return "redirect:/logistica/principal";
+		return "redirect:/logistica/envios";
 	}
+	
+	
 
+	//Editar y borrar
+	
+	@GetMapping("/borrar/{codEnvio}")
+	public String borrarEnvio(@PathVariable("codEnvio") Long codEnvio) {
+		
+		
+		envioService.deleteEnvio(codEnvio); 
+		
+		return "redirect:/logistica/envios";
+
+		
+		
+	}
+	
+	
 	@GetMapping("/editar/{codEnvio}")
 	public String editarEnvio(@PathVariable("codEnvio") Long codEnvio, Model model) {
 
@@ -93,7 +110,7 @@ public class EnvioController {
 			
 			return "logistica/forms/envio-form";
 		} else {
-			return "redirect:/logistica/principal";
+			return "redirect:/logistica/envios";
 		}
 	}
 }

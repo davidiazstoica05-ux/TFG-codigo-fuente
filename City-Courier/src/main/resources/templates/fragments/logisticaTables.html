@@ -12,7 +12,7 @@
                     <th class="fw-semibold">FechaEntregaEstimada</th>
                     <th class="fw-semibold">Destinatario</th>
                     <th class="fw-semibold">Repartidor</th>
-                    <th class="fw-semibold text-center">Acciones</th>
+                    <th class="fw-semibold text-center" colspan="2">Acciones</th>
                 </tr>
             </thead>
             <tbody class="border-top-0">
@@ -26,9 +26,16 @@
                     <td th:text="${envio.destinatario}">Juan Pérez</td>
                     <td th:text="${envio.asignacion?.repartidor?.dni}">Asignación 1</td>
                     <td class="text-center">
-                        <a th:href="@{/logistica/editar/{codEnvio}(codEnvio=${envio.codEnvio})}"
+                        <a th:href="@{/logistica/envios/editar/{codEnvio}(codEnvio=${envio.codEnvio})}"
                             class="btn btn-sm btn-outline-primary rounded-circle" title="Editar Envío">
                             <i class="bi bi-pencil-square fs-5"></i>
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <a th:href="@{/logistica/envios/borrar/{codEnvio}(codEnvio=${envio.codEnvio})}"
+                            class="btn btn-sm btn-outline-danger rounded-circle" title="Eliminar Envío"
+                            th:onclick="return confirm('¿Estás seguro de que deseas eliminar este envío?');">
+                            <i class="bi bi-trash fs-5 text-danger"></i>
                         </a>
                     </td>
                 </tr>
