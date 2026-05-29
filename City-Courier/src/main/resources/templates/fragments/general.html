@@ -1,7 +1,8 @@
+<!--HHeader-->
 <header id="header" th:fragment="header" class="p-2 bg-transparent text-light">
     <nav class="navbar navbar-expand-md navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand text-decoration-none m-0 p-0" href="#">
+            <a class="navbar-brand text-decoration-none m-0 p-0" th:href="@{/}">
                 <h1 class="m-0">
                     <span class="fw-bold text-light">City Courier</span>
                 </h1>
@@ -54,6 +55,12 @@
     </nav>
 </header>
 
+
+<!--Operador-->
+
+
+
+
 <aside id="aside-operador" th:fragment="asideOperador"
     class="list-group col-md-2 rounded-0 col-12 overflow-hidden border-0 d-none d-md-block bg-transparent mt-3">
 
@@ -82,6 +89,16 @@
         </ul>
     </div>
 </aside>
+
+
+
+
+
+<!--RRHH-->
+
+
+
+
 
 
 <aside id="aside-rrhh" th:fragment="asideRrhh"
@@ -114,6 +131,15 @@
 </aside>
 
 
+
+
+
+<!--Logística-->
+
+
+
+
+
 <aside id="aside-logistica" th:fragment="asideLogistica"
     class="list-group col-md-2 rounded-0 col-12 overflow-hidden border-0 d-none d-md-block bg-transparent mt-3">
 
@@ -132,7 +158,7 @@
         <i class="bi bi-chevron-down ms-auto fs-6"></i>
     </button>
 
-    <div class="collapse show" id="collapseRutasLog">
+    <div class="collapse " id="collapseRutasLog">
         <div class="list-group list-group-flush bg-transparent">
             <ul class="nav flex-column mb-auto text-center px-1 w-100 gap-2">
                 <li class="nav-item">
@@ -158,52 +184,94 @@
     </div>
 </aside>
 
+
+
+
+
+
+
+<!--Admin-->
+
+
+
+
 <aside id="aside-admin" th:fragment="asideAdmin"
     class="list-group col-md-2 rounded-0 col-12 overflow-hidden border-0 d-none d-md-block bg-transparent mt-3">
 
-    <a href="#"
+    <a th:href="@{/admin/adminHome}"
         class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent d-flex align-items-center gap-3">
         <i class="bi bi-speedometer2 fs-4 m-0"></i>
         <span class="fs-5 fw-medium">Dashboard</span>
     </a>
 
-    <button
-        class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent text-start d-flex align-items-center gap-3"
-        type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdminEnvios">
-        <i class="bi bi-box-seam fs-4 m-0"></i>
-        <span class="fs-5 fw-medium">Envíos</span>
-    </button>
-    <div class="collapse" id="collapseAdminEnvios">
-        <ul class="list-group list-group-flush bg-transparent">
-            <a href="#"
-                class="list-group-item list-group-item-action border-0 ps-5 py-2 text-light bg-transparent opacity-75">Histórico
-                Total</a>
-            <a href="#"
-                class="list-group-item list-group-item-action border-0 ps-5 py-2 text-light bg-transparent opacity-75">Auditoría
-                Incidencias</a>
-        </ul>
-    </div>
 
     <button
         class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent text-start d-flex align-items-center gap-3"
-        type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdminRiders">
+        type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdminOperaciones" aria-expanded="false"
+        aria-controls="collapseAdminOperaciones">
+        <i class="bi bi-map fs-4 m-0"></i>
+        <span class="fs-5 fw-medium">Operaciones</span>
+        <i class="bi bi-chevron-down ms-auto fs-6"></i>
+    </button>
+
+    <div class="collapse " id="collapseAdminOperaciones">
+        <div class="list-group list-group-flush bg-transparent">
+            <ul class="nav flex-column mb-auto text-center px-1 w-100 gap-2">
+                <li class="nav-item">
+                    <a th:href="@{/logistica/envios}"
+                        class="nav-link py-3 rounded-4 mb-2 text-white bg-white bg-opacity-10 custom-nav-link fw-semibold">
+                        <i class="bi bi-box-seam fs-4 d-block mb-1"></i>Envíos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/logistica/rutas}"
+                        class="nav-link py-3 rounded-4 mb-2 text-white custom-nav-link fw-semibold">
+                        <i class="bi bi-geo-alt fs-4 d-block mb-1"></i>Rutas
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/logistica/asignaciones}"
+                        class="nav-link py-3 rounded-4 mb-2 text-white custom-nav-link fw-semibold">
+                        <i class="bi bi-person-badge fs-4 d-block mb-1"></i>Asignaciones
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <a th:href="@{/rrhh/repartidores}"
+        class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent d-flex align-items-center gap-3">
         <i class="bi bi-bicycle fs-4 m-0"></i>
         <span class="fs-5 fw-medium">Repartidores</span>
+    </a>
+
+    <button
+        class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent text-start d-flex align-items-center gap-3"
+        type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdminPersonal">
+        <i class="bi bi-person-plus fs-4 m-0"></i>
+        <span class="fs-5 fw-medium">Alta Personal</span>
     </button>
-    <div class="collapse" id="collapseAdminRiders">
+
+    <div class="collapse" id="collapseAdminPersonal">
         <ul class="list-group list-group-flush bg-transparent">
-            <a href="#"
-                class="list-group-item list-group-item-action border-0 ps-5 py-2 text-light bg-transparent opacity-75">Control
-                de Flota</a>
-            <a href="#"
-                class="list-group-item list-group-item-action border-0 ps-5 py-2 text-light bg-transparent opacity-75">Métricas
-                de Rendimiento</a>
+            <a th:href="@{/admin/nuevoAdmin}"
+                class="list-group-item list-group-item-action border-0 ps-5 py-2 text-light bg-transparent opacity-75">
+                <i class="bi bi-shield-lock me-2"></i> Nuevo Admin
+            </a>
+            <a th:href="@{/admin/nuevoRRHH}"
+                class="list-group-item list-group-item-action border-0 ps-5 py-2 text-light bg-transparent opacity-75">
+                <i class="bi bi-people me-2"></i> Nuevo RRHH
+            </a>
+            <a th:href="@{/admin/nuevoLogistica}"
+                class="list-group-item list-group-item-action border-0 ps-5 py-2 text-light bg-transparent opacity-75">
+                <i class="bi bi-box-seam me-2"></i> Nuevo Logística
+            </a>
+            <a th:href="@{/admin/nuevoRepartidor}"
+                class="list-group-item list-group-item-action border-0 ps-5 py-2 text-light bg-transparent opacity-75">
+                <i class="bi bi-bicycle me-2"></i> Nuevo Repartidor
+            </a>
         </ul>
     </div>
 
-    <a href="#"
-        class="list-group-item list-group-item-action border-0 py-3 px-4 text-light bg-transparent d-flex align-items-center gap-3">
-        <i class="bi bi-gear fs-4 m-0"></i>
-        <span class="fs-5 fw-medium">Configuración</span>
-    </a>
 </aside>
