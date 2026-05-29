@@ -39,7 +39,7 @@
                         th:text="${envio.codEnvio != null} ? 'Editar Envío' : 'Registrar Nuevo Envío'">Formulario</span>
                 </h3>
 
-                <form method="post" th:action="@{/logistica/principal}" id="logisticaForm" th:object="${envio}"
+                <form method="post" th:action="@{/logistica/envios/guardar}" id="logisticaForm" th:object="${envio}"
                     class="needs-validation" novalidate>
 
                     <input type="hidden" th:field="*{codEnvio}">
