@@ -1,7 +1,10 @@
 package com.tfg_david.dam.City_Courier.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -19,49 +22,58 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RepartidorService extends BaseService<Repartidor, Long, RepartidorRepository> {
 
-	
-	private final AsignacionRepository repoAsig; 
-	
+	private final AsignacionRepository repoAsig;
+
 	public Long count() {
-		
+
 		return repo.count();
-		
+
 	}
-	
-	public Long countByEstado (Disponibilidad estado) {
-		
+
+	public Long countByEstado(Disponibilidad estado) {
+
 		return repo.countByEstado(estado);
-		
+
 	}
-	
-	public Optional<Repartidor> findByDni(String dni){
-		
-		
+
+	public Optional<Repartidor> findByDni(String dni) {
+
 		return repo.findByDni(dni);
-		
+
 	}
-	
-	
+
 	@Transactional
 	public void deleteRepartidor(String dni) {
-		
-		Optional<Repartidor> repartidor; 
+
+		Optional<Repartidor> repartidor;
 		repartidor = repo.findByDni(dni);
-		List<Asignacion> asignacionesRepartidor; 
-		
+		List<Asignacion> asignacionesRepartidor;
+
 		if (repartidor.isPresent()) {
-			
-			
-		asignacionesRepartidor = repoAsig.findByRepartidor(repartidor.get());
-		
-		repoAsig.deleteAll(asignacionesRepartidor);
-		
-		repo.deleteById(repartidor.get().getIdTrabajador());
-		
+
+			asignacionesRepartidor = repoAsig.findByRepartidor(repartidor.get());
+
+			repoAsig.deleteAll(asignacionesRepartidor);
+
+			repo.deleteById(repartidor.get().getIdTrabajador());
+
 		}
-		
+
 	}
-	
-	
+
+	public double pesoTotalPaquetes(Repartidor repartidor) {
+
+		List<Asignacion> asignacionesRepartidor = new ArrayList<>();
+		double pesoTotal = 0;
+
+		for (Asignacion asignacion : asignacionesRepartidor) {
+
+			pesoTotal += asignacion.getEnvio().getPeso();
+
+		}
+
+		return pesoTotal;
+
+	}
 
 }

@@ -103,6 +103,23 @@ public class DataSeed {
 		        .estado(Disponibilidad.VACACIONES)
 		        .vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.moto_ecologica)
 		        .build();
+		
+		Repartidor r3 = Repartidor.builder()
+		        .nombre("Claudia")
+		        .apellidos("Piñero Pineda")
+		        .dni("22997473A")
+		        .email("claudia@gmail.com")
+		        .fechaAlta(LocalDate.now().minusMonths(5))
+		        .genero("Mujer")
+		        .telefono("697386581")
+		        .activo(true)
+		        .usuario("repartidor")
+		        .passw(passwordEncoder.encode("repartidor"))
+		        .cargaMax(1.0)
+		        .zona("Marchena")
+		        .estado(Disponibilidad.DISPONIBLE)
+		        .vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.Furgoneta)
+		        .build();
 
 		Admin admin = Admin.builder()
 				.nombre("Alejandro")
@@ -201,7 +218,8 @@ public class DataSeed {
 		
 		repoRepartidor.save(r);
 		repoRepartidor.save(r2);
-
+		repoRepartidor.save(r3);
+		
 		repoAsig.save(a);
 		repoAsig.save(a2);
 		repoEnvio.save(e3);
