@@ -39,7 +39,6 @@ public class AsignacionController {
 		Long stringConvertido = null;
 		
 		
-
 		if (busqueda != null && !busqueda.trim().isEmpty()) {
 			if (Utilidades.comprobarSiEsDNI(busqueda)) {
 				listaResultados = asigService.findByIdAsignacionOrRepartidorDni(stringConvertido, busqueda);
@@ -50,7 +49,8 @@ public class AsignacionController {
 		} else {
 			listaResultados = asigService.findAll();
 		}
-
+		
+		asigService.calcularPrecioDistanciaTiempoKm(listaResultados);
 		model.addAttribute("asignacionList", listaResultados);
 
 		return "logistica/asignaciones";
@@ -72,7 +72,7 @@ public class AsignacionController {
 
 
 
-	@PostMapping("/asignaciones")
+	@PostMapping("/guardar")
 	public String asignaciones(@Valid @ModelAttribute("asignacion") Asignacion asignacionForm,
 			BindingResult bindingResult, Model model) {
 
@@ -99,13 +99,13 @@ public class AsignacionController {
 				}
 
 				// Hecho para no tener que tener todos los campos en el form
-				asigGuardada.setCoste(asignacionForm.getCoste());
+				asigGuardada.setCostePorKmYPeso(asignacionForm.getCostePorKmYPeso());
 				asigGuardada.setEstadoPedido(asignacionForm.isEstadoPedido());
 				asigGuardada.setFechaEntrega(asignacionForm.getFechaEntrega());
 				asigGuardada.setMotivoIncidencia(asignacionForm.getMotivoIncidencia());
 				asigGuardada.setRepartidor(asignacionForm.getRepartidor());
 				asigGuardada.setEnvio(asignacionForm.getEnvio());
-
+				
 				if (asigService.asignarRepartidor(asigGuardada) && asigService.asignarEnvio(asigGuardada)) {
 					asigService.save(asigGuardada);
 				}

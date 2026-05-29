@@ -40,7 +40,7 @@
                         th:text="${asignacion.idAsignacion != null} ? 'Editar Asignación' : 'Registrar Nueva Asignación'">Formulario</span>
                 </h3>
 
-                <form method="post" th:action="@{/logistica/asignaciones}" id="asignacionFormulario"
+                <form method="post" th:action="@{/logistica/asignaciones/guardar}" id="asignacionFormulario"
                     th:object="${asignacion}" class="needs-validation" novalidate>
 
                     <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}">
@@ -54,15 +54,15 @@
                             <div class="col-12 col-md-4 col-lg-3">
                                 <label for="coste"
                                     class="form-label fw-medium text-secondary small text-uppercase">Coste del
-                                    Servicio</label>
+                                    Servicio Por Km</label>
                                 <div class="input-group shadow-sm">
                                     <input type="number" min="0" step="0.5" class="form-control bg-light border-0 py-2"
-                                        id="coste" th:field="*{coste}" placeholder="Ej. 15.50" required>
+                                        id="coste" th:field="*{costePorKm}" placeholder="Ej. 15.50" required>
                                     <span class="input-group-text bg-light border-0 text-muted">€</span>
                                 </div>
                                 <div class="invalid-feedback">Debe introducir un coste válido.</div>
-                                <div th:if="${#fields.hasErrors('coste')}" class="text-danger small">
-                                    <span th:errors="*{coste}"></span>
+                                <div th:if="${#fields.hasErrors('costePorKm')}" class="text-danger small">
+                                    <span th:errors="*{costePorKm}"></span>
                                 </div>
                             </div>
 

@@ -208,7 +208,8 @@
                     <th class="fw-semibold">Ruta</th>
                     <th class="fw-semibold">Estado</th>
                     <th class="fw-semibold">Cod Envio</th>
-                    <th class="fw-semibold">Coste</th>
+                    <th class="fw-semibold">CosteTotal</th>
+                    <th class="fw-semibold">Coste por Km y peso</th>
                     <th class="fw-semibold">Fecha Asignación</th>
                     <th class="fw-semibold">Fecha Entrega</th>
                     <th class="fw-semibold">Incidencia</th>
@@ -232,7 +233,8 @@
 
 
 
-                    <td th:text="${asig.coste + ' €/km'}">0.0 €</td>
+                    <td th:text="${asig.costeTotal + ' €/km'}">0.0 €</td>
+                    <td th:text="${asig.costePorKmYPeso + ' €/km'}">0.0 €</td>
 
                     <td th:text="${#temporals.format(asig.fechaAsignacion, 'dd/MM/yyyy HH:mm')}">14/05/2026</td>
                     <td th:text="${#temporals.format(asig.fechaEntrega, 'dd/MM/yyyy HH:mm')} ?: 'Sin fecha'">Sin fecha
