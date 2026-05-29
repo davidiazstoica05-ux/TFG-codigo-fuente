@@ -6,17 +6,23 @@ import java.time.LocalTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.tfg_david.dam.City_Courier.model.Admin;
 import com.tfg_david.dam.City_Courier.model.Asignacion;
 import com.tfg_david.dam.City_Courier.model.Disponibilidad;
 import com.tfg_david.dam.City_Courier.model.Envio;
+import com.tfg_david.dam.City_Courier.model.Logistica;
+import com.tfg_david.dam.City_Courier.model.RRHH;
 import com.tfg_david.dam.City_Courier.model.Repartidor;
 import com.tfg_david.dam.City_Courier.model.Ruta;
+import com.tfg_david.dam.City_Courier.model.Trabajador;
 import com.tfg_david.dam.City_Courier.repository.AsignacionRepository;
 import com.tfg_david.dam.City_Courier.repository.EnviosRepository;
 import com.tfg_david.dam.City_Courier.repository.RepartidorRepository;
 import com.tfg_david.dam.City_Courier.repository.RutaRepository;
+import com.tfg_david.dam.City_Courier.repository.TrabajadorRepository;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -28,20 +34,18 @@ public class DataSeed {
 	private final RepartidorRepository repoRepartidor;
 	private final RutaRepository repoRuta;
 	private final AsignacionRepository repoAsig;
-	private final EnviosRepository repoEnvio; //
+	private final EnviosRepository repoEnvio; 
+	private final TrabajadorRepository trabajdorRepo;
+	private final PasswordEncoder passwordEncoder;
 
 	@PostConstruct
 	public void run() {
 
-		Map<String, Double> rutaParadas1 = new LinkedHashMap<>();
-		rutaParadas1.put("Lantejuela", 120.0);
-		rutaParadas1.put("Marchena", 40.0);
-
-		Map<String, Double> paradasRuta1 = new LinkedHashMap();
+		Map<String, Double> paradasRuta1 = new LinkedHashMap<>();
 		paradasRuta1.put("Lantejuela", 120.0);
 		paradasRuta1.put("Marchena", 40.0);
 
-		Map<String, Double> paradasRuta2 = new LinkedHashMap();
+		Map<String, Double> paradasRuta2 = new LinkedHashMap<>();
 		paradasRuta2.put("Osuna", 120.0);
 		paradasRuta2.put("Arahal", 40.0);
 
@@ -62,13 +66,16 @@ public class DataSeed {
 		Repartidor r = Repartidor.builder()
 		        .nombre("David")
 		        .apellidos("Díaz Stoica")
-		        .dni("31031909x")
-		        .cargaMax(10.5)
+		        .dni("31031909X")
 		        .email("daviddiaz@gmail.com")
 		        .fechaAlta(LocalDate.of(2026, 1, 1))
-		        .genero("Male")
-		        .zona("Osuna")
+		        .genero("Hombre")
 		        .telefono("697386581")
+		        .activo(true)
+		        .usuario("repartidor")
+		        .passw(passwordEncoder.encode("repartidor"))
+		        .cargaMax(10.5)
+		        .zona("Osuna")
 		        .estado(Disponibilidad.DISPONIBLE)
 		        .vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.Furgoneta)
 		        .build();
@@ -76,16 +83,58 @@ public class DataSeed {
 		Repartidor r2 = Repartidor.builder()
 		        .nombre("Miguel Angél")
 		        .apellidos("Díaz Gallardo")
-		        .dni("21590009x")
-		        .cargaMax(10.5)
+		        .dni("21590009X")
 		        .email("migeldiaz80@gmail.com")
 		        .fechaAlta(LocalDate.of(2026, 7, 1))
-		        .genero("Male")
+		        .genero("Hombre")
+		        .telefono("697386582")
+		        .activo(true)
+		        .usuario("miguel")
+		        .passw(passwordEncoder.encode("1234"))
+		        .cargaMax(10.5)
 		        .zona("Osuna")
-		        .telefono("697386581")
 		        .estado(Disponibilidad.VACACIONES)
 		        .vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.moto_ecologica)
 		        .build();
+
+		Admin admin = Admin.builder()
+				.nombre("Jefe")
+				.apellidos("Administración")
+				.dni("11111111A")
+				.email("admin@citycourier.com")
+				.telefono("600000001")
+				.genero("Hombre")
+				.activo(true)
+				.fechaAlta(LocalDate.now())
+				.usuario("admin") 
+				.passw(passwordEncoder.encode("admin"))         
+				.build();
+
+		RRHH rrhh = RRHH.builder()
+				.nombre("Laura")
+				.apellidos("Recursos Humanos")
+				.dni("22222222B")
+				.email("rrhh@citycourier.com")
+				.telefono("600000002")
+				.genero("Mujer")
+				.activo(true)
+				.fechaAlta(LocalDate.now())
+				.usuario("rrhh") 
+				.passw(passwordEncoder.encode("rrhh"))         
+				.build();
+
+		Logistica logistica = Logistica.builder()
+				.nombre("Carlos")
+				.apellidos("Operaciones")
+				.dni("33333333C")
+				.email("logistica@citycourier.com")
+				.telefono("600000003")
+				.genero("Hombre")
+				.activo(true)
+				.fechaAlta(LocalDate.now())
+				.usuario("logistica") 
+				.passw(passwordEncoder.encode("logistica"))         
+				.build();
 
 		Envio e = Envio.builder()
 		        .destinatario("Manuel Díaz")
@@ -118,30 +167,29 @@ public class DataSeed {
 		        .coste(2.5)
 		        .estadoPedido(false)
 		        .fechaEntrega(LocalDateTime.of(2027, 2, 1, 14, 00))
-		        .tiempoEstimado(null)
 		        .build();
 
 		Asignacion a2 = Asignacion.builder()
 		        .coste(4.0)
 		        .estadoPedido(false)
 		        .fechaEntrega(LocalDateTime.of(2027, 2, 1, 10, 30))
-		        .tiempoEstimado(null)
 		        .build();
-
+		
 		a.vincularEnvio(e);
-
 		r.addAsignacion(a);
-
 		r.setRuta(ruta);
 
 		a2.vincularEnvio(e2);
-
 		r2.setRuta(ruta2);
 		r2.addAsignacion(a2);
 
 		repoRuta.save(ruta);
 		repoRuta.save(ruta2);
 
+		trabajdorRepo.save(admin);
+		trabajdorRepo.save(rrhh);
+		trabajdorRepo.save(logistica);
+		
 		repoRepartidor.save(r);
 		repoRepartidor.save(r2);
 

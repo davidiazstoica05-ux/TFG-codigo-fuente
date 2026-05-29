@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class RepartidorController {
 
 	private final RepartidorService repartidorService;
+	private final PasswordEncoder passwEncoder;
 
 	@GetMapping("/repartidores")
 	public String rrhh(@RequestParam(required = false) String dni, Model model) {
@@ -39,7 +41,7 @@ public class RepartidorController {
 		model.addAttribute("totalRiders", repartidorService.count());
 
 		if (dni != null && !dni.trim().isEmpty()) {
-			Optional<Repartidor> repartidor = repartidorService.findById(dni);
+			Optional<Repartidor> repartidor = repartidorService.findByDni(dni);
 
 			if (repartidor.isPresent()) {
 				r.add(repartidor.get());
@@ -66,7 +68,7 @@ public class RepartidorController {
 	public String submit(@Valid @ModelAttribute("repartidor") Repartidor repartidorForm, BindingResult bindingResult,
 			Model model) {
 
-		Optional<Repartidor> repartidorExistente = repartidorService.findById(repartidorForm.getDni());
+		Optional<Repartidor> repartidorExistente = repartidorService.findByDni(repartidorForm.getDni());
 		Repartidor repGuardado;
 
 		if (bindingResult.hasErrors()) {
@@ -91,6 +93,11 @@ public class RepartidorController {
 
 			repartidorService.save(repGuardado);
 		} else {
+
+			repartidorForm.setPassw(passwEncoder.encode(repartidorForm.getPassw()));
+
+			repartidorForm.setActivo(true);
+
 			repartidorService.save(repartidorForm);
 		}
 
@@ -110,7 +117,7 @@ public class RepartidorController {
 	@GetMapping("/editar/{dni}")
 	public String editarRepartidor(@PathVariable("dni") String dni, Model model) {
 
-		Optional<Repartidor> repartidor = repartidorService.findById(dni);
+		Optional<Repartidor> repartidor = repartidorService.findByDni(dni);
 
 		if (repartidor.isPresent()) {
 			model.addAttribute("repartidor", repartidor.get());

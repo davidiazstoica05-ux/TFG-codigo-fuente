@@ -6,6 +6,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
@@ -53,32 +55,10 @@ public class SecurityConfig {
 	    return http.build();
 	}
 	
+	
 	@Bean
-	InMemoryUserDetailsManager userDetailsService() {
-		
-		UserDetails admin = User.builder()
-				.username("admin")
-				.password("{noop}admin")
-				.roles("ADMIN").build();
-
-		
-		UserDetails logistica = User.builder()
-				.username("logistica")
-				.password("{noop}logistica")
-				.roles("LOGISTICA").build();
-
-		UserDetails rrhh = User.builder()
-				.username("rrhh")
-				.password("{noop}rrhh")
-				.roles("RRHH").build();
-
-		UserDetails user = User.builder()
-				.username("user")
-				.password("{noop}user")
-				.roles("OTHER").build();
-
-
-		return new InMemoryUserDetailsManager(rrhh, logistica, user, admin);
+	public PasswordEncoder passwordEncoder() {
+	    return new BCryptPasswordEncoder(10);
 	}
 	
 
