@@ -1,13 +1,12 @@
 package com.tfg_david.dam.City_Courier.service;
 
-import java.time.Duration;
-import java.time.LocalTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.tfg_david.dam.City_Courier.excepciones.CapacidadExcedidaException;
 import com.tfg_david.dam.City_Courier.model.Asignacion;
 import com.tfg_david.dam.City_Courier.model.Envio;
 import com.tfg_david.dam.City_Courier.model.Repartidor;
@@ -25,6 +24,8 @@ public class AsignacionService extends BaseService<Asignacion, Long, AsignacionR
 	private final RepartidorRepository repartidorRepo;
 
 	private final EnviosRepository envioRepo;
+	
+	private final RepartidorService repartidorService;
 
 	public boolean asignarRepartidor(Asignacion asig) {
 
@@ -109,21 +110,66 @@ public class AsignacionService extends BaseService<Asignacion, Long, AsignacionR
 		double costeTotal, costeHoras, convertirADouble = 60.0, minutosDouble;
 
 		for (Asignacion asignacion : asig) {
+			
+			if (asignacion.getRepartidor() != null && 
+				    asignacion.getRepartidor().getRuta() != null && 
+				    asignacion.getRepartidor().getRuta().getPuntosEntregas() != null) {
+				
+				rutaDistancia = asignacion.getRepartidor().getRuta().getPuntosEntregas().values();
 
-			rutaDistancia = asignacion.getRepartidor().getRuta().getPuntosEntregas().values();
+				distanciaKmOpt = rutaDistancia.stream().findFirst();
 
-			distanciaKmOpt = rutaDistancia.stream().findFirst();
+				if (distanciaKmOpt.isPresent()) {
 
-			if (distanciaKmOpt.isPresent()) {
+					costeTotal = asignacion.getCostePorKmYPeso() * distanciaKmOpt.get();
 
-				costeTotal = asignacion.getCostePorKmYPeso() * distanciaKmOpt.get();
+					asignacion.setCosteTotal(costeTotal);
 
-				asignacion.setCosteTotal(costeTotal);
-
+				} 
+					
+				} else {
+					
+					asignacion.setCostePorKmYPeso(0);
 			}
 
-		}
+			
 
+		}
+		
+		
+		
+
+	}
+	
+	
+	
+
+	public boolean validarCargaPeso(Asignacion asigForm) {
+		
+		Repartidor repartidor = asigForm.getRepartidor();
+		double pesoTotalRepartidor, capacidadRestante;
+	
+		pesoTotalRepartidor = repartidorService.pesoTotalPaquetes(repartidor) + asigForm.getEnvio().getPeso();
+	
+		
+		if (pesoTotalRepartidor >= repartidor.getCargaMax()) {
+						
+			return true;
+
+		}else {
+			
+			capacidadRestante = repartidor.getCargaMax() - pesoTotalRepartidor ;
+			
+			throw new CapacidadExcedidaException(String.format("La capacidad restante del repartidor es de: %.2f kg", capacidadRestante));
+		} 
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 }

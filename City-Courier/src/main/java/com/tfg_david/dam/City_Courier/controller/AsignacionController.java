@@ -37,8 +37,7 @@ public class AsignacionController {
 
 		List<Asignacion> listaResultados;
 		Long stringConvertido = null;
-		
-		
+
 		if (busqueda != null && !busqueda.trim().isEmpty()) {
 			if (Utilidades.comprobarSiEsDNI(busqueda)) {
 				listaResultados = asigService.findByIdAsignacionOrRepartidorDni(stringConvertido, busqueda);
@@ -49,16 +48,13 @@ public class AsignacionController {
 		} else {
 			listaResultados = asigService.findAll();
 		}
-		
+
 		asigService.calcularPrecioDistanciaTiempoKm(listaResultados);
 		model.addAttribute("asignacionList", listaResultados);
 
 		return "logistica/asignaciones";
 	}
 
-	
-	
-	
 	@GetMapping("/nuevo")
 	public String nuevaAsignacion(Model model) {
 
@@ -70,25 +66,27 @@ public class AsignacionController {
 		return "logistica/forms/asignacion-form";
 	}
 
-
-
 	@PostMapping("/guardar")
 	public String asignaciones(@Valid @ModelAttribute("asignacion") Asignacion asignacionForm,
 			BindingResult bindingResult, Model model) {
 
+		Envio envioAntiguo;
+		Optional<Asignacion> asignacionOpt;
+		Asignacion asigGuardada;
+
 		if (bindingResult.hasErrors()) {
-		    model.addAttribute("repartidoresList", repartidorService.findAll());
-		    model.addAttribute("enviosList", envioService.findAll());
-		    return "logistica/forms/asignacion-form";
+			model.addAttribute("repartidoresList", repartidorService.findAll());
+			model.addAttribute("enviosList", envioService.findAll());
+			return "logistica/forms/asignacion-form";
 		}
 
 		if (asignacionForm.getIdAsignacion() != null) {
 
-			Optional<Asignacion> asignacionOpt = asigService.findById(asignacionForm.getIdAsignacion());
-			Envio envioAntiguo;
+			asignacionOpt = asigService.findById(asignacionForm.getIdAsignacion());
 
 			if (asignacionOpt.isPresent()) {
-				Asignacion asigGuardada = asignacionOpt.get();
+
+				asigGuardada = asignacionOpt.get();
 
 				if (asigGuardada.getEnvio() != null
 						&& !asigGuardada.getEnvio().getCodEnvio().equals(asignacionForm.getEnvio().getCodEnvio())) {
@@ -105,36 +103,45 @@ public class AsignacionController {
 				asigGuardada.setMotivoIncidencia(asignacionForm.getMotivoIncidencia());
 				asigGuardada.setRepartidor(asignacionForm.getRepartidor());
 				asigGuardada.setEnvio(asignacionForm.getEnvio());
-				
+
 				if (asigService.asignarRepartidor(asigGuardada) && asigService.asignarEnvio(asigGuardada)) {
-					asigService.save(asigGuardada);
+
+					if (asigService.validarCargaPeso(asigGuardada)) {
+
+						asigService.save(asigGuardada);
+
+					}
 				}
 			}
 		}
 
 		else {
+
 			if (asigService.asignarRepartidor(asignacionForm) && asigService.asignarEnvio(asignacionForm)) {
-				asigService.save(asignacionForm);
+
+				if (asigService.validarCargaPeso(asignacionForm)) {
+					// Tenía duda de si hacer el save dentro del metodo, pero creo que he elegido
+					// bien al ponerlo aqui. SOLID :p
+					asigService.save(asignacionForm);
+
+				}
 			}
 		}
 
 		return "redirect:/logistica/asignaciones";
 	}
-	
-	
-	//Editar y borrar
-	
+
+	// Editar y borrar
+
 	@GetMapping("/borrar/{idAsignacion}")
 	public String borrarRepartidor(@PathVariable("idAsignacion") Long idAsignacion) {
-		
 
 		asigService.deleteAsignacion(idAsignacion);
-		
+
 		return "redirect:/logistica/asignaciones";
-	
-		
+
 	}
-	
+
 	@GetMapping("/editar/{idAsignacion}")
 	public String editarAsignacion(@PathVariable("idAsignacion") Long idAsignacion, Model model) {
 

@@ -92,6 +92,7 @@ public class RepartidorController {
 			repGuardado.setZona(repartidorForm.getZona());
 
 			repartidorService.save(repGuardado);
+			
 		} else {
 
 			repartidorForm.setPassw(passwEncoder.encode(repartidorForm.getPassw()));
