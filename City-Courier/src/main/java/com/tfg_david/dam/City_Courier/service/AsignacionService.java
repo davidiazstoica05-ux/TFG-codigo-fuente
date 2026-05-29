@@ -1,5 +1,8 @@
 package com.tfg_david.dam.City_Courier.service;
 
+import java.time.Duration;
+import java.time.LocalTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -92,6 +95,32 @@ public class AsignacionService extends BaseService<Asignacion, Long, AsignacionR
 		if (asig.isPresent()) {
 
 			repo.deleteById(idAsignacion);
+
+		}
+
+	}
+
+	// Calcular precio según distancia precio y tiempo
+	public void calcularPrecioDistanciaTiempoKm(List<Asignacion> asig) {
+
+		Collection<Double> rutaDistancia;
+		Optional<Double> distanciaKmOpt;
+		Long minutos;
+		double costeTotal, costeHoras, convertirADouble = 60.0, minutosDouble;
+
+		for (Asignacion asignacion : asig) {
+
+			rutaDistancia = asignacion.getRepartidor().getRuta().getPuntosEntregas().values();
+
+			distanciaKmOpt = rutaDistancia.stream().findFirst();
+
+			if (distanciaKmOpt.isPresent()) {
+
+				costeTotal = asignacion.getCostePorKmYPeso() * distanciaKmOpt.get();
+
+				asignacion.setCosteTotal(costeTotal);
+
+			}
 
 		}
 

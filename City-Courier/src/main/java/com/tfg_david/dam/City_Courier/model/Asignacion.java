@@ -36,7 +36,9 @@ public class Asignacion {
 	
 	@NotNull(message = "Es obligatorio")
 	@Min(value = 1, message = "El valor no puede ser inferior a 1")
-	private double coste;
+	private double costePorKmYPeso;
+	
+	private double costeTotal;
 	
 	private LocalDateTime fechaAsignacion;
 	

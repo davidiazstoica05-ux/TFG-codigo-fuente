@@ -84,7 +84,7 @@ public class RutaController {
 	
 	
 	
-	@GetMapping("rutas/borrar/{codigoRuta}")
+	@GetMapping("/rutas/borrar/{codigoRuta}")
 	public String borrarEnvio(@PathVariable("codigoRuta") Long codigoRuta) {
 		
 		

@@ -105,16 +105,16 @@ public class RepartidorController {
 	}
 
 	// Editar y Borrar
-	@GetMapping("/borrar/{dni}")
+	@GetMapping("/repartidores/borrar/{dni}")
 	public String borrarRepartidor(@PathVariable("dni") String dni) {
-
+		
 		repartidorService.deleteRepartidor(dni);
-
+		
 		return "redirect:/rrhh/repartidores";
-
 	}
 
-	@GetMapping("/editar/{dni}")
+	// ARREGLADO: Añadido "/repartidores" a la ruta
+	@GetMapping("/repartidores/editar/{dni}")
 	public String editarRepartidor(@PathVariable("dni") String dni, Model model) {
 
 		Optional<Repartidor> repartidor = repartidorService.findByDni(dni);

@@ -134,13 +134,10 @@ public class AdminController {
 		}
 
 		@PostMapping("/nuevoRepartidor/guardar")
-		public String submitRepartidor(@ModelAttribute Repartidor repartidorForm , Model model) {
-
+		public String submitRepartidor(@ModelAttribute("repartidor") Repartidor repartidorForm , Model model) {
 			repartidorForm.setPassw(passwEncoder.encode(repartidorForm.getPassw()));
 			repartidorForm.setActivo(true);
-
 			repartidorService.save(repartidorForm);
-
 			return "redirect:/admin/adminHome"; 
 		}
 

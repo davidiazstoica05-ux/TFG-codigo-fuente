@@ -40,13 +40,20 @@ public class DataSeed {
 
 	@PostConstruct
 	public void run() {
+		
+		LocalDateTime ahora = LocalDateTime.now();
+		LocalDateTime fechaEntrega1 = ahora.plusDays(1).withHour(14).withMinute(0); 
+		LocalDateTime fechaEntrega2 = ahora.plusDays(1).withHour(10).withMinute(30);
+		LocalDateTime fechaEntrega3 = ahora.plusDays(2).withHour(11).withMinute(15);
+		
+		LocalDateTime fechaAsignacion = ahora.minusHours(2);
 
 		Map<String, Double> paradasRuta1 = new LinkedHashMap<>();
-		paradasRuta1.put("Lantejuela", 120.0);
-		paradasRuta1.put("Marchena", 40.0);
+		paradasRuta1.put("Lantejuela", 20.0);
+		paradasRuta1.put("Marchena", 20.0);
 
 		Map<String, Double> paradasRuta2 = new LinkedHashMap<>();
-		paradasRuta2.put("Osuna", 120.0);
+		paradasRuta2.put("Osuna", 40.0);
 		paradasRuta2.put("Arahal", 40.0);
 
 		Ruta ruta = Ruta.builder()
@@ -68,7 +75,7 @@ public class DataSeed {
 		        .apellidos("Díaz Stoica")
 		        .dni("31031909X")
 		        .email("daviddiaz@gmail.com")
-		        .fechaAlta(LocalDate.of(2026, 1, 1))
+		        .fechaAlta(LocalDate.now().minusMonths(5))
 		        .genero("Hombre")
 		        .telefono("697386581")
 		        .activo(true)
@@ -81,13 +88,13 @@ public class DataSeed {
 		        .build();
 
 		Repartidor r2 = Repartidor.builder()
-		        .nombre("Miguel Angél")
+		        .nombre("Miguel Ángel")
 		        .apellidos("Díaz Gallardo")
-		        .dni("21590009X")
-		        .email("migeldiaz80@gmail.com")
-		        .fechaAlta(LocalDate.of(2026, 7, 1))
+		        .dni("28934511Z")
+		        .email("mdiaz.logistica@gmail.com")
+		        .fechaAlta(LocalDate.now().minusYears(1))
 		        .genero("Hombre")
-		        .telefono("697386582")
+		        .telefono("612345678")
 		        .activo(true)
 		        .usuario("miguel")
 		        .passw(passwordEncoder.encode("1234"))
@@ -98,81 +105,83 @@ public class DataSeed {
 		        .build();
 
 		Admin admin = Admin.builder()
-				.nombre("Jefe")
-				.apellidos("Administración")
-				.dni("11111111A")
-				.email("admin@citycourier.com")
-				.telefono("600000001")
+				.nombre("Alejandro")
+				.apellidos("Ruiz Navarro")
+				.dni("45678123A")
+				.email("aruiz@citycourier.com")
+				.telefono("655112233")
 				.genero("Hombre")
 				.activo(true)
-				.fechaAlta(LocalDate.now())
+				.fechaAlta(LocalDate.now().minusYears(3))
 				.usuario("admin") 
 				.passw(passwordEncoder.encode("admin"))         
 				.build();
 
 		RRHH rrhh = RRHH.builder()
-				.nombre("Laura")
-				.apellidos("Recursos Humanos")
-				.dni("22222222B")
-				.email("rrhh@citycourier.com")
-				.telefono("600000002")
+				.nombre("Carmen")
+				.apellidos("Velasco Silva")
+				.dni("23456789B")
+				.email("cvelasco@citycourier.com")
+				.telefono("644998877")
 				.genero("Mujer")
 				.activo(true)
-				.fechaAlta(LocalDate.now())
+				.fechaAlta(LocalDate.now().minusYears(2))
 				.usuario("rrhh") 
 				.passw(passwordEncoder.encode("rrhh"))         
 				.build();
 
 		Logistica logistica = Logistica.builder()
-				.nombre("Carlos")
-				.apellidos("Operaciones")
-				.dni("33333333C")
-				.email("logistica@citycourier.com")
-				.telefono("600000003")
+				.nombre("Javier")
+				.apellidos("García Montero")
+				.dni("34567890C")
+				.email("jgarcia@citycourier.com")
+				.telefono("633445566")
 				.genero("Hombre")
 				.activo(true)
-				.fechaAlta(LocalDate.now())
+				.fechaAlta(LocalDate.now().minusMonths(8))
 				.usuario("logistica") 
 				.passw(passwordEncoder.encode("logistica"))         
 				.build();
 
 		Envio e = Envio.builder()
 		        .destinatario("Manuel Díaz")
-		        .direccion("Plaza Juan de mesa")
-		        .codPostal("41640")
+		        .direccion("Plaza Juan de Mesa, 4, Bajo C")
+		        .codPostal("41640") 
 		        .zona("Osuna")
 		        .peso(1.7)
-		        .fechaEntregaEstimada(LocalDateTime.of(2027, 2, 1, 14, 00))
+		        .fechaEntregaEstimada(fechaEntrega1) 
 		        .build();
 
 		Envio e2 = Envio.builder()
 		        .destinatario("Laura Gómez")
-		        .direccion("Calle Corredera 45")
-		        .codPostal("47902")
+		        .direccion("Calle Corredera, 45, 1ºA")
+		        .codPostal("41640")
 		        .peso(3.2)
 		        .zona("Osuna")
-		        .fechaEntregaEstimada(LocalDateTime.of(2027, 2, 1, 10, 30))
+		        .fechaEntregaEstimada(fechaEntrega2)
 		        .build();
 
 		Envio e3 = Envio.builder()
 		        .destinatario("Elena Torres")
-		        .direccion("Avenida de la Constitución 15")
-		        .codPostal("42321")
+		        .direccion("Calle Betis, 52, 2º Izquierda")
+		        .codPostal("41010")
 		        .peso(0.8)
 		        .zona("Sevilla Centro")
-		        .fechaEntregaEstimada(LocalDateTime.of(2027, 2, 2, 11, 15))
+		        .fechaEntregaEstimada(fechaEntrega3)
 		        .build();
 
 		Asignacion a = Asignacion.builder()
-		        .coste(2.5)
+		        .costePorKmYPeso(2.5)
 		        .estadoPedido(false)
-		        .fechaEntrega(LocalDateTime.of(2027, 2, 1, 14, 00))
+		        .fechaAsignacion(fechaAsignacion) 
+		        .fechaEntrega(fechaEntrega1)      
 		        .build();
 
 		Asignacion a2 = Asignacion.builder()
-		        .coste(4.0)
+		        .costePorKmYPeso(2.5)
 		        .estadoPedido(false)
-		        .fechaEntrega(LocalDateTime.of(2027, 2, 1, 10, 30))
+		        .fechaAsignacion(fechaAsignacion)
+		        .fechaEntrega(fechaEntrega2)
 		        .build();
 		
 		a.vincularEnvio(e);
