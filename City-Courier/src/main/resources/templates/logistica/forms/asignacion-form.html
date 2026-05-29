@@ -54,15 +54,15 @@
                             <div class="col-12 col-md-4 col-lg-3">
                                 <label for="coste"
                                     class="form-label fw-medium text-secondary small text-uppercase">Coste del
-                                    Servicio Por Km</label>
+                                    Servicio Por Km y Peso</label>
                                 <div class="input-group shadow-sm">
                                     <input type="number" min="0" step="0.5" class="form-control bg-light border-0 py-2"
-                                        id="coste" th:field="*{costePorKm}" placeholder="Ej. 15.50" required>
+                                        id="coste" th:field="*{costePorKmYPeso}" placeholder="Ej. 15.50" required>
                                     <span class="input-group-text bg-light border-0 text-muted">€</span>
                                 </div>
                                 <div class="invalid-feedback">Debe introducir un coste válido.</div>
-                                <div th:if="${#fields.hasErrors('costePorKm')}" class="text-danger small">
-                                    <span th:errors="*{costePorKm}"></span>
+                                <div th:if="${#fields.hasErrors('costePorKmYPeso')}" class="text-danger small">
+                                    <span th:errors="*{costePorKmYPeso}"></span>
                                 </div>
                             </div>
 

@@ -35,13 +35,14 @@
                     <td th:text="${repartidor.cargaMax}">10kg</td>
 
                     <td class="text-center">
-                        <a th:href="@{/rrhh/editar/{dni}(dni=${repartidor.dni})}" class="text-decoration-none">
+                        <a th:href="@{/rrhh/repartidores/editar/{dni}(dni=${repartidor.dni})}"
+                            class="text-decoration-none">
                             <i class="bi bi-pencil-square fs-5"></i>
                         </a>
                     </td>
 
                     <td class="text-center">
-                        <a th:href="@{/rrhh/borrar/{dni}(dni=${repartidor.dni})}"
+                        <a th:href="@{/rrhh/repartidores/borrar/{dni}(dni=${repartidor.dni})}"
                             class="text-decoration-none text-danger"
                             th:onclick="return confirm('¿Estás seguro de que deseas eliminar este repartidor?');">
                             <i class="bi bi-trash fs-5 text-danger"></i>

@@ -77,9 +77,9 @@ public class AsignacionController {
 			BindingResult bindingResult, Model model) {
 
 		if (bindingResult.hasErrors()) {
-
-			return "logistica/forms/asignacion-form";
-
+		    model.addAttribute("repartidoresList", repartidorService.findAll());
+		    model.addAttribute("enviosList", envioService.findAll());
+		    return "logistica/forms/asignacion-form";
 		}
 
 		if (asignacionForm.getIdAsignacion() != null) {

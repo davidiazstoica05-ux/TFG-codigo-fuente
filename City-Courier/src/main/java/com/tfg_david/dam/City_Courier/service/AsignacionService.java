@@ -34,7 +34,7 @@ public class AsignacionService extends BaseService<Asignacion, Long, AsignacionR
 
 		if (dni != null && !dni.isEmpty()) {
 
-			repartidor = repartidorRepo.findByDni(dni.toLowerCase());
+			repartidor = repartidorRepo.findByDni(dni);
 
 			if (repartidor.isPresent()) {
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,26 +31,28 @@ public class EnvioController {
 	private final EnviosService envioService;
 
 	@GetMapping
-	public String logisticaEnvio(@RequestParam(required = false) Long codEnvio, LocalDateTime fechaBusqueda, Model model) {
+	public String logisticaEnvio(@RequestParam(required = false) Long codEnvio,
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime fechaBusqueda,
+			Model model) {
 
 		Optional<Envio> envio;
-		
+
 		List<Envio> listaResultado = new ArrayList<>();
 
 		if (codEnvio != null && fechaBusqueda == null) {
-				envio = envioService.findById(codEnvio);
-			
+			envio = envioService.findById(codEnvio);
+
 			if (envio.isPresent()) {
-				
+
 				listaResultado.add(envio.get());
 			}
-			
+
 		} else if (fechaBusqueda != null && codEnvio == null) {
-			
+
 			listaResultado = envioService.findByFechaEntregaEstimada(fechaBusqueda);
-			
+
 		} else {
-			
+
 			listaResultado = envioService.findAll();
 		}
 
@@ -58,7 +61,7 @@ public class EnvioController {
 		return "logistica/envios";
 	}
 
-	@GetMapping("/nuevo")
+	@GetMapping("/nuevos")
 	public String nuevoEnvio(Model model) {
 
 		model.addAttribute("envio", new Envio());
@@ -66,7 +69,8 @@ public class EnvioController {
 		return "logistica/forms/envio-form";
 	}
 
-	@PostMapping
+	// Si deja de funcionar quitar
+	@PostMapping("/guardar")
 	public String submit(@Valid @ModelAttribute("envio") Envio envio, BindingResult bindingResult, Model model) {
 
 		Asignacion asigid;
