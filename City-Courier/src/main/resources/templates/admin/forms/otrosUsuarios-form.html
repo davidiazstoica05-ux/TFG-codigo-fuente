@@ -40,7 +40,7 @@
                         th:text="${dni != null} ? 'Ficha del Trabajador' : 'Alta de Nuevo Trabajador'">Formulario</span>
                 </h3>
 
-                <form method="post" th:action="${rutaPost}" id="OtrosUsuarios" th:object="${trabajador}"
+                <form method="post" th:action="@{${rutaPost}}" id="OtrosUsuarios" th:object="${trabajador}"
                     class="needs-validation" novalidate>
 
                     <fieldset class="mb-5">

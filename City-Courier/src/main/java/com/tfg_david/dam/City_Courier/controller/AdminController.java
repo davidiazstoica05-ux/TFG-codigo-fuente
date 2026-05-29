@@ -63,14 +63,14 @@ public class AdminController {
 	public String mostrarFormAdmin(Model model) {
 
 		model.addAttribute("trabajador", new Admin());
-		model.addAttribute("rutaPost", "admin/nuevoAdmin/guardar");
+		model.addAttribute("rutaPost", "/admin/nuevoAdmin/guardar");
 
-		return "/admin/forms/otrosUsuarios-form";
+		return "admin/forms/otrosUsuarios-form";
 
 	}
 
 	@PostMapping("/nuevoAdmin/guardar")
-	public String submitAdmin(Model model, Admin adminForm) {
+	public String submitAdmin(@ModelAttribute("trabajador") Admin adminForm, Model model) {
 
 		adminForm.setPassw(passwEncoder.encode(adminForm.getPassw()));
 		adminForm.setActivo(true);
@@ -86,14 +86,13 @@ public class AdminController {
 	public String mostrarFormRRHH(Model model) {
 
 		model.addAttribute("trabajador", new RRHH());
-		model.addAttribute("rutaPost", "admin/nuevoRRHH/guardar");
+		model.addAttribute("rutaPost", "/admin/nuevoRRHH/guardar");
 
-		return "/admin/forms/otrosUsuarios-form";
-
+		return "admin/forms/otrosUsuarios-form";
 	}
 
 	@PostMapping("/nuevoRRHH/guardar")
-	public String submitRRHH(Model model, RRHH rrhhForm) {
+	public String submitRRHH(@ModelAttribute("trabajador") RRHH rrhhForm, Model model) {
 
 		rrhhForm.setPassw(passwEncoder.encode(rrhhForm.getPassw()));
 		rrhhForm.setActivo(true);
@@ -115,7 +114,7 @@ public class AdminController {
 		}
 
 		@PostMapping("/nuevoLogistica/guardar")
-		public String submitLogistica(Model model, Logistica logisticaForm) {
+		public String submitLogistica(@ModelAttribute("trabajador") Logistica logisticaForm, Model model) {
 
 			logisticaForm.setPassw(passwEncoder.encode(logisticaForm.getPassw()));
 			logisticaForm.setActivo(true);
