@@ -19,9 +19,9 @@
 
     <div id="row 1" class="row text flex-grow-1 m-0">
 
-        <aside sec:authorize="hasAuthority('ADMIN')" th:replace="~{fragments/general :: asideAdmin}"></aside>
+        <aside sec:authorize="hasRole('ADMIN')" th:replace="~{fragments/general :: asideAdmin}"></aside>
 
-        <aside sec:authorize="hasAuthority('LOGISTICA') and !hasAuthority('ADMIN')"
+        <aside sec:authorize="hasRole('LOGISTICA') and !hasRole('ADMIN')"
             th:replace="~{fragments/general :: asideLogistica}"></aside>
 
 
