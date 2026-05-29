@@ -1,5 +1,6 @@
 package com.tfg_david.dam.City_Courier.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,45 +30,53 @@ public class EnvioController {
 	private final EnviosService envioService;
 
 	@GetMapping
-	public String logisticaEnvio(@RequestParam(required = false) Long codEnvio, Model model) {
+	public String logisticaEnvio(@RequestParam(required = false) Long codEnvio, LocalDateTime fechaBusqueda, Model model) {
 
-		List<Envio> e = new ArrayList<>();
+		Optional<Envio> envio;
+		
+		List<Envio> listaResultado = new ArrayList<>();
 
-		if (codEnvio != null && codEnvio != 0) {
-			Optional<Envio> envio = envioService.findById(codEnvio);
+		if (codEnvio != null && fechaBusqueda == null) {
+				envio = envioService.findById(codEnvio);
+			
 			if (envio.isPresent()) {
-				e.add(envio.get());
-				model.addAttribute("envioList", e);
-			} else {
-				return "redirect:/logistica/envios";
+				
+				listaResultado.add(envio.get());
 			}
+			
+		} else if (fechaBusqueda != null && codEnvio == null) {
+			
+			listaResultado = envioService.findByFechaEntregaEstimada(fechaBusqueda);
+			
 		} else {
-			model.addAttribute("envioList", envioService.findAll());
+			
+			listaResultado = envioService.findAll();
 		}
+
+		model.addAttribute("envioList", listaResultado);
 
 		return "logistica/envios";
 	}
 
 	@GetMapping("/nuevo")
 	public String nuevoEnvio(Model model) {
-		
+
 		model.addAttribute("envio", new Envio());
-		
+
 		return "logistica/forms/envio-form";
 	}
 
 	@PostMapping
-	public String submit( @Valid @ModelAttribute("envio") Envio envio, BindingResult bindingResult,  Model model) {
+	public String submit(@Valid @ModelAttribute("envio") Envio envio, BindingResult bindingResult, Model model) {
 
 		Asignacion asigid;
 
-		
 		if (bindingResult.hasErrors()) {
-			
+
 			return "logistica/forms/envio-form";
-			
+
 		}
-		
+
 		if (envio.getCodEnvio() != null) {
 			Optional<Envio> envioRecibido = envioService.findById(envio.getCodEnvio());
 			if (envioRecibido.isPresent()) {
@@ -80,34 +89,26 @@ public class EnvioController {
 
 		return "redirect:/logistica/envios";
 	}
-	
-	
 
-	//Editar y borrar
-	
+	// Editar y borrar
+
 	@GetMapping("/borrar/{codEnvio}")
 	public String borrarEnvio(@PathVariable("codEnvio") Long codEnvio) {
-		
-		
-		envioService.deleteEnvio(codEnvio); 
-		
+
+		envioService.deleteEnvio(codEnvio);
+
 		return "redirect:/logistica/envios";
 
-		
-		
 	}
-	
-	
+
 	@GetMapping("/editar/{codEnvio}")
 	public String editarEnvio(@PathVariable("codEnvio") Long codEnvio, Model model) {
 
 		Optional<Envio> envio = envioService.findById(codEnvio);
 
-		
-		
 		if (envio.isPresent()) {
 			model.addAttribute("envio", envio.get());
-			
+
 			return "logistica/forms/envio-form";
 		} else {
 			return "redirect:/logistica/envios";

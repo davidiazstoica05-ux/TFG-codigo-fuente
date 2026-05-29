@@ -1,6 +1,7 @@
 package com.tfg_david.dam.City_Courier.service;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,16 @@ public class EnviosService extends BaseService<Envio, Long, EnviosRepository> {
 		return repo.count();
 		
 	}
+	
+	
+	
+	public List<Envio> findByFechaEntregaEstimada(LocalDateTime fechaEntrega){
+				
+		return repo.findByFechaEntregaEstimada(fechaEntrega);
+		
+		
+	}
+	
 	
 	@Transactional
 	public void deleteEnvio(Long codEnvio) {
