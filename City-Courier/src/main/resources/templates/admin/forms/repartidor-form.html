@@ -28,7 +28,7 @@
             <div class="bg-white rounded-5 shadow-lg h-100 p-4 p-md-5">
 
                 <div class="mb-4">
-                    <a th:href="@{/rrhh/repartidores}"
+                    <a th:href="@{/admin/adminHome}"
                         class="btn btn-link text-decoration-none p-0 text-primary fw-medium">
                         <i class="bi bi-arrow-left me-1"></i> Volver a Plantilla
                     </a>
@@ -40,8 +40,8 @@
                         th:text="${repartidor.dni != null} ? 'Ficha del Repartidor' : 'Alta de Nuevo Repartidor'">Formulario</span>
                 </h3>
 
-                <form method="post" th:action="@{/rrhh/repartidores}" id="riderForm" th:object="${repartidor}"
-                    class="needs-validation" novalidate>
+                <form method="post" th:action="@{/admin/nuevoRepartidor/guardar}" id="riderForm"
+                    th:object="${repartidor}" class="needs-validation" novalidate>
 
                     <fieldset class="mb-5">
                         <h6 class="text-primary fw-bold mb-4">
@@ -252,7 +252,7 @@
                     </fieldset>
 
                     <div class="d-flex justify-content-end gap-3 mt-5 pt-4 border-top">
-                        <a th:href="@{/rrhh/repartidores}"
+                        <a th:href="@{/admin/adminHome}"
                             class="btn btn-light border px-4 rounded-pill text-secondary fw-medium shadow-sm">
                             Cancelar
                         </a>

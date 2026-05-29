@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class RepartidorController {
 
 	private final RepartidorService repartidorService;
+	private final PasswordEncoder passwEncoder;
 
 	@GetMapping("/repartidores")
 	public String rrhh(@RequestParam(required = false) String dni, Model model) {
@@ -91,6 +93,11 @@ public class RepartidorController {
 
 			repartidorService.save(repGuardado);
 		} else {
+
+			repartidorForm.setPassw(passwEncoder.encode(repartidorForm.getPassw()));
+
+			repartidorForm.setActivo(true);
+
 			repartidorService.save(repartidorForm);
 		}
 
