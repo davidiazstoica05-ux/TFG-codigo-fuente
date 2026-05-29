@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.tfg_david.dam.City_Courier.excepciones.RutaInvalidaException;
 import com.tfg_david.dam.City_Courier.model.Repartidor;
 import com.tfg_david.dam.City_Courier.model.Ruta;
 import com.tfg_david.dam.City_Courier.repository.RepartidorRepository;
@@ -64,6 +65,25 @@ public class RutaService extends BaseService<Ruta, Long, RutaRepository> {
 
 		}
 
+	}
+
+	@Override
+	public Ruta save(Ruta ruta) {
+
+		if (ruta.getPuntosEntregas() == null || ruta.getPuntosEntregas().isEmpty()) {
+
+			throw new RutaInvalidaException("Los puntos de entregas no puedes estár vacíos");
+
+		}
+		
+		if (ruta.getFechaFinal() != null && ruta.getFechaInicio() != null) {
+		    if (ruta.getFechaFinal().isBefore(ruta.getFechaInicio())) {
+		        throw new RutaInvalidaException("Error de planificación: La hora de finalización (" 
+		            + ruta.getFechaFinal() + ") no puede ser anterior a la hora de inicio.");
+		    }
+		}
+
+		return super.save(ruta);
 	}
 
 }
