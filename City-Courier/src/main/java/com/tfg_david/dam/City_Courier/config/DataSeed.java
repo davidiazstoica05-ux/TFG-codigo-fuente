@@ -18,6 +18,7 @@ import com.tfg_david.dam.City_Courier.model.RRHH;
 import com.tfg_david.dam.City_Courier.model.Repartidor;
 import com.tfg_david.dam.City_Courier.model.Ruta;
 import com.tfg_david.dam.City_Courier.model.Trabajador;
+import com.tfg_david.dam.City_Courier.model.Zona;
 import com.tfg_david.dam.City_Courier.repository.AsignacionRepository;
 import com.tfg_david.dam.City_Courier.repository.EnviosRepository;
 import com.tfg_david.dam.City_Courier.repository.RepartidorRepository;
@@ -58,6 +59,7 @@ public class DataSeed {
 
 		LocalDateTime fechaAsignacion = ahora.minusHours(3);
 
+		// ── RUTAS ────────────────────────────────────────────────────────────────────
 
 		Map<String, Double> paradasRuta1 = new LinkedHashMap<>();
 		paradasRuta1.put("Lantejuela", 20.0);
@@ -172,6 +174,7 @@ public class DataSeed {
 				.fechaFinal(LocalTime.of(20, 0))
 				.build();
 
+		// ── REPARTIDORES ─────────────────────────────────────────────────────────────
 
 		Repartidor r1 = Repartidor.builder()
 				.nombre("David")
@@ -185,7 +188,7 @@ public class DataSeed {
 				.usuario("repartidor")
 				.passw(passwordEncoder.encode("repartidor"))
 				.cargaMax(10.5)
-				.zona("Osuna")
+				.zona(Zona.OSUNA)
 				.estado(Disponibilidad.DISPONIBLE)
 				.vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.Furgoneta)
 				.build();
@@ -202,7 +205,7 @@ public class DataSeed {
 				.usuario("miguel")
 				.passw(passwordEncoder.encode("1234"))
 				.cargaMax(10.5)
-				.zona("Osuna")
+				.zona(Zona.OSUNA)
 				.estado(Disponibilidad.VACACIONES)
 				.vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.moto_ecologica)
 				.build();
@@ -219,7 +222,7 @@ public class DataSeed {
 				.usuario("claudia")
 				.passw(passwordEncoder.encode("claudia"))
 				.cargaMax(8.0)
-				.zona("Marchena")
+				.zona(Zona.MARCHENA)
 				.estado(Disponibilidad.DISPONIBLE)
 				.vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.Furgoneta)
 				.build();
@@ -236,7 +239,7 @@ public class DataSeed {
 				.usuario("sofia")
 				.passw(passwordEncoder.encode("sofia123"))
 				.cargaMax(6.0)
-				.zona("Carmona")
+				.zona(Zona.CARMONA)
 				.estado(Disponibilidad.DISPONIBLE)
 				.vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.moto_ecologica)
 				.build();
@@ -253,7 +256,7 @@ public class DataSeed {
 				.usuario("antonio")
 				.passw(passwordEncoder.encode("antonio123"))
 				.cargaMax(12.0)
-				.zona("Écija")
+				.zona(Zona.ECIJA)
 				.estado(Disponibilidad.DISPONIBLE)
 				.vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.Furgoneta)
 				.build();
@@ -270,7 +273,7 @@ public class DataSeed {
 				.usuario("lucia")
 				.passw(passwordEncoder.encode("lucia123"))
 				.cargaMax(5.0)
-				.zona("Sevilla Centro")
+				.zona(Zona.PARADAS)
 				.estado(Disponibilidad.DE_BAJA)
 				.vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.moto_ecologica)
 				.build();
@@ -287,28 +290,29 @@ public class DataSeed {
 				.usuario("carlos")
 				.passw(passwordEncoder.encode("carlos123"))
 				.cargaMax(15.0)
-				.zona("Utrera")
+				.zona(Zona.UTRERA)
 				.estado(Disponibilidad.DISPONIBLE)
 				.vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.Furgoneta)
 				.build();
-		
-		Repartidor r8 = Repartidor.builder()
-		        .nombre("Jorge")
-		        .apellidos("Mellado Fuentes")
-		        .dni("75341892F")
-		        .email("jmellado@gmail.com")
-		        .fechaAlta(LocalDate.now().minusMonths(1))
-		        .genero("Hombre")
-		        .telefono("699102030")
-		        .activo(true)
-		        .usuario("jorge")
-		        .passw(passwordEncoder.encode("jorge123"))
-		        .cargaMax(9.0)
-		        .zona("Lantejuela")
-		        .estado(Disponibilidad.DISPONIBLE)
-		        .vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.moto_ecologica)
-		        .build();
 
+		Repartidor r8 = Repartidor.builder()
+				.nombre("Jorge")
+				.apellidos("Mellado Fuentes")
+				.dni("75341892F")
+				.email("jmellado@gmail.com")
+				.fechaAlta(LocalDate.now().minusMonths(1))
+				.genero("Hombre")
+				.telefono("699102030")
+				.activo(true)
+				.usuario("jorge")
+				.passw(passwordEncoder.encode("jorge123"))
+				.cargaMax(9.0)
+				.zona(Zona.LA_LANTEJUELA)
+				.estado(Disponibilidad.DISPONIBLE)
+				.vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.moto_ecologica)
+				.build();
+
+		// ── PERSONAL DE OFICINA ───────────────────────────────────────────────────────
 
 		Admin admin = Admin.builder()
 				.nombre("Alejandro")
@@ -349,6 +353,7 @@ public class DataSeed {
 				.passw(passwordEncoder.encode("logistica"))
 				.build();
 
+		// ── ENVÍOS ────────────────────────────────────────────────────────────────────
 
 		Envio e1 = Envio.builder()
 				.destinatario("Manuel Díaz")
@@ -458,6 +463,7 @@ public class DataSeed {
 				.fechaEntregaEstimada(fechaEntrega12)
 				.build();
 
+		// ── ASIGNACIONES ─────────────────────────────────────────────────────────────
 
 		Asignacion a1 = Asignacion.builder()
 				.costePorKmYPeso(2.5)
@@ -494,10 +500,11 @@ public class DataSeed {
 				.fechaEntrega(fechaEntrega5)
 				.build();
 
+		// ── VÍNCULOS ─────────────────────────────────────────────────────────────────
 
 		a1.vincularEnvio(e1);
 		r1.addAsignacion(a1);
-		r1.setRuta(ruta2); 
+		r1.setRuta(ruta2);
 
 		a2.vincularEnvio(e2);
 		r2.addAsignacion(a2);
@@ -505,17 +512,19 @@ public class DataSeed {
 
 		a3.vincularEnvio(e3);
 		r4.addAsignacion(a3);
-		r4.setRuta(ruta4); 
+		r4.setRuta(ruta4);
 
 		a4.vincularEnvio(e4);
 		r5.addAsignacion(a4);
-		r5.setRuta(ruta3); 
+		r5.setRuta(ruta3);
 
 		a5.vincularEnvio(e5);
 		r7.addAsignacion(a5);
 		r7.setRuta(ruta5);
 
 		r3.setRuta(ruta1);
+
+		// ── PERSISTENCIA ─────────────────────────────────────────────────────────────
 
 		repoRuta.save(ruta1);
 		repoRuta.save(ruta2);
@@ -540,7 +549,6 @@ public class DataSeed {
 		repoRepartidor.save(r6);
 		repoRepartidor.save(r7);
 		repoRepartidor.save(r8);
-
 
 		repoAsig.save(a1);
 		repoAsig.save(a2);
