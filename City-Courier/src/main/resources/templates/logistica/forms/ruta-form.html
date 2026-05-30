@@ -182,7 +182,7 @@
                                     <option value="" selected>-- Sin asignar por ahora --</option>
 
                                     <option th:each="rep : ${listaRepartidores}" th:value="${rep.idTrabajador}"
-                                        th:text="${rep.nombre + ' ' + rep.apellidos + ' (' + rep.dni + ') - ' + rep.zona}">
+                                        th:text="|${rep.nombre} ${rep.apellidos} (${rep.dni}) - ${rep.zona} - [${rep.estado}]|">
                                     </option>
                                 </select>
 

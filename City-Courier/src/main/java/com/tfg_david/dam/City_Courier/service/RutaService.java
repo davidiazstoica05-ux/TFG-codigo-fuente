@@ -7,7 +7,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.tfg_david.dam.City_Courier.excepciones.RepartidorNoDisponibleException;
 import com.tfg_david.dam.City_Courier.excepciones.RutaInvalidaException;
+import com.tfg_david.dam.City_Courier.model.Disponibilidad;
 import com.tfg_david.dam.City_Courier.model.Repartidor;
 import com.tfg_david.dam.City_Courier.model.Ruta;
 import com.tfg_david.dam.City_Courier.repository.RepartidorRepository;
@@ -56,26 +58,24 @@ public class RutaService extends BaseService<Ruta, Long, RutaRepository> {
 	// V1 sin stream
 	public boolean asignarRutaRepartidor(Ruta rutaForm, Long idTrabajador) {
 
-		Map<String, Double> puntosEntregas ;
-		
+		Map<String, Double> puntosEntregas;
+
 		Optional<Repartidor> repartidorOpt = repartidorService.findById(idTrabajador);
 
 		Repartidor repartidor;
 
-		String zonaRuta ;
-		
-		
+		String zonaRuta;
+
 		puntosEntregas = rutaForm.getPuntosEntregas();
-		
+
 		zonaRuta = puntosEntregas.keySet().stream().findFirst().get();
- 
-		// Repartidor
 
 		if (repartidorOpt.isPresent()) {
 
 			repartidor = repartidorOpt.get();
 
-			if (repartidor.getZona() == null || repartidor.getZona().equals(zonaRuta)) {
+			if (repartidor.getZona() == null
+					|| repartidor.getZona().equals(zonaRuta) && validarRepartidorEstaDisponible(repartidor)) {
 
 				repartidor.setRuta(rutaForm);
 
@@ -84,7 +84,20 @@ public class RutaService extends BaseService<Ruta, Long, RutaRepository> {
 
 		}
 
-		throw new RutaInvalidaException("No se puede asignar a la ruta");
+		throw new RutaInvalidaException("El repartidor no pertenece a está ruta");
+
+	}
+	
+
+	public boolean validarRepartidorEstaDisponible(Repartidor repartidor) {
+
+		if (repartidor.getEstado() == Disponibilidad.DISPONIBLE) {
+
+			return true;
+
+		}
+
+		throw new RepartidorNoDisponibleException("El repartidor no está disponible");
 
 	}
 
