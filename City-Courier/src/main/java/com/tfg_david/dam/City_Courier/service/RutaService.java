@@ -56,26 +56,30 @@ public class RutaService extends BaseService<Ruta, Long, RutaRepository> {
 	// V1 sin stream
 	public boolean asignarRutaRepartidor(Ruta rutaForm, Long idTrabajador) {
 
-		Map<String, Double> puntosEntregas ;
-		
+		Map<String, Double> puntosEntregas;
+
 		Optional<Repartidor> repartidorOpt = repartidorService.findById(idTrabajador);
 
 		Repartidor repartidor;
 
-		String zonaRuta ;
+		String zonaRuta, zonaRepartidorLimpia;
 		
-		
+
 		puntosEntregas = rutaForm.getPuntosEntregas();
-		
+
 		zonaRuta = puntosEntregas.keySet().stream().findFirst().get();
- 
+		
+		zonaRuta = zonaRuta.toUpperCase().trim();
 		// Repartidor
 
 		if (repartidorOpt.isPresent()) {
 
 			repartidor = repartidorOpt.get();
 
-			if (repartidor.getZona() == null || repartidor.getZona().equals(zonaRuta)) {
+			zonaRepartidorLimpia = repartidor.getZona().getDisplay().toUpperCase().trim();
+			
+			if (repartidor.getZona() == null
+					|| zonaRepartidorLimpia.equals(zonaRuta)) {
 
 				repartidor.setRuta(rutaForm);
 

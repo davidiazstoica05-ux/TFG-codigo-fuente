@@ -32,9 +32,8 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class Repartidor extends Trabajador{
 
-	
-	@NotBlank(message = "La zona no puede estar en blanco")
-	private String zona;
+	@Enumerated(EnumType.STRING)
+	private Zona zona;
 	
 	
 	@Enumerated(EnumType.STRING)

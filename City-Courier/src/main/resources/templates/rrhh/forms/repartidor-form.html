@@ -214,17 +214,9 @@
                                     Principal de Reparto</label>
                                 <select class="form-select bg-light border-0 shadow-sm py-2" id="zona"
                                     th:field="*{zona}" required>
-                                    <option value="" disabled selected>Seleccione el sector...</option>
-                                    <option value="Arahal">Arahal</option>
-                                    <option value="Carmona">Carmona</option>
-                                    <option value="Écija">Écija</option>
-                                    <option value="Fuentes de Andalucía">Fuentes de Andalucía</option>
-                                    <option value="La Lantejuela">La Lantejuela</option>
-                                    <option value="Marchena">Marchena</option>
-                                    <option value="Morón">Morón de la Frontera</option>
-                                    <option value="Osuna">Osuna</option>
-                                    <option value="Paradas">Paradas</option>
-                                    <option value="Utrera">Utrera</option>
+                                    <option th:each="zonaOpt : ${T(com.tfg_david.dam.City_Courier.model.Zona).values()}"
+                                        th:value="${zonaOpt}" th:text="${zonaOpt.display}">
+                                    </option>
                                 </select>
                                 <div class="invalid-feedback">Debe seleccionar una zona de trabajo.</div>
                                 <div th:if="${#fields.hasErrors('zona')}" class="text-danger small">
