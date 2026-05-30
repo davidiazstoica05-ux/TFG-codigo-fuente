@@ -121,7 +121,9 @@ public class RutaController {
 	@PostMapping("/rutas/editar")
 	public String submitEdicion(@Valid @ModelAttribute("ruta") Ruta ruta, BindingResult bindingResult,
 			@RequestParam(value = "zonaSeleccionada", required = false) List<String> zonaSeleccionada,
-			@RequestParam(value = "distancia", required = false) Double distancia, Model model) {
+			@RequestParam(value = "distancia", required = false) Double distancia, 
+			@RequestParam(value = "idTrabajador", required = false) Long idTrabajador, // NUEVO: Recibimos el ID
+			Model model) {
 
 		if (ruta.getFechaFinal() != null && ruta.getFechaInicio() != null) {
 			if (ruta.getFechaFinal().isBefore(ruta.getFechaInicio())) {
@@ -130,11 +132,16 @@ public class RutaController {
 		}
 
 		if (bindingResult.hasErrors()) {
+			model.addAttribute("listaRepartidores", repartidorService.findAll());
 			return "logistica/forms/ruta-form-edit";
 		}
 
 		Map<String, Double> puntosEntregas = rutaService.transformarString(zonaSeleccionada, distancia);
 		ruta.setPuntosEntregas(puntosEntregas);
+
+		if (idTrabajador != null) {
+			rutaService.asignarRutaRepartidor(ruta, idTrabajador);
+		}
 
 		rutaService.save(ruta);
 
@@ -148,6 +155,8 @@ public class RutaController {
 
 		if (ruta.isPresent()) {
 			model.addAttribute("ruta", ruta.get());
+			
+			model.addAttribute("listaRepartidores", repartidorService.findAll());
 
 			return "logistica/forms/ruta-form-edit";
 		} else {

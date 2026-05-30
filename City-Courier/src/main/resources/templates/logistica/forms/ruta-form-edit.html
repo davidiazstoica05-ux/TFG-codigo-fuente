@@ -69,6 +69,36 @@
 
                     <fieldset class="mb-5 border-top pt-4">
                         <h6 class="text-success fw-bold mb-4">
+                            <i class="bi bi-person-vcard me-2"></i>Asignar Nuevo Repartidor a la Ruta
+                        </h6>
+
+                        <div class="row g-4">
+                            <div class="col-12 col-md-8 col-lg-7">
+                                <label for="repartidor"
+                                    class="form-label fw-medium text-secondary small text-uppercase">Añadir
+                                    Repartidor (Opcional)</label>
+
+                                <select id="repartidor" name="idTrabajador"
+                                    class="form-select bg-light border-0 shadow-sm py-2">
+                                    <option value="" selected>-- Sin asignar / Mantener asignaciones actuales --
+                                    </option>
+
+                                    <option th:each="rep : ${listaRepartidores}" th:value="${rep.idTrabajador}"
+                                        th:text="|${rep.nombre} ${rep.apellidos} (${rep.dni}) - ${rep.zona}|">
+                                    </option>
+                                </select>
+
+                                <div class="form-text small mt-2 text-muted">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    Al seleccionar un repartidor, el sistema comprobará su disponibilidad y zona
+                                    antes de añadirlo a esta ruta.
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="mb-5 border-top pt-4">
+                        <h6 class="text-success fw-bold mb-4">
                             <i class="bi bi-clock-history me-2"></i>Modificar Horarios de Operación
                         </h6>
 
@@ -86,6 +116,7 @@
                                     <span th:errors="*{fechaInicio}"></span>
                                 </div>
                             </div>
+
 
                             <div class="col-12 col-md-6 col-lg-5 offset-lg-1">
                                 <label for="fechaFinal"

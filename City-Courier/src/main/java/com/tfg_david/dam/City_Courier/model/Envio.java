@@ -4,6 +4,8 @@ package com.tfg_david.dam.City_Courier.model;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -52,5 +54,7 @@ public class Envio {
 	@OneToOne
 	@JoinColumn(name = "idAsignacion")
 	private Asignacion asignacion; 
+	
+
 	
 }
