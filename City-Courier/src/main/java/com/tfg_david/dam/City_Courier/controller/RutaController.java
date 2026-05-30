@@ -34,12 +34,18 @@ public class RutaController {
 	public String logisticaRuta(@RequestParam(value = "criterio", required = false) String busqueda, Model model) {
 
 		Long stringConvertido;
+		
+		List<Ruta> topRutas = rutaService.obtenerTop3RutasMasFrecuentes();
 
 		if (busqueda != null && !busqueda.trim().isEmpty()) {
 			stringConvertido = Utilidades.extraerCodigoSiEsNumerico(busqueda);
 			model.addAttribute("rutaList", rutaService.findByIdOrNombreRuta(busqueda, stringConvertido));
 		} else {
+			
+			model.addAttribute("rutasFrecuentes", topRutas);
+			
 			model.addAttribute("rutaList", rutaService.findAll());
+
 		}
 
 		return "logistica/rutas";

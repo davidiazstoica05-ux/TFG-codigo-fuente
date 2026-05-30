@@ -44,6 +44,15 @@ public class RutaService extends BaseService<Ruta, Long, RutaRepository> {
 
 	}
 
+	public List<Ruta> obtenerTop3RutasMasFrecuentes() {
+		
+		return repo.rutasMasFrecuentes().stream()
+				   .limit(3)
+				   .toList();
+			
+	}
+
+	// Delete y Save
 	@Transactional
 	public void deleteRuta(Long codRuta) {
 
@@ -75,12 +84,12 @@ public class RutaService extends BaseService<Ruta, Long, RutaRepository> {
 			throw new RutaInvalidaException("Los puntos de entregas no puedes estár vacíos");
 
 		}
-		
+
 		if (ruta.getFechaFinal() != null && ruta.getFechaInicio() != null) {
-		    if (ruta.getFechaFinal().isBefore(ruta.getFechaInicio())) {
-		        throw new RutaInvalidaException("Error de planificación: La hora de finalización (" 
-		            + ruta.getFechaFinal() + ") no puede ser anterior a la hora de inicio.");
-		    }
+			if (ruta.getFechaFinal().isBefore(ruta.getFechaInicio())) {
+				throw new RutaInvalidaException("Error de planificación: La hora de finalización ("
+						+ ruta.getFechaFinal() + ") no puede ser anterior a la hora de inicio.");
+			}
 		}
 
 		return super.save(ruta);

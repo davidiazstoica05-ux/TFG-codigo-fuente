@@ -52,10 +52,89 @@
                     </div>
                 </form>
 
-                <div class="p-4 text-center border rounded-4 border-success border-opacity-25 bg-light">
+                <div class="p-4 text-center border rounded-4 border-success border-opacity-25 bg-light mb-5">
                     <div th:replace="~{fragments/logisticaTables :: listaRutas}"></div>
                 </div>
 
+                <div class="mt-4 pt-2 border-top">
+                    <h4 class="fw-bold text-success mb-4 mt-3"><i class="bi bi-bar-chart-fill me-2"></i>Métricas de
+                        Rendimiento</h4>
+
+                    <div class="row g-4">
+                        <div class="col-12 col-xl-8">
+                            <div class="bg-white p-4 rounded-4 shadow-sm border border-success border-opacity-10 h-100">
+                                <h5 class="fw-bold text-dark mb-4">Top Rutas Más Realizadas</h5>
+
+
+
+                                <div th:if="${rutasFrecuentes != null and !#lists.isEmpty(rutasFrecuentes)}">
+                                    <div class="mb-3" th:each="ruta : ${rutasFrecuentes}">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="fw-medium text-secondary" th:text="${ruta.nombreRuta}">Nombre
+                                                de Ruta</span>
+
+                                            <span class="badge bg-success rounded-pill"
+                                                th:text="${ruta.repartidores.size() + ' repartidores'}">0
+                                                repartidores</span>
+                                        </div>
+                                        <div class="progress" style="height: 10px;">
+                                            <div class="progress-bar bg-success rounded-pill" role="progressbar"
+                                                th:style="'width: ' + (${ruta.repartidores.size()} * 10) + '%'"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div th:if="${rutasFrecuentes == null or #lists.isEmpty(rutasFrecuentes)}">
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="fw-medium text-secondary">Ruta Sevilla Centro</span>
+                                            <span class="badge bg-success rounded-pill">24 viajes</span>
+                                        </div>
+                                        <div class="progress" style="height: 10px;">
+                                            <div class="progress-bar bg-success rounded-pill" role="progressbar"
+                                                style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="fw-medium text-secondary">Ruta Triana - Los Remedios</span>
+                                            <span class="badge bg-success rounded-pill">18 viajes</span>
+                                        </div>
+                                        <div class="progress" style="height: 10px;">
+                                            <div class="progress-bar bg-success rounded-pill opacity-75"
+                                                role="progressbar" style="width: 65%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-0">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="fw-medium text-secondary">Ruta Macarena Norte</span>
+                                            <span class="badge bg-success rounded-pill">12 viajes</span>
+                                        </div>
+                                        <div class="progress" style="height: 10px;">
+                                            <div class="progress-bar bg-success rounded-pill opacity-50"
+                                                role="progressbar" style="width: 40%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-xl-4">
+                            <div
+                                class="bg-success bg-opacity-10 p-4 rounded-4 shadow-sm border border-success border-opacity-25 h-100 d-flex flex-column justify-content-center align-items-center text-center">
+                                <div class="bg-white p-3 rounded-circle shadow-sm mb-3">
+                                    <i class="bi bi-signpost-split-fill text-success" style="font-size: 2.5rem;"></i>
+                                </div>
+                                <h2 class="fw-bold text-success mb-1"
+                                    th:text="${rutaList != null ? rutaList.size() : 0}">0</h2>
+                                <h6 class="fw-bold text-secondary mb-0 text-uppercase" style="letter-spacing: 1px;">
+                                    Rutas Totales Activas</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
