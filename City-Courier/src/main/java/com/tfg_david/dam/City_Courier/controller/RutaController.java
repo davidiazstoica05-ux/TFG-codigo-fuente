@@ -8,7 +8,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tfg_david.dam.City_Courier.model.Ruta;
+import com.tfg_david.dam.City_Courier.service.RepartidorService;
 import com.tfg_david.dam.City_Courier.service.RutaService;
 import com.tfg_david.dam.City_Courier.utilidades.Utilidades;
 
@@ -30,16 +30,24 @@ public class RutaController {
 
 	private final RutaService rutaService;
 
+	private final RepartidorService repartidorService;
+	
 	@GetMapping("/rutas")
 	public String logisticaRuta(@RequestParam(value = "criterio", required = false) String busqueda, Model model) {
 
 		Long stringConvertido;
+		
+		List<Ruta> topRutas = rutaService.obtenerTop3RutasMasFrecuentes();
 
 		if (busqueda != null && !busqueda.trim().isEmpty()) {
 			stringConvertido = Utilidades.extraerCodigoSiEsNumerico(busqueda);
 			model.addAttribute("rutaList", rutaService.findByIdOrNombreRuta(busqueda, stringConvertido));
 		} else {
+			
+			model.addAttribute("rutasFrecuentes", topRutas);
+			
 			model.addAttribute("rutaList", rutaService.findAll());
+
 		}
 
 		return "logistica/rutas";
@@ -50,13 +58,18 @@ public class RutaController {
 
 		model.addAttribute("ruta", new Ruta());
 
+		model.addAttribute("listaRepartidores", repartidorService.findAll());
+
+		
 		return "logistica/forms/ruta-form";
 	}
 
 	@PostMapping("/rutas")
 	public String submit(@Valid @ModelAttribute("ruta") Ruta ruta, BindingResult bindingResult,
 			@RequestParam(value = "zonaSeleccionada", required = false) List<String> zonaSeleccionada,
-			@RequestParam(value = "distancia", required = false) Double distancia, Model model) {
+			@RequestParam(value = "distancia", required = false) Double distancia, 
+			@RequestParam(value = "idTrabajador", required = false) Long idTrabajador,
+			Model model) {
 
 		Map<String, Double> puntosEntregas = new LinkedHashMap<>();
 
@@ -68,12 +81,21 @@ public class RutaController {
 
 		if (bindingResult.hasErrors()) {
 
+			model.addAttribute("rutaList", rutaService.findAll());
+			
 			return "logistica/forms/ruta-form";
 
 		}
 
 		puntosEntregas = rutaService.transformarString(zonaSeleccionada, distancia);
 		ruta.setPuntosEntregas(puntosEntregas);
+		
+		if (idTrabajador != null) {
+			
+			rutaService.asignarRutaRepartidor(ruta, idTrabajador);
+		
+		}
+
 
 		rutaService.save(ruta);
 

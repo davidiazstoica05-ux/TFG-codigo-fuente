@@ -1,13 +1,12 @@
 package com.tfg_david.dam.City_Courier.service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import com.tfg_david.dam.City_Courier.excepciones.RepartidorNoDisponibleException;
 import com.tfg_david.dam.City_Courier.model.Asignacion;
 import com.tfg_david.dam.City_Courier.model.Disponibilidad;
 import com.tfg_david.dam.City_Courier.model.Repartidor;
@@ -41,6 +40,26 @@ public class RepartidorService extends BaseService<Repartidor, Long, RepartidorR
 		return repo.findByDni(dni);
 
 	}
+	
+	public double pesoTotalPaquetes(Repartidor repartidor) {
+
+		List<Asignacion> asignacionesRepartidor = new ArrayList<>();
+		double pesoTotal = 0;
+
+		for (Asignacion asignacion : asignacionesRepartidor) {
+
+			pesoTotal += asignacion.getEnvio().getPeso();
+
+		}
+
+		return pesoTotal;
+
+	}
+	
+	
+	
+	
+	
 
 	@Transactional
 	public void deleteRepartidor(String dni) {
@@ -61,19 +80,5 @@ public class RepartidorService extends BaseService<Repartidor, Long, RepartidorR
 
 	}
 
-	public double pesoTotalPaquetes(Repartidor repartidor) {
-
-		List<Asignacion> asignacionesRepartidor = new ArrayList<>();
-		double pesoTotal = 0;
-
-		for (Asignacion asignacion : asignacionesRepartidor) {
-
-			pesoTotal += asignacion.getEnvio().getPeso();
-
-		}
-
-		return pesoTotal;
-
-	}
-
+	
 }

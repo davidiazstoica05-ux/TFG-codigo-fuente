@@ -1,6 +1,5 @@
 package com.tfg_david.dam.City_Courier.service;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +23,8 @@ public class RutaService extends BaseService<Ruta, Long, RutaRepository> {
 
 	private final RepartidorRepository repoRepartidor;
 
+	private final RepartidorService repartidorService;
+
 	public Map<String, Double> transformarString(List<String> zonaSeleccionada, Double distancia) {
 
 		Map<String, Double> ruta = new LinkedHashMap<String, Double>();
@@ -44,6 +45,50 @@ public class RutaService extends BaseService<Ruta, Long, RutaRepository> {
 
 	}
 
+	public List<Ruta> obtenerTop3RutasMasFrecuentes() {
+
+		return repo.rutasMasFrecuentes().stream().limit(3).toList();
+
+	}
+
+	// He decidido que la primera entrada de la key del map será la zona que se
+	// validará al repartidor
+	// V1 sin stream
+	public boolean asignarRutaRepartidor(Ruta rutaForm, Long idTrabajador) {
+
+		Map<String, Double> puntosEntregas ;
+		
+		Optional<Repartidor> repartidorOpt = repartidorService.findById(idTrabajador);
+
+		Repartidor repartidor;
+
+		String zonaRuta ;
+		
+		
+		puntosEntregas = rutaForm.getPuntosEntregas();
+		
+		zonaRuta = puntosEntregas.keySet().stream().findFirst().get();
+ 
+		// Repartidor
+
+		if (repartidorOpt.isPresent()) {
+
+			repartidor = repartidorOpt.get();
+
+			if (repartidor.getZona() == null || repartidor.getZona().equals(zonaRuta)) {
+
+				repartidor.setRuta(rutaForm);
+
+				return true;
+			}
+
+		}
+
+		throw new RutaInvalidaException("No se puede asignar a la ruta");
+
+	}
+
+	// Delete y Save
 	@Transactional
 	public void deleteRuta(Long codRuta) {
 
@@ -75,12 +120,12 @@ public class RutaService extends BaseService<Ruta, Long, RutaRepository> {
 			throw new RutaInvalidaException("Los puntos de entregas no puedes estár vacíos");
 
 		}
-		
+
 		if (ruta.getFechaFinal() != null && ruta.getFechaInicio() != null) {
-		    if (ruta.getFechaFinal().isBefore(ruta.getFechaInicio())) {
-		        throw new RutaInvalidaException("Error de planificación: La hora de finalización (" 
-		            + ruta.getFechaFinal() + ") no puede ser anterior a la hora de inicio.");
-		    }
+			if (ruta.getFechaFinal().isBefore(ruta.getFechaInicio())) {
+				throw new RutaInvalidaException("Error de planificación: La hora de finalización ("
+						+ ruta.getFechaFinal() + ") no puede ser anterior a la hora de inicio.");
+			}
 		}
 
 		return super.save(ruta);
