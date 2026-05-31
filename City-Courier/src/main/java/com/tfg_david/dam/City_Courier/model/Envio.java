@@ -3,6 +3,7 @@ package com.tfg_david.dam.City_Courier.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -51,8 +52,7 @@ public class Envio {
 	@NotBlank(message = "Tiene que haber un destinatario")
 	private String destinatario; 
 	
-	@OneToOne
-	@JoinColumn(name = "idAsignacion")
+	@OneToOne(mappedBy = "envio", cascade = CascadeType.ALL)
 	private Asignacion asignacion; 
 	
 

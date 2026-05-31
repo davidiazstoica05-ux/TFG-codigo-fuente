@@ -60,6 +60,8 @@ public class Repartidor extends Trabajador{
 	private List<Asignacion> asignacionesRepartidor = new ArrayList<>();
 	
 	
+	//Metodos helper
+	
 	public void addAsignacion (Asignacion asignacion) {
 		
 		this.asignacionesRepartidor.add(asignacion);
@@ -75,6 +77,8 @@ public class Repartidor extends Trabajador{
 	
 	asignacion.setRepartidor(null);
 		
+	//Asignar rol nada más crearse
+	
 	}
 	
 	  @PrePersist 
