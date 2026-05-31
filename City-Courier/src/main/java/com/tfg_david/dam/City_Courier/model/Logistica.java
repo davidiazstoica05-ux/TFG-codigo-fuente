@@ -14,4 +14,7 @@ public class Logistica extends Trabajador {
     public void asignarRol() {
         this.setRol(Rol.LOGISTICA);
     }
+    
+    
+    
 }

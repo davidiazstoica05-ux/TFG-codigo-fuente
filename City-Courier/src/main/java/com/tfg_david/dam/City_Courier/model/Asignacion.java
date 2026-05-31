@@ -35,9 +35,6 @@ public class Asignacion {
 	
 	private boolean estadoPedido;
 	
-	@NotNull(message = "Es obligatorio")
-	@Min(value = 1, message = "El valor no puede ser inferior a 1")
-	private double costePorKmYPeso;
 	
 	private double costeTotal;
 	

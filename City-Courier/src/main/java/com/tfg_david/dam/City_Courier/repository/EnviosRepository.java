@@ -10,7 +10,7 @@ import com.tfg_david.dam.City_Courier.model.Envio;
 public interface EnviosRepository extends JpaRepository<Envio, Long> {
 	
 	
-	List<Envio> findByFechaEntregaEstimada(LocalDateTime fecha);
+	List<Envio> findByFechaEntregaLimite(LocalDateTime fecha);
 	
 
 }

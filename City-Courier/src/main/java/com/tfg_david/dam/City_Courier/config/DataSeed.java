@@ -14,6 +14,7 @@ import com.tfg_david.dam.City_Courier.model.Asignacion;
 import com.tfg_david.dam.City_Courier.model.Disponibilidad;
 import com.tfg_david.dam.City_Courier.model.Envio;
 import com.tfg_david.dam.City_Courier.model.Logistica;
+import com.tfg_david.dam.City_Courier.model.PrioridadEnvio;
 import com.tfg_david.dam.City_Courier.model.RRHH;
 import com.tfg_david.dam.City_Courier.model.Repartidor;
 import com.tfg_david.dam.City_Courier.model.Ruta;
@@ -401,7 +402,8 @@ public class DataSeed {
 				.codPostal("41640")
 				.zona("Osuna")
 				.peso(1.7)
-				.fechaEntregaEstimada(fechaEntrega1)
+				.prioridad(PrioridadEnvio.URGENTE)
+				.fechaEntregaLimite(fechaEntrega1)
 				.build();
 
 		e2 = Envio.builder()
@@ -410,7 +412,8 @@ public class DataSeed {
 				.codPostal("41640")
 				.zona("Osuna")
 				.peso(3.2)
-				.fechaEntregaEstimada(fechaEntrega2)
+				.prioridad(PrioridadEnvio.NORMAL)
+				.fechaEntregaLimite(fechaEntrega2)
 				.build();
 
 		e3 = Envio.builder()
@@ -419,7 +422,8 @@ public class DataSeed {
 				.codPostal("41300")
 				.zona("Carmona")
 				.peso(2.5)
-				.fechaEntregaEstimada(fechaEntrega3)
+				.prioridad(PrioridadEnvio.AHORRO)
+				.fechaEntregaLimite(fechaEntrega3)
 				.build();
 
 		e4 = Envio.builder()
@@ -428,7 +432,8 @@ public class DataSeed {
 				.codPostal("41400")
 				.zona("Écija")
 				.peso(4.8)
-				.fechaEntregaEstimada(fechaEntrega4)
+				.prioridad(PrioridadEnvio.NORMAL)
+				.fechaEntregaLimite(fechaEntrega4)
 				.build();
 
 		e5 = Envio.builder()
@@ -437,7 +442,8 @@ public class DataSeed {
 				.codPostal("41710")
 				.zona("Utrera")
 				.peso(6.1)
-				.fechaEntregaEstimada(fechaEntrega5)
+				.prioridad(PrioridadEnvio.URGENTE)
+				.fechaEntregaLimite(fechaEntrega5)
 				.build();
 
 		e6 = Envio.builder()
@@ -446,7 +452,8 @@ public class DataSeed {
 				.codPostal("41010")
 				.zona("Sevilla Centro")
 				.peso(0.8)
-				.fechaEntregaEstimada(fechaEntrega6)
+				.prioridad(PrioridadEnvio.AHORRO)
+				.fechaEntregaLimite(fechaEntrega6)
 				.build();
 
 		e7 = Envio.builder()
@@ -455,7 +462,8 @@ public class DataSeed {
 				.codPostal("41700")
 				.zona("Dos Hermanas")
 				.peso(2.0)
-				.fechaEntregaEstimada(fechaEntrega7)
+				.prioridad(PrioridadEnvio.NORMAL)
+				.fechaEntregaLimite(fechaEntrega7)
 				.build();
 
 		e8 = Envio.builder()
@@ -464,7 +472,8 @@ public class DataSeed {
 				.codPostal("41500")
 				.zona("Marchena")
 				.peso(1.3)
-				.fechaEntregaEstimada(fechaEntrega8)
+				.prioridad(PrioridadEnvio.URGENTE)
+				.fechaEntregaLimite(fechaEntrega8)
 				.build();
 
 		e9 = Envio.builder()
@@ -473,7 +482,8 @@ public class DataSeed {
 				.codPostal("41200")
 				.zona("Alcalá de Guadaíra")
 				.peso(5.5)
-				.fechaEntregaEstimada(fechaEntrega9)
+				.prioridad(PrioridadEnvio.NORMAL)
+				.fechaEntregaLimite(fechaEntrega9)
 				.build();
 
 		e10 = Envio.builder()
@@ -482,7 +492,8 @@ public class DataSeed {
 				.codPostal("41740")
 				.zona("Lebrija")
 				.peso(3.7)
-				.fechaEntregaEstimada(fechaEntrega10)
+				.prioridad(PrioridadEnvio.AHORRO)
+				.fechaEntregaLimite(fechaEntrega10)
 				.build();
 
 		e11 = Envio.builder()
@@ -491,7 +502,8 @@ public class DataSeed {
 				.codPostal("41003")
 				.zona("Sevilla Centro")
 				.peso(0.5)
-				.fechaEntregaEstimada(fechaEntrega11)
+				.prioridad(PrioridadEnvio.URGENTE)
+				.fechaEntregaLimite(fechaEntrega11)
 				.build();
 
 		e12 = Envio.builder()
@@ -500,7 +512,8 @@ public class DataSeed {
 				.codPostal("41600")
 				.zona("Arahal")
 				.peso(4.2)
-				.fechaEntregaEstimada(fechaEntrega12)
+				.prioridad(PrioridadEnvio.NORMAL)
+				.fechaEntregaLimite(fechaEntrega12)
 				.build();
 
 		repoEnvio.save(e1);
@@ -517,35 +530,30 @@ public class DataSeed {
 		repoEnvio.save(e12);
 
 		a1 = Asignacion.builder()
-				.costePorKmYPeso(2.5)
 				.estadoPedido(false)
 				.fechaAsignacion(fechaAsignacion)
 				.fechaEntrega(fechaEntrega1)
 				.build();
 
 		a2 = Asignacion.builder()
-				.costePorKmYPeso(2.5)
 				.estadoPedido(false)
 				.fechaAsignacion(fechaAsignacion)
 				.fechaEntrega(fechaEntrega2)
 				.build();
 
 		a3 = Asignacion.builder()
-				.costePorKmYPeso(3.0)
 				.estadoPedido(false)
 				.fechaAsignacion(fechaAsignacion)
 				.fechaEntrega(fechaEntrega3)
 				.build();
 
 		a4 = Asignacion.builder()
-				.costePorKmYPeso(3.5)
 				.estadoPedido(false)
 				.fechaAsignacion(fechaAsignacion)
 				.fechaEntrega(fechaEntrega4)
 				.build();
 
 		a5 = Asignacion.builder()
-				.costePorKmYPeso(4.0)
 				.estadoPedido(false)
 				.fechaAsignacion(fechaAsignacion)
 				.fechaEntrega(fechaEntrega5)

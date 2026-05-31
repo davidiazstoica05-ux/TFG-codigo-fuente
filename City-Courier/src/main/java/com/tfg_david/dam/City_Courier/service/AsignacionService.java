@@ -1,5 +1,6 @@
 package com.tfg_david.dam.City_Courier.service;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +40,7 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk , As
 		return false;
 	}
 	
-
+	
 	public boolean asignarEnvio(Asignacion asig) {
 		Optional<Envio> envio; 
 		
@@ -62,6 +63,7 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk , As
 	}
 
 	
+	//Borra la asignación , pero para ello antes se desvincula del envio y el repartidor
 	
 	public void deleteAsignacion(Long codEnvio, Long idTrabajador) {
 		AsignacionPk pk; 
@@ -89,29 +91,61 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk , As
 			repo.delete(asig);
 		}
 	}
-
+	
+	
+	//CalcularPrecioDistancia
+	//Angel aqui no hice lo del tiempo por lo que hablamos que hubo una confusión y yo pensaba que era la fecha de entrega
+	//ya que el enunciado era un poco ambiguo 
 	public void calcularPrecioDistanciaTiempoKm(List<Asignacion> asig) {
 		Collection<Double> rutaDistancia; 
 		Optional<Double> distanciaKmOpt; 
-		double costeTotal; 
+		double costeTotal, precioBase = 0, costePeso = 0, recargoPorPeso = 0.25, costeDistancia = 0;
+		double costePorKm = 0.20, costeTotalFinal = 0;
+		Envio envio;
 		
 		for (Asignacion asignacion : asig) {
+			
+			envio = asignacion.getEnvio();
+			
+			
+			if (envio != null) {
+			
+				precioBase = envio.getPrioridad().getPrecioBase();
+				
+				costePeso = envio.getPeso() * recargoPorPeso;
+								
+				
+			}			
+			
 			if (asignacion.getRepartidor() != null && 
 				asignacion.getRepartidor().getRuta() != null && 
 				asignacion.getRepartidor().getRuta().getPuntosEntregas() != null) {
-				
+			
 				rutaDistancia = asignacion.getRepartidor().getRuta().getPuntosEntregas().values();
 				distanciaKmOpt = rutaDistancia.stream().findFirst();
-
+			
 				if (distanciaKmOpt.isPresent()) {
-					costeTotal = asignacion.getCostePorKmYPeso() * distanciaKmOpt.get();
-					asignacion.setCosteTotal(costeTotal);
-				} 
-			} else {
-				asignacion.setCostePorKmYPeso(0);
+					
+					costeDistancia = distanciaKmOpt.get() *  costePorKm;
+					
+					
+				}
+				
+				costeTotalFinal = precioBase + costePeso + costeDistancia;
 			}
+			
+			asignacion.setCosteTotal(costeTotalFinal);
+			
 		}
+		
+	
+		
+	
 	}
+	
+	
+	
+	//ValidarCargaPeso
 	
 	public boolean validarCargaPeso(Asignacion asigForm) {
 		Repartidor repartidor; 
@@ -129,4 +163,16 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk , As
 			throw new CapacidadExcedidaException(String.format("La capacidad restante del repartidor es de: %.2f kg", capacidadRestante));
 		} 
 	}
+	
+	//MonitorizarEntrega
+	public String monitorizarEntrega (Envio envio) {
+		
+	
+		return "";
+		
+		
+		
+		
+	}
+	
 }
