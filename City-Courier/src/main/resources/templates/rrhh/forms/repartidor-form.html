@@ -128,35 +128,6 @@
                         </div>
                     </fieldset>
 
-                    <fieldset class="mb-5 border-top pt-4">
-                        <h6 class="text-primary fw-bold mb-4">
-                            <i class="bi bi-briefcase me-2"></i>Datos de acceso y Seguridad
-                        </h6>
-
-                        <div class="row g-3">
-                            <div class="col-12 col-md-6">
-                                <label for="Usuario">Usuario</label>
-                                <input type="text" class="form-control bg-light border-0 shadow-sm py-2" id="Usuario"
-                                    th:field="*{usuario}" placeholder="Ej. juan.perez" required>
-                                <div class="invalid-feedback">Debe introducir un nombre de usuario válido.</div>
-                                <div th:if="${#fields.hasErrors('usuario')}" class="text-danger small">
-                                    <span th:errors="*{usuario}"></span>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <label for="Contraseña">Contraseña</label>
-                                <input type="password" class="form-control bg-light border-0 shadow-sm py-2" id="passw"
-                                    th:field="*{passw}" placeholder="Ej. ********" required>
-                                <div class="invalid-feedback">Debe introducir una contraseña válida.</div>
-                                <div th:if="${#fields.hasErrors('passw')}" class="text-danger small">
-                                    <span th:errors="*{passw}"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </fieldset>
-
-
                     <fieldset class=" mb-5 border-top pt-4">
                         <h6 class="text-primary fw-bold mb-4">
                             <i class="bi bi-briefcase me-2"></i>Condiciones Laborales y Vehículo

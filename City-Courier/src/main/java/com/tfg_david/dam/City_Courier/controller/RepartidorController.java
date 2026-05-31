@@ -95,7 +95,6 @@ public class RepartidorController {
 			
 		} else {
 
-			repartidorForm.setPassw(passwEncoder.encode(repartidorForm.getPassw()));
 
 			repartidorForm.setActivo(true);
 

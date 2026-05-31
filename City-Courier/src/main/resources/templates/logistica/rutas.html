@@ -77,7 +77,7 @@
                                                 th:text="${ruta.repartidores.size() + ' repartidores'}">0
                                                 repartidores</span>
                                         </div>
-                                        <div class="progress" style="height: 10px;">
+                                        <div class="progress progress-sm">
                                             <div class="progress-bar bg-success rounded-pill" role="progressbar"
                                                 th:style="'width: ' + (${ruta.repartidores.size()} * 10) + '%'"></div>
                                         </div>
@@ -92,9 +92,9 @@
                                             <span class="fw-medium text-secondary">Ruta Sevilla Centro</span>
                                             <span class="badge bg-success rounded-pill">24 viajes</span>
                                         </div>
-                                        <div class="progress" style="height: 10px;">
-                                            <div class="progress-bar bg-success rounded-pill" role="progressbar"
-                                                style="width: 85%"></div>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar bg-success rounded-pill w-85" role="progressbar">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="mb-3">
@@ -102,9 +102,9 @@
                                             <span class="fw-medium text-secondary">Ruta Triana - Los Remedios</span>
                                             <span class="badge bg-success rounded-pill">18 viajes</span>
                                         </div>
-                                        <div class="progress" style="height: 10px;">
-                                            <div class="progress-bar bg-success rounded-pill opacity-75"
-                                                role="progressbar" style="width: 65%"></div>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar bg-success rounded-pill opacity-75 w-65"
+                                                role="progressbar"></div>
                                         </div>
                                     </div>
                                     <div class="mb-0">
@@ -112,9 +112,9 @@
                                             <span class="fw-medium text-secondary">Ruta Macarena Norte</span>
                                             <span class="badge bg-success rounded-pill">12 viajes</span>
                                         </div>
-                                        <div class="progress" style="height: 10px;">
-                                            <div class="progress-bar bg-success rounded-pill opacity-50"
-                                                role="progressbar" style="width: 40%"></div>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar bg-success rounded-pill opacity-50 w-40"
+                                                role="progressbar"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -124,12 +124,12 @@
                         <div class="col-12 col-xl-4">
                             <div
                                 class="bg-success bg-opacity-10 p-4 rounded-4 shadow-sm border border-success border-opacity-25 h-100 d-flex flex-column justify-content-center align-items-center text-center">
-                                <div class="bg-white p-3 rounded-circle shadow-sm mb-3">
-                                    <i class="bi bi-signpost-split-fill text-success" style="font-size: 2.5rem;"></i>
+                                <div class="bg-white p-3 rounded-circle shadow-sm mb-3 circle-55">
+                                    <i class="bi bi-signpost-split-fill text-success icon-large-2-5"></i>
                                 </div>
                                 <h2 class="fw-bold text-success mb-1"
                                     th:text="${rutaList != null ? rutaList.size() : 0}">0</h2>
-                                <h6 class="fw-bold text-secondary mb-0 text-uppercase" style="letter-spacing: 1px;">
+                                <h6 class="fw-bold text-secondary mb-0 text-uppercase letter-spacing-1">
                                     Rutas Totales Activas</h6>
                             </div>
                         </div>
