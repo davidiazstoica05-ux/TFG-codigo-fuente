@@ -10,6 +10,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
@@ -23,15 +24,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@IdClass(AsignacionPk.class)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Asignacion {
 
-	@Id
-	@GeneratedValue
-	private Long idAsignacion;
+	
+	
 	private boolean estadoPedido;
 	
 	@NotNull(message = "Es obligatorio")
@@ -48,12 +49,14 @@ public class Asignacion {
 
 	private String motivoIncidencia;
 
-	
+	@Id
 	@ManyToOne
-	@JoinColumn(name = "dni")
+	@JoinColumn(name = "idTrabajador")
 	private Repartidor repartidor;
 	
-	@OneToOne(mappedBy = "asignacion", cascade = CascadeType.ALL)
+	@Id
+	@OneToOne
+	@JoinColumn(name = "codEnvio")
 	private Envio envio;
 
 	@DurationMin(minutes = 15, message = "El tiempo estimado tiene que ser mayor a 15 minutos")

@@ -218,7 +218,8 @@
             </thead>
             <tbody class="border-top-0">
                 <tr th:each="asig : ${asignacionList}">
-                    <td class="fw-bold text-muted" th:text="${asig.idAsignacion}">1</td>
+                    <td class="fw-bold text-muted"
+                        th:text="${asig.envio?.codEnvio} + '-' + ${asig.repartidor?.idTrabajador}">1-1</td>
 
                     <td th:text="${asig.repartidor?.dni}">12345678A</td>
                     <td th:text="${asig.repartidor?.ruta?.nombreRuta?: 'Sin ruta'}">Ruta 1</td>
@@ -243,13 +244,13 @@
                     <td class="text-danger small" th:text="${asig.motivoIncidencia ?: 'Ninguna'}">Ninguna</td>
 
                     <td class="text-center">
-                        <a th:href="@{/logistica/asignaciones/editar/{id}(id=${asig.idAsignacion})}"
+                        <a th:href="@{/logistica/asignaciones/editar/{codEnvio}/{idTrabajador}(codEnvio=${asig.envio.codEnvio}, idTrabajador=${asig.repartidor.idTrabajador})}"
                             class="text-decoration-none text-info">
-                            <i class="bi bi-pencil-square fs-5"></i>
+                            <i class="bi bi-pencil-square"></i>
                         </a>
                     </td>
                     <td class="text-center">
-                        <a th:href="@{/logistica/asignaciones/borrar/{id}(id=${asig.idAsignacion})}"
+                        <a th:href="@{/logistica/asignaciones/borrar/{codEnvio}/{idTrabajador}(codEnvio=${asig.envio.codEnvio}, idTrabajador=${asig.repartidor.idTrabajador})}"
                             class="text-decoration-none text-danger"
                             th:onclick="return confirm('¿Estás seguro de que deseas eliminar esta asignación?');">
                             <i class="bi bi-trash fs-5 text-danger"></i>
