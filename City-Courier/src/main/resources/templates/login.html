@@ -9,7 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/general.css}">
 </head>
@@ -19,11 +20,11 @@
     <div th:replace="~{fragments/general :: header}"></div>
 
     <main class="flex-grow-1 d-flex align-items-center justify-content-center p-3">
-        
-        <div class="bg-white rounded-5 shadow-lg p-4 p-md-5 w-100" style="max-width: 450px;">
-            
+
+        <div class="bg-white rounded-5 shadow-lg p-4 p-md-5 w-100 max-w-450">
+
             <div class="text-center mb-4">
-                <i class="bi bi-box-seam-fill text-primary" style="font-size: 3rem;"></i>
+                <i class="bi bi-box-seam-fill text-primary icon-large-3"></i>
                 <h2 class="fw-bold text-primary mt-2">Iniciar Sesión</h2>
                 <p class="text-muted">Bienvenido a City Courier</p>
             </div>
@@ -36,25 +37,30 @@
             </div>
 
             <form th:action="@{/login}" method="POST">
-                
+
                 <div class="mb-3">
                     <label for="username" class="form-label fw-medium">Usuario</label>
                     <div class="input-group">
-                        <span class="input-group-text bg-light border-end-0 rounded-start-4"><i class="bi bi-person text-muted"></i></span>
-                        <input type="text" class="form-control border-start-0 bg-light rounded-end-4 py-2" id="username" name="username" placeholder="Introduce tu usuario" required autofocus>
+                        <span class="input-group-text bg-light border-end-0 rounded-start-4"><i
+                                class="bi bi-person text-muted"></i></span>
+                        <input type="text" class="form-control border-start-0 bg-light rounded-end-4 py-2" id="username"
+                            name="username" placeholder="Introduce tu usuario" required autofocus>
                     </div>
                 </div>
 
                 <div class="mb-4">
                     <label for="password" class="form-label fw-medium">Contraseña</label>
                     <div class="input-group">
-                        <span class="input-group-text bg-light border-end-0 rounded-start-4"><i class="bi bi-lock text-muted"></i></span>
-                        <input type="password" class="form-control border-start-0 bg-light rounded-end-4 py-2" id="password" name="password" placeholder="Introduce tu contraseña" required>
+                        <span class="input-group-text bg-light border-end-0 rounded-start-4"><i
+                                class="bi bi-lock text-muted"></i></span>
+                        <input type="password" class="form-control border-start-0 bg-light rounded-end-4 py-2"
+                            id="password" name="password" placeholder="Introduce tu contraseña" required>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100 rounded-4 py-2 fw-bold fs-5 shadow-sm">Entrar</button>
-                
+                <button type="submit"
+                    class="btn btn-primary w-100 rounded-4 py-2 fw-bold fs-5 shadow-sm">Entrar</button>
+
             </form>
 
         </div>
@@ -65,4 +71,5 @@
         crossorigin="anonymous"></script>
 
 </body>
+
 </html>

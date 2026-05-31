@@ -107,6 +107,11 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 		double costeTotal, precioBase = 0, costePeso = 0, recargoPorPeso = 0.25, costeDistancia = 0;
 		double costePorKm = 0.20, costeTotalFinal = 0;
 		Envio envio;
+		
+		
+		
+		
+		
 
 		for (Asignacion asignacion : asig) {
 
@@ -199,12 +204,11 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 
 
 	// Asginación automatica
-	// Para Ángel: Despues de la pechá que me he pegado en este proyecto quería hacer la joya de
-	// la corona. Así que hice esto, que en verdad es una bobería pero me parece divertido. 
-	
+	// Para Ángel: Despues de la pechá que me he pegado en este proyecto quería hacer algo diferente. 
+	//Así que hice esto, que en verdad es una bobería pero me parece divertido, espero que te guste. 
 	//Como se que te gusta ver las dos versiones te pongo las dos :p
 	
-	// Versión "Nueva"
+	// Versión "Simple"
 	
 	public void asignarAutomaticamente() {
 
