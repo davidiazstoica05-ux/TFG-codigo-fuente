@@ -3,6 +3,7 @@ package com.tfg_david.dam.City_Courier.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -34,8 +35,8 @@ public class Envio {
 	@NotBlank(message = "La dirección del envío no puede estar vacia")
 	private String direccion;
 	
-	@NotBlank(message = "La zona no puede estar vacia")
-	private String zona;
+	@Enumerated(EnumType.STRING)
+	private Zona zona;
 	
 	@NotBlank(message = "El codigo postal no puede estar vacio")
 	@Size(max = 5, min = 5 )
@@ -46,15 +47,15 @@ public class Envio {
 	private double peso;
 	
 	@FutureOrPresent( message = "la fecha de entrega debe de ser hoy o un futuro")
-	private LocalDateTime fechaEntregaEstimada; 
+	private LocalDateTime fechaEntregaLimite; 
 	
 	@NotBlank(message = "Tiene que haber un destinatario")
 	private String destinatario; 
 	
-	@OneToOne
-	@JoinColumn(name = "idAsignacion")
+	@OneToOne(mappedBy = "envio", cascade = CascadeType.ALL)
 	private Asignacion asignacion; 
-	
+
+	private PrioridadEnvio prioridad;
 
 	
 }

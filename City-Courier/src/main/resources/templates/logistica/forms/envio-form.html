@@ -95,9 +95,19 @@
                             <div class="col-6 col-md-6 col-lg-4">
                                 <label for="zona" class="form-label fw-medium text-secondary small text-uppercase">Zona
                                     Asignada</label>
-                                <input type="text" class="form-control bg-light border-0 shadow-sm py-2" id="zona"
-                                    th:field="*{zona}" placeholder="Ej. Centro / Nervión" required>
-                                <div class="invalid-feedback">Debe especificar la zona.</div>
+
+                                <select class="form-select bg-light border-0 shadow-sm py-2" id="zona"
+                                    th:field="*{zona}" required>
+
+                                    <option value="">Seleccione una zona...</option>
+
+                                    <option th:each="z : ${T(com.tfg_david.dam.City_Courier.model.Zona).values()}"
+                                        th:value="${z}" th:text="${z.display}">
+                                    </option>
+
+                                </select>
+
+                                <div class="invalid-feedback">Debe seleccionar una zona válida.</div>
                                 <div th:if="${#fields.hasErrors('zona')}" class="text-danger small">
                                     <span th:errors="*{zona}"></span>
                                 </div>
@@ -125,17 +135,34 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-8 col-lg-5 offset-lg-1">
-                                <label for="fechaEntregaEstimada"
-                                    class="form-label fw-medium text-secondary small text-uppercase">Fecha y Hora Límite
-                                    de Entrega</label>
+                            <div class="col-12 col-md-4 col-lg-4">
+                                <label for="prioridad"
+                                    class="form-label fw-medium text-secondary small text-uppercase">Prioridad del
+                                    Envío</label>
+                                <select class="form-select bg-light border-0 shadow-sm py-2" id="prioridad"
+                                    th:field="*{prioridad}" required>
+                                    <option value="">Seleccione prioridad...</option>
+                                    <option value="AHORRO">Ahorro</option>
+                                    <option value="NORMAL">Normal</option>
+                                    <option value="URGENTE">Urgente</option>
+                                </select>
+                                <div class="invalid-feedback">Debe seleccionar una prioridad válida.</div>
+                                <div th:if="${#fields.hasErrors('prioridad')}" class="text-danger small">
+                                    <span th:errors="*{prioridad}"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-4 col-lg-5">
+                                <label for="fechaEntregaLimite"
+                                    class="form-label fw-medium text-secondary small text-uppercase">Fecha y Hora
+                                    Límite</label>
                                 <input type="datetime-local" class="form-control bg-light border-0 shadow-sm py-2"
-                                    id="fechaEntregaEstimada" name="fechaEntregaEstimada"
-                                    th:value="${envio.fechaEntregaEstimada != null} ? ${#temporals.format(envio.fechaEntregaEstimada, 'yyyy-MM-dd''T''HH:mm')} : ''"
+                                    id="fechaEntregaLimite" name="fechaEntregaLimite"
+                                    th:value="${envio.fechaEntregaLimite != null} ? ${#temporals.format(envio.fechaEntregaLimite, 'yyyy-MM-dd''T''HH:mm')} : ''"
                                     required>
                                 <div class="invalid-feedback">Debe planificar una fecha válida.</div>
-                                <div th:if="${#fields.hasErrors('fechaEntregaEstimada')}" class="text-danger small">
-                                    <span th:errors="*{fechaEntregaEstimada}"></span>
+                                <div th:if="${#fields.hasErrors('fechaEntregaLimite')}" class="text-danger small">
+                                    <span th:errors="*{fechaEntregaLimite}"></span>
                                 </div>
                             </div>
                         </div>

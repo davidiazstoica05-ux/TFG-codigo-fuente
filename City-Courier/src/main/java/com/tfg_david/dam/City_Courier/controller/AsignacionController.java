@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tfg_david.dam.City_Courier.model.Asignacion;
+import com.tfg_david.dam.City_Courier.model.AsignacionPk;
 import com.tfg_david.dam.City_Courier.model.Envio;
 import com.tfg_david.dam.City_Courier.service.AsignacionService;
 import com.tfg_david.dam.City_Courier.service.EnviosService;
@@ -34,17 +35,13 @@ public class AsignacionController {
 
 	@GetMapping
 	public String asignacion(@RequestParam(value = "criterio", required = false) String busqueda, Model model) {
-
-		List<Asignacion> listaResultados;
-		Long stringConvertido = null;
-
+		List<Asignacion> listaResultados; 
+		Long numeroBusqueda; 
+		
+		
 		if (busqueda != null && !busqueda.trim().isEmpty()) {
-			if (Utilidades.comprobarSiEsDNI(busqueda)) {
-				listaResultados = asigService.findByIdAsignacionOrRepartidorDni(stringConvertido, busqueda);
-			} else {
-				stringConvertido = Utilidades.extraerCodigoSiEsNumerico(busqueda);
-				listaResultados = asigService.findByIdAsignacionOrRepartidorDni(stringConvertido, busqueda);
-			}
+			numeroBusqueda = Utilidades.extraerCodigoSiEsNumerico(busqueda);
+			listaResultados = asigService.findByIdAsignacionOrRepartidorId(numeroBusqueda, numeroBusqueda);
 		} else {
 			listaResultados = asigService.findAll();
 		}
@@ -57,9 +54,7 @@ public class AsignacionController {
 
 	@GetMapping("/nuevo")
 	public String nuevaAsignacion(Model model) {
-
 		model.addAttribute("asignacion", new Asignacion());
-
 		model.addAttribute("repartidoresList", repartidorService.findAll());
 		model.addAttribute("enviosList", envioService.findAll());
 
@@ -70,9 +65,10 @@ public class AsignacionController {
 	public String asignaciones(@Valid @ModelAttribute("asignacion") Asignacion asignacionForm,
 			BindingResult bindingResult, Model model) {
 
-		Envio envioAntiguo;
-		Optional<Asignacion> asignacionOpt;
+		Long codEnvio;
+		Optional<Envio> envioOpt;
 		Asignacion asigGuardada;
+
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("repartidoresList", repartidorService.findAll());
@@ -80,76 +76,66 @@ public class AsignacionController {
 			return "logistica/forms/asignacion-form";
 		}
 
-		if (asignacionForm.getIdAsignacion() != null) {
 
-			asignacionOpt = asigService.findById(asignacionForm.getIdAsignacion());
+		if (asignacionForm.getEnvio() != null && asignacionForm.getEnvio().getCodEnvio() != null &&
+			asignacionForm.getRepartidor() != null && asignacionForm.getRepartidor().getIdTrabajador() != null) {
+			
+			codEnvio = asignacionForm.getEnvio().getCodEnvio();
+			envioOpt = envioService.findById(codEnvio);
 
-			if (asignacionOpt.isPresent()) {
+			if (envioOpt.isPresent() && envioOpt.get().getAsignacion() != null) {
+				asigGuardada = envioOpt.get().getAsignacion();
 
-				asigGuardada = asignacionOpt.get();
+				if (!asigGuardada.getRepartidor().getIdTrabajador().equals(asignacionForm.getRepartidor().getIdTrabajador())) {
 
-				if (asigGuardada.getEnvio() != null
-						&& !asigGuardada.getEnvio().getCodEnvio().equals(asignacionForm.getEnvio().getCodEnvio())) {
+					asigService.deleteAsignacion(asigGuardada.getEnvio().getCodEnvio(), asigGuardada.getRepartidor().getIdTrabajador());
+					
+					if (asigService.asignarRepartidor(asignacionForm) && asigService.asignarEnvio(asignacionForm)) {
+						if (asigService.validarCargaPeso(asignacionForm)) {
+							asigService.save(asignacionForm);
+						}
+					}
+				} else {
 
-					envioAntiguo = asigGuardada.getEnvio();
-					envioAntiguo.setAsignacion(null);
-					envioService.save(envioAntiguo);
-				}
-
-				// Hecho para no tener que tener todos los campos en el form
-				asigGuardada.setCostePorKmYPeso(asignacionForm.getCostePorKmYPeso());
-				asigGuardada.setEstadoPedido(asignacionForm.isEstadoPedido());
-				asigGuardada.setFechaEntrega(asignacionForm.getFechaEntrega());
-				asigGuardada.setMotivoIncidencia(asignacionForm.getMotivoIncidencia());
-				asigGuardada.setRepartidor(asignacionForm.getRepartidor());
-				asigGuardada.setEnvio(asignacionForm.getEnvio());
-
-				if (asigService.asignarRepartidor(asigGuardada) && asigService.asignarEnvio(asigGuardada)) {
+					asigGuardada.setEstadoPedido(asignacionForm.isEstadoPedido());
+					asigGuardada.setFechaEntrega(asignacionForm.getFechaEntrega());
+					asigGuardada.setMotivoIncidencia(asignacionForm.getMotivoIncidencia());
 
 					if (asigService.validarCargaPeso(asigGuardada)) {
-
 						asigService.save(asigGuardada);
+					}
+				}
+			} else {
 
+				if (asigService.asignarRepartidor(asignacionForm) && asigService.asignarEnvio(asignacionForm)) {
+					if (asigService.validarCargaPeso(asignacionForm)) {
+						asigService.save(asignacionForm);
 					}
 				}
 			}
 		}
 
-		else {
-
-			if (asigService.asignarRepartidor(asignacionForm) && asigService.asignarEnvio(asignacionForm)) {
-
-				if (asigService.validarCargaPeso(asignacionForm)) {
-					// Tenía duda de si hacer el save dentro del metodo, pero creo que he elegido
-					// bien al ponerlo aqui. SOLID :p
-					asigService.save(asignacionForm);
-
-				}
-			}
-		}
-
 		return "redirect:/logistica/asignaciones";
 	}
 
-	// Editar y borrar
-
-	@GetMapping("/borrar/{idAsignacion}")
-	public String borrarRepartidor(@PathVariable("idAsignacion") Long idAsignacion) {
-
-		asigService.deleteAsignacion(idAsignacion);
-
+	@GetMapping("/borrar/{codEnvio}/{idTrabajador}")
+	public String borrarRepartidor(@PathVariable("codEnvio") Long codEnvio, @PathVariable("idTrabajador") Long idTrabajador) {
+		asigService.deleteAsignacion(codEnvio, idTrabajador);
+		
 		return "redirect:/logistica/asignaciones";
-
 	}
 
-	@GetMapping("/editar/{idAsignacion}")
-	public String editarAsignacion(@PathVariable("idAsignacion") Long idAsignacion, Model model) {
-
-		Optional<Asignacion> asignacion = asigService.findById(idAsignacion);
+	@GetMapping("/editar/{codEnvio}/{idTrabajador}")
+	public String editarAsignacion(@PathVariable("codEnvio") Long codEnvio, @PathVariable("idTrabajador") Long idTrabajador, Model model) {
+		
+		AsignacionPk pk; 
+		Optional<Asignacion> asignacion; 
+		
+		pk = new AsignacionPk(codEnvio, idTrabajador);
+		asignacion = asigService.findById(pk);
 
 		if (asignacion.isPresent()) {
 			model.addAttribute("asignacion", asignacion.get());
-
 			model.addAttribute("repartidoresList", repartidorService.findAll());
 			model.addAttribute("enviosList", envioService.findAll());
 

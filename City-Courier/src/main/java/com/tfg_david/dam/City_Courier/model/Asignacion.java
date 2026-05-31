@@ -6,37 +6,32 @@ import java.time.LocalDateTime;
 import org.hibernate.validator.constraints.time.DurationMin;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@IdClass(AsignacionPk.class)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Asignacion {
 
-	@Id
-	@GeneratedValue
-	private Long idAsignacion;
+	
+	
 	private boolean estadoPedido;
 	
-	@NotNull(message = "Es obligatorio")
-	@Min(value = 1, message = "El valor no puede ser inferior a 1")
-	private double costePorKmYPeso;
 	
 	private double costeTotal;
 	
@@ -48,12 +43,14 @@ public class Asignacion {
 
 	private String motivoIncidencia;
 
-	
+	@Id
 	@ManyToOne
-	@JoinColumn(name = "dni")
+	@JoinColumn(name = "idTrabajador")
 	private Repartidor repartidor;
 	
-	@OneToOne(mappedBy = "asignacion", cascade = CascadeType.ALL)
+	@Id
+	@OneToOne
+	@JoinColumn(name = "codEnvio")
 	private Envio envio;
 
 	@DurationMin(minutes = 15, message = "El tiempo estimado tiene que ser mayor a 15 minutos")
@@ -70,6 +67,9 @@ public class Asignacion {
 		}
 
 	}
+	
+	@Transient //Para que no lo guarde en la bbdd
+	private EstadoTiempo estadoTiempo;
 
 	@PrePersist
 	public void configurarHoraActural() {

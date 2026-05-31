@@ -21,8 +21,11 @@
 
     <div id="row 1" class="row text flex-grow-1 m-0">
 
+<<<<<<< HEAD
         <aside sec:authorize="hasRole('ADMIN')" th:replace="~{fragments/general :: asideAdmin}"></aside>
 
+=======
+>>>>>>> develop
         <aside sec:authorize="hasRole('LOGISTICA') and !hasRole('ADMIN')"
             th:replace="~{fragments/general :: asideLogistica}"></aside>
 
@@ -40,36 +43,19 @@
                 <h3 class="fw-bold text-info mb-4 pb-2 border-bottom">
                     <i class="bi bi-person-check-fill me-2"></i>
                     <span
-                        th:text="${asignacion.idAsignacion != null} ? 'Editar Asignación' : 'Registrar Nueva Asignación'">Formulario</span>
+                        th:text="${asignacion.envio != null} ? 'Editar Asignación' : 'Registrar Nueva Asignación'">Formulario</span>
                 </h3>
 
                 <form method="post" th:action="@{/logistica/asignaciones/guardar}" id="asignacionFormulario"
                     th:object="${asignacion}" class="needs-validation" novalidate>
 
-                    <input type="hidden" id="idAsignacion" th:field="*{idAsignacion}">
-
                     <fieldset class="mb-5">
                         <h6 class="text-info fw-bold mb-4">
-                            <i class="bi bi-currency-euro me-2"></i>Estado, Envío y Coste
+                            <i class="bi bi-box me-2"></i>Estado y Envío
                         </h6>
 
                         <div class="row g-3">
-                            <div class="col-12 col-md-4 col-lg-3">
-                                <label for="coste"
-                                    class="form-label fw-medium text-secondary small text-uppercase">Coste del
-                                    Servicio Por Km y Peso</label>
-                                <div class="input-group shadow-sm">
-                                    <input type="number" min="0" step="0.5" class="form-control bg-light border-0 py-2"
-                                        id="coste" th:field="*{costePorKmYPeso}" placeholder="Ej. 15.50" required>
-                                    <span class="input-group-text bg-light border-0 text-muted">€</span>
-                                </div>
-                                <div class="invalid-feedback">Debe introducir un coste válido.</div>
-                                <div th:if="${#fields.hasErrors('costePorKmYPeso')}" class="text-danger small">
-                                    <span th:errors="*{costePorKmYPeso}"></span>
-                                </div>
-                            </div>
-
-                            <div class="col-12 col-md-4 col-lg-4">
+                            <div class="col-12 col-md-6">
                                 <label for="estadoPedido"
                                     class="form-label fw-medium text-secondary small text-uppercase">Estado de la
                                     Asignación</label>
@@ -84,7 +70,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-4 col-lg-5">
+                            <div class="col-12 col-md-6">
                                 <label for="codigoEnvio"
                                     class="form-label fw-medium text-secondary small text-uppercase">Código del
                                     Paquete</label>
@@ -98,7 +84,6 @@
                                 <div th:if="${#fields.hasErrors('envio.codEnvio')}" class="text-danger small">
                                     <span th:errors="*{envio.codEnvio}"></span>
                                 </div>
-
                             </div>
                         </div>
                     </fieldset>
@@ -113,17 +98,16 @@
                                 <label for="repartidor"
                                     class="form-label fw-medium text-secondary small text-uppercase">Repartidor
                                     Asignado</label>
-                                <input class="form-control bg-light border-0 shadow-sm py-2" id="repartidor"
-                                    list="repartidoresList" th:field="*{repartidor.dni}"
-                                    placeholder="Buscar por DNI o Nombre..." required>
-
-                                <datalist id="repartidoresList">
-                                    <option th:each="rep : ${repartidoresList}" th:value="${rep.dni}"
-                                        th:text="${rep.nombre} + ' ' + ${rep.apellidos}"></option>
-                                </datalist>
-                                <div class="invalid-feedback">Debe asignar un DNI válido.</div>
-                                <div th:if="${#fields.hasErrors('repartidor.dni')}" class="text-danger small">
-                                    <span th:errors="*{repartidor.dni}"></span>
+                                <select class="form-select bg-light border-0 shadow-sm py-2" id="repartidor"
+                                    th:field="*{repartidor.idTrabajador}" required>
+                                    <option value="">Seleccione el repartidor...</option>
+                                    <option th:each="rep : ${repartidoresList}" th:value="${rep.idTrabajador}"
+                                        th:text="${rep.nombre} + ' ' + ${rep.apellidos} + ' (' + ${rep.dni} + ')'">
+                                    </option>
+                                </select>
+                                <div class="invalid-feedback">Debe asignar un repartidor válido.</div>
+                                <div th:if="${#fields.hasErrors('repartidor.idTrabajador')}" class="text-danger small">
+                                    <span th:errors="*{repartidor.idTrabajador}"></span>
                                 </div>
                             </div>
 
@@ -139,6 +123,7 @@
                                     <span th:errors="*{fechaEntrega}"></span>
                                 </div>
                             </div>
+                        </div>
                     </fieldset>
 
                     <fieldset class="mb-5 border-top pt-4">
@@ -153,7 +138,7 @@
                                     (Opcional)</label>
                                 <textarea class="form-control bg-light border-0 shadow-sm py-2" id="motivoIncidencia"
                                     rows="3" th:field="*{motivoIncidencia}"
-                                    placeholder="Describa si ha ocurrido algún problema durante el reparto (ausente, avería, dirección incorrecta)..."></textarea>
+                                    placeholder="Describa si ha ocurrido algún problema durante el reparto..."></textarea>
                             </div>
                         </div>
                     </fieldset>

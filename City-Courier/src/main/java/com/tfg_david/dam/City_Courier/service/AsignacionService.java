@@ -1,5 +1,7 @@
 package com.tfg_david.dam.City_Courier.service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -8,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.tfg_david.dam.City_Courier.excepciones.CapacidadExcedidaException;
 import com.tfg_david.dam.City_Courier.model.Asignacion;
+import com.tfg_david.dam.City_Courier.model.AsignacionPk;
 import com.tfg_david.dam.City_Courier.model.Envio;
+import com.tfg_david.dam.City_Courier.model.EstadoTiempo;
 import com.tfg_david.dam.City_Courier.model.Repartidor;
 import com.tfg_david.dam.City_Courier.repository.AsignacionRepository;
 import com.tfg_david.dam.City_Courier.repository.EnviosRepository;
@@ -19,149 +23,185 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class AsignacionService extends BaseService<Asignacion, Long, AsignacionRepository> {
+public class AsignacionService extends BaseService<Asignacion, AsignacionPk , AsignacionRepository> {
 
 	private final RepartidorRepository repartidorRepo;
-
 	private final EnviosRepository envioRepo;
-	
 	private final RepartidorService repartidorService;
 
 	public boolean asignarRepartidor(Asignacion asig) {
-
-		Optional<Repartidor> repartidor;
-
-		String dni = asig.getRepartidor().getDni();
-
-		if (dni != null && !dni.isEmpty()) {
-
-			repartidor = repartidorRepo.findByDni(dni);
-
+		Optional<Repartidor> repartidor; 
+		
+		if (asig.getRepartidor() != null && asig.getRepartidor().getIdTrabajador() != null) {
+			repartidor = repartidorRepo.findById(asig.getRepartidor().getIdTrabajador());
 			if (repartidor.isPresent()) {
-
 				asig.setRepartidor(repartidor.get());
-
 				return true;
-
 			}
-
 		}
-
 		return false;
 	}
-
+	
+	
 	public boolean asignarEnvio(Asignacion asig) {
-
-		Optional<Envio> envio;
-
-		Long idEnvio = asig.getEnvio().getCodEnvio();
-
-		if (idEnvio != null && idEnvio != 0) {
-
-			envio = envioRepo.findById(idEnvio);
-
+		Optional<Envio> envio; 
+		
+		if (asig.getEnvio() != null && asig.getEnvio().getCodEnvio() != null) {
+			envio = envioRepo.findById(asig.getEnvio().getCodEnvio());
 			if (envio.isPresent()) {
-
 				asig.setEnvio(envio.get());
-				envio.get().setAsignacion(asig);
-
 				return true;
-
 			}
-
 		}
-
 		return false;
-
 	}
 
-	public List<Asignacion> findByIdAsignacionOrRepartidorDni(Long idAsignacion, String busqueda) {
-
-		return repo.findByIdAsignacionOrRepartidorDni(idAsignacion, busqueda);
-
+	public List<Asignacion> findByIdAsignacionOrRepartidorId(Long codEnvio, Long idTrabajador) {
+		return repo.findByEnvio_CodEnvioOrRepartidor_IdTrabajador(codEnvio, idTrabajador);
 	}
 
 	public Long countByEstadoPedido(boolean estado) {
-
 		return repo.countByEstadoPedido(estado);
-
 	}
 
-	public void deleteAsignacion(Long idAsignacion) {
+	
+	//Borra la asignación , pero para ello antes se desvincula del envio y el repartidor
+	
+	public void deleteAsignacion(Long codEnvio, Long idTrabajador) {
+		AsignacionPk pk; 
+		Optional<Asignacion> asigOpt; 
+		Asignacion asig; 
+		Envio envio; 
+		Repartidor repartidor; 
+		
+		pk = new AsignacionPk(codEnvio, idTrabajador);
+		asigOpt = repo.findById(pk);
 
-		Optional<Asignacion> asig;
-
-		asig = repo.findById(idAsignacion);
-
-		if (asig.isPresent()) {
-
-			repo.deleteById(idAsignacion);
-
+		if (asigOpt.isPresent()) {
+			asig = asigOpt.get();
+			envio = asig.getEnvio();
+			repartidor = asig.getRepartidor();
+			
+			if (envio != null) {
+				envio.setAsignacion(null);
+			}
+			
+			if (repartidor != null) {
+				repartidor.getAsignacionesRepartidor().remove(asig);
+			}
+			
+			repo.delete(asig);
 		}
-
 	}
-
-	// Calcular precio según distancia precio y tiempo
+	
+	
+	//CalcularPrecioDistancia
+	//Angel aqui no hice lo del tiempo por lo que hablamos que hubo una confusión y yo pensaba que era la fecha de entrega
+	//ya que el enunciado era un poco ambiguo 
 	public void calcularPrecioDistanciaTiempoKm(List<Asignacion> asig) {
-
-		Collection<Double> rutaDistancia;
-		Optional<Double> distanciaKmOpt;
-		Long minutos;
-		double costeTotal, costeHoras, convertirADouble = 60.0, minutosDouble;
-
+		Collection<Double> rutaDistancia; 
+		Optional<Double> distanciaKmOpt; 
+		double costeTotal, precioBase = 0, costePeso = 0, recargoPorPeso = 0.25, costeDistancia = 0;
+		double costePorKm = 0.20, costeTotalFinal = 0;
+		Envio envio;
+		
 		for (Asignacion asignacion : asig) {
 			
-			if (asignacion.getRepartidor() != null && 
-				    asignacion.getRepartidor().getRuta() != null && 
-				    asignacion.getRepartidor().getRuta().getPuntosEntregas() != null) {
-				
-				rutaDistancia = asignacion.getRepartidor().getRuta().getPuntosEntregas().values();
-
-				distanciaKmOpt = rutaDistancia.stream().findFirst();
-
-				if (distanciaKmOpt.isPresent()) {
-
-					costeTotal = asignacion.getCostePorKmYPeso() * distanciaKmOpt.get();
-
-					asignacion.setCosteTotal(costeTotal);
-
-				} 
-					
-				} else {
-					
-					asignacion.setCostePorKmYPeso(0);
-			}
-
+			envio = asignacion.getEnvio();
 			
-
+			
+			if (envio != null) {
+			
+				precioBase = envio.getPrioridad().getPrecioBase();
+				
+				costePeso = envio.getPeso() * recargoPorPeso;
+								
+				
+			}			
+			
+			if (asignacion.getRepartidor() != null && 
+				asignacion.getRepartidor().getRuta() != null && 
+				asignacion.getRepartidor().getRuta().getPuntosEntregas() != null) {
+			
+				rutaDistancia = asignacion.getRepartidor().getRuta().getPuntosEntregas().values();
+				distanciaKmOpt = rutaDistancia.stream().findFirst();
+			
+				if (distanciaKmOpt.isPresent()) {
+					
+					costeDistancia = distanciaKmOpt.get() *  costePorKm;
+					
+					
+				}
+				
+				costeTotalFinal = precioBase + costePeso + costeDistancia;
+			}
+			
+			asignacion.setCosteTotal(costeTotalFinal);
+			
+		}
+		
+	
+		
+	
+	}
+	
+	
+	
+	//ValidarCargaPeso
+	
+	public boolean validarCargaPeso(Asignacion asigForm) {
+		Repartidor repartidor; 
+		double pesoTotalRepartidor; 
+		double capacidadRestante; 
+		repartidor = asigForm.getRepartidor();
+		pesoTotalRepartidor = repartidorService.pesoTotalPaquetes(repartidor) + asigForm.getEnvio().getPeso();
+	
+		if (pesoTotalRepartidor <= repartidor.getCargaMax()) {
+			return true;
+			
+		} else {
+			
+			capacidadRestante = repartidor.getCargaMax() - (pesoTotalRepartidor - asigForm.getEnvio().getPeso());
+			throw new CapacidadExcedidaException(String.format("La capacidad restante del repartidor es de: %.2f kg", capacidadRestante));
+		} 
+	}
+	
+	//MonitorizarEntrega
+	public EstadoTiempo monitorizarEntrega (Asignacion asignacion) {
+		
+	
+		LocalDateTime ahora;
+		LocalDateTime limite;
+		Long horasRestantes;
+		
+		ahora = LocalDateTime.now();
+		
+		
+		
+		if (asignacion.isEstadoPedido()) {
+			
+			
+			return EstadoTiempo.ENTREGADO;
+			
 		}
 		
 		
-		
-
-	}
-	
-	
-	
-
-	public boolean validarCargaPeso(Asignacion asigForm) {
-		
-		Repartidor repartidor = asigForm.getRepartidor();
-		double pesoTotalRepartidor, capacidadRestante;
-	
-		pesoTotalRepartidor = repartidorService.pesoTotalPaquetes(repartidor) + asigForm.getEnvio().getPeso();
-	
-		
-		if (pesoTotalRepartidor >= repartidor.getCargaMax()) {
-						
-			return true;
-
-		}else {
+		if (asignacion.getEnvio() != null && asignacion.getEnvio().getFechaEntregaLimite() != null) {
+			limite = asignacion.getEnvio().getFechaEntregaLimite();
 			
-			capacidadRestante = repartidor.getCargaMax() - pesoTotalRepartidor ;
-			
-			throw new CapacidadExcedidaException(String.format("La capacidad restante del repartidor es de: %.2f kg", capacidadRestante));
-		} 
+			if (ahora.isAfter(limite)) {
+				return EstadoTiempo.ATRASADO;
+			}
+
+			horasRestantes = Duration.between(ahora, limite).toHours();
+
+			if (horasRestantes <= 24) {
+				return EstadoTiempo.EN_RIESGO;
+			}
+		}
+
+		return EstadoTiempo.A_TIEMPO;
+		
 		
 		
 		
@@ -171,5 +211,5 @@ public class AsignacionService extends BaseService<Asignacion, Long, AsignacionR
 		
 		
 	}
-
+	
 }
