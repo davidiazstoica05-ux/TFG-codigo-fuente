@@ -97,7 +97,6 @@ public class AsignacionController {
 					}
 				} else {
 
-					asigGuardada.setCostePorKmYPeso(asignacionForm.getCostePorKmYPeso());
 					asigGuardada.setEstadoPedido(asignacionForm.isEstadoPedido());
 					asigGuardada.setFechaEntrega(asignacionForm.getFechaEntrega());
 					asigGuardada.setMotivoIncidencia(asignacionForm.getMotivoIncidencia());

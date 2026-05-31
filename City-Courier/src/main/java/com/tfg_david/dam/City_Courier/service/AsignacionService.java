@@ -1,5 +1,6 @@
 package com.tfg_david.dam.City_Courier.service;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -11,6 +12,7 @@ import com.tfg_david.dam.City_Courier.excepciones.CapacidadExcedidaException;
 import com.tfg_david.dam.City_Courier.model.Asignacion;
 import com.tfg_david.dam.City_Courier.model.AsignacionPk;
 import com.tfg_david.dam.City_Courier.model.Envio;
+import com.tfg_david.dam.City_Courier.model.EstadoTiempo;
 import com.tfg_david.dam.City_Courier.model.Repartidor;
 import com.tfg_david.dam.City_Courier.repository.AsignacionRepository;
 import com.tfg_david.dam.City_Courier.repository.EnviosRepository;
@@ -165,10 +167,45 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk , As
 	}
 	
 	//MonitorizarEntrega
-	public String monitorizarEntrega (Envio envio) {
+	public EstadoTiempo monitorizarEntrega (Asignacion asignacion) {
 		
 	
-		return "";
+		LocalDateTime ahora;
+		LocalDateTime limite;
+		Long horasRestantes;
+		
+		ahora = LocalDateTime.now();
+		
+		
+		
+		if (asignacion.isEstadoPedido()) {
+			
+			
+			return EstadoTiempo.ENTREGADO;
+			
+		}
+		
+		
+		if (asignacion.getEnvio() != null && asignacion.getEnvio().getFechaEntregaLimite() != null) {
+			limite = asignacion.getEnvio().getFechaEntregaLimite();
+			
+			if (ahora.isAfter(limite)) {
+				return EstadoTiempo.ATRASADO;
+			}
+
+			horasRestantes = Duration.between(ahora, limite).toHours();
+
+			if (horasRestantes <= 24) {
+				return EstadoTiempo.EN_RIESGO;
+			}
+		}
+
+		return EstadoTiempo.A_TIEMPO;
+		
+		
+		
+		
+		
 		
 		
 		
