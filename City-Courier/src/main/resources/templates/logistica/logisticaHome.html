@@ -31,8 +31,7 @@
                     <p class="text-muted m-0 mt-1">Visión global del estado logístico y rendimiento en tiempo real.</p>
                 </div>
 
-                <div class="row row-cols-1 justify-content-center row-cols-md-4 g-4 text-center mb-5">
-
+                <div class="row row-cols-1 justify-content-center row-cols-md-3 g-4 text-center mb-5">
                     <div class="col">
                         <div class="card border-0 rounded-4 shadow-sm h-100 bg-light border-start border-4 border-dark">
                             <div class="card-body py-4">
@@ -63,9 +62,48 @@
                     </div>
                 </div>
 
-
                 <div class="p-4 bg-light rounded-4 border">
+                    <h5 class="fw-bold text-secondary mb-4">
+                        <i class="bi bi-clock-history me-2"></i>Monitor de Tiempos de Entrega
+                    </h5>
 
+                    <div class="row row-cols-1 justify-content-center row-cols-md-3 g-4 text-center">
+                        <div class="col">
+                            <div class="card border-0 rounded-4 shadow-sm h-100 border-bottom border-4 border-success">
+                                <div class="card-body py-3 d-flex flex-column align-items-center">
+                                    <div class="bg-success bg-opacity-10 rounded-circle p-3 mb-3">
+                                        <i class="bi bi-check-circle-fill text-success fs-2"></i>
+                                    </div>
+                                    <h6 class="text-muted fw-bold text-uppercase mb-1">A Tiempo</h6>
+                                    <h2 class="fw-bold text-success mb-0" th:text="${paquetesATiempo}">0</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card border-0 rounded-4 shadow-sm h-100 border-bottom border-4 border-warning">
+                                <div class="card-body py-3 d-flex flex-column align-items-center">
+                                    <div class="bg-warning bg-opacity-10 rounded-circle p-3 mb-3">
+                                        <i class="bi bi-exclamation-triangle-fill text-warning fs-2"></i>
+                                    </div>
+                                    <h6 class="text-muted fw-bold text-uppercase mb-1">En Riesgo (&lt; 24h)</h6>
+                                    <h2 class="fw-bold text-warning mb-0" th:text="${paquetesEnRiesgo}">0</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card border-0 rounded-4 shadow-sm h-100 border-bottom border-4 border-danger">
+                                <div class="card-body py-3 d-flex flex-column align-items-center">
+                                    <div class="bg-danger bg-opacity-10 rounded-circle p-3 mb-3">
+                                        <i class="bi bi-x-octagon-fill text-danger fs-2"></i>
+                                    </div>
+                                    <h6 class="text-muted fw-bold text-uppercase mb-1">Atrasados</h6>
+                                    <h2 class="fw-bold text-danger mb-0" th:text="${paquetesAtrasados}">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>

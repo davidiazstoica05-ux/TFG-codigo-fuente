@@ -77,10 +77,11 @@ public class Repartidor extends Trabajador{
 	
 	asignacion.setRepartidor(null);
 		
-	//Asignar rol nada más crearse
 	
 	}
 	
+	
+	//Asignar rol nada más crearse
 	  @PrePersist 
 	    public void asignarRol() {
 	        this.setRol(Rol.REPARTIDOR);

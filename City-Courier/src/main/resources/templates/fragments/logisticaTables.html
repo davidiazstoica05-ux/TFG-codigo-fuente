@@ -9,7 +9,8 @@
                     <th class="fw-semibold">Zona</th>
                     <th class="fw-semibold">Código Postal</th>
                     <th class="fw-semibold">Peso</th>
-                    <th class="fw-semibold">FechaEntregaEstimada</th>
+                    <th class="fw-semibold">Prioridad</th>
+                    <th class="fw-semibold">Fecha entrega limite</th>
                     <th class="fw-semibold">Destinatario</th>
                     <th class="fw-semibold">Repartidor</th>
                     <th class="fw-semibold text-center" colspan="2">Acciones</th>
@@ -21,8 +22,19 @@
                     <td th:text="${envio.direccion}">Osuna</td>
                     <td th:text="${envio.zona}">Zona 1</td>
                     <td th:text="${envio.codPostal}">41001</td>
-                    <td th:text="${envio.peso}">10kg</td>
-                    <td th:text="${#temporals.format(envio.fechaEntregaEstimada, 'dd/MM/yyyy HH:mm')}">14/05/2026</td>
+                    <td th:text="${envio.peso + ' kg'}">10kg</td>
+
+                    <td>
+                        <span th:if="${envio.prioridad != null and envio.prioridad.name() == 'URGENTE'}"
+                            class="badge bg-danger">Urgente</span>
+                        <span th:if="${envio.prioridad != null and envio.prioridad.name() == 'NORMAL'}"
+                            class="badge bg-primary">Normal</span>
+                        <span th:if="${envio.prioridad != null and envio.prioridad.name() == 'AHORRO'}"
+                            class="badge bg-secondary">Ahorro</span>
+                        <span th:if="${envio.prioridad == null}" class="badge bg-light text-dark">Sin Asignar</span>
+                    </td>
+
+                    <td th:text="${#temporals.format(envio.fechaEntregaLimite, 'dd/MM/yyyy HH:mm')}">14/05/2026</td>
                     <td th:text="${envio.destinatario}">Juan Pérez</td>
                     <td th:text="${envio.asignacion?.repartidor?.dni}">Asignación 1</td>
                     <td class="text-center">
@@ -208,8 +220,7 @@
                     <th class="fw-semibold">Ruta</th>
                     <th class="fw-semibold">Estado</th>
                     <th class="fw-semibold">Cod Envio</th>
-                    <th class="fw-semibold">CosteTotal</th>
-                    <th class="fw-semibold">Coste por Km y peso</th>
+                    <th class="fw-semibold">Coste Total</th>
                     <th class="fw-semibold">Fecha Asignación</th>
                     <th class="fw-semibold">Fecha Entrega</th>
                     <th class="fw-semibold">Incidencia</th>
@@ -220,27 +231,20 @@
                 <tr th:each="asig : ${asignacionList}">
                     <td class="fw-bold text-muted"
                         th:text="${asig.envio?.codEnvio} + '-' + ${asig.repartidor?.idTrabajador}">1-1</td>
-
                     <td th:text="${asig.repartidor?.dni}">12345678A</td>
                     <td th:text="${asig.repartidor?.ruta?.nombreRuta?: 'Sin ruta'}">Ruta 1</td>
-
-
                     <td>
                         <span th:if="${asig.estadoPedido}" class="badge bg-success">Completado</span>
                         <span th:unless="${asig.estadoPedido}" class="badge bg-warning text-dark">Pendiente</span>
                     </td>
-
                     <td th:text="${asig.envio?.codEnvio ?: 'Ninguno'}">Ninguno</td>
 
-
-
-                    <td th:text="${asig.costeTotal + ' €/km'}">0.0 €</td>
-                    <td th:text="${asig.costePorKmYPeso + ' €/km'}">0.0 €</td>
+                    <td class="fw-bold text-success" th:text="${#numbers.formatDecimal(asig.costeTotal, 1, 2)} + ' €'">
+                        0.0 €</td>
 
                     <td th:text="${#temporals.format(asig.fechaAsignacion, 'dd/MM/yyyy HH:mm')}">14/05/2026</td>
                     <td th:text="${#temporals.format(asig.fechaEntrega, 'dd/MM/yyyy HH:mm')} ?: 'Sin fecha'">Sin fecha
                     </td>
-
                     <td class="text-danger small" th:text="${asig.motivoIncidencia ?: 'Ninguna'}">Ninguna</td>
 
                     <td class="text-center">

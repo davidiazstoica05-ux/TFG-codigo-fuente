@@ -14,6 +14,7 @@ import com.tfg_david.dam.City_Courier.model.Asignacion;
 import com.tfg_david.dam.City_Courier.model.Disponibilidad;
 import com.tfg_david.dam.City_Courier.model.Envio;
 import com.tfg_david.dam.City_Courier.model.Logistica;
+import com.tfg_david.dam.City_Courier.model.PrioridadEnvio;
 import com.tfg_david.dam.City_Courier.model.RRHH;
 import com.tfg_david.dam.City_Courier.model.Repartidor;
 import com.tfg_david.dam.City_Courier.model.Ruta;
@@ -399,108 +400,120 @@ public class DataSeed {
 				.destinatario("Manuel Díaz")
 				.direccion("Plaza Juan de Mesa, 4, Bajo C")
 				.codPostal("41640")
-				.zona("Osuna")
+				.zona(Zona.OSUNA)
 				.peso(1.7)
-				.fechaEntregaEstimada(fechaEntrega1)
+				.prioridad(PrioridadEnvio.URGENTE)
+				.fechaEntregaLimite(fechaEntrega1)
 				.build();
 
 		e2 = Envio.builder()
 				.destinatario("Laura Gómez")
 				.direccion("Calle Corredera, 45, 1ºA")
 				.codPostal("41640")
-				.zona("Osuna")
+				.zona(Zona.OSUNA)
 				.peso(3.2)
-				.fechaEntregaEstimada(fechaEntrega2)
+				.prioridad(PrioridadEnvio.NORMAL)
+				.fechaEntregaLimite(fechaEntrega2)
 				.build();
 
 		e3 = Envio.builder()
 				.destinatario("Fernando Ruiz")
 				.direccion("Avenida de la Constitución, 12, 3ºB")
 				.codPostal("41300")
-				.zona("Carmona")
+				.zona(Zona.CARMONA)
 				.peso(2.5)
-				.fechaEntregaEstimada(fechaEntrega3)
+				.prioridad(PrioridadEnvio.AHORRO)
+				.fechaEntregaLimite(fechaEntrega3)
 				.build();
 
 		e4 = Envio.builder()
 				.destinatario("Patricia Morales")
 				.direccion("Calle Real, 8, 2ºA")
 				.codPostal("41400")
-				.zona("Écija")
+				.zona(Zona.ECIJA)
 				.peso(4.8)
-				.fechaEntregaEstimada(fechaEntrega4)
+				.prioridad(PrioridadEnvio.NORMAL)
+				.fechaEntregaLimite(fechaEntrega4)
 				.build();
 
 		e5 = Envio.builder()
 				.destinatario("Jesús Navarro")
 				.direccion("Calle Larga, 33, Bajo D")
 				.codPostal("41710")
-				.zona("Utrera")
+				.zona(Zona.UTRERA)
 				.peso(6.1)
-				.fechaEntregaEstimada(fechaEntrega5)
+				.prioridad(PrioridadEnvio.URGENTE)
+				.fechaEntregaLimite(fechaEntrega5)
 				.build();
 
 		e6 = Envio.builder()
 				.destinatario("Elena Torres")
 				.direccion("Calle Betis, 52, 2º Izquierda")
 				.codPostal("41010")
-				.zona("Sevilla Centro")
+				.zona(Zona.MORON_DE_LA_FRONTERA)
 				.peso(0.8)
-				.fechaEntregaEstimada(fechaEntrega6)
+				.prioridad(PrioridadEnvio.AHORRO)
+				.fechaEntregaLimite(fechaEntrega6)
 				.build();
 
 		e7 = Envio.builder()
 				.destinatario("Raúl Jiménez")
 				.direccion("Avenida de Europa, 7, 1ºC")
 				.codPostal("41700")
-				.zona("Dos Hermanas")
+				.zona(Zona.FUENTES_DE_ANDALUCIA)
 				.peso(2.0)
-				.fechaEntregaEstimada(fechaEntrega7)
+				.prioridad(PrioridadEnvio.NORMAL)
+				.fechaEntregaLimite(fechaEntrega7)
 				.build();
 
 		e8 = Envio.builder()
 				.destinatario("Isabel Castillo")
 				.direccion("Calle Granada, 21, Entresuelo")
 				.codPostal("41500")
-				.zona("Marchena")
+				.zona(Zona.LA_LANTEJUELA)
 				.peso(1.3)
-				.fechaEntregaEstimada(fechaEntrega8)
+				.prioridad(PrioridadEnvio.URGENTE)
+				.fechaEntregaLimite(fechaEntrega8)
 				.build();
 
 		e9 = Envio.builder()
 				.destinatario("Pablo Serrano")
 				.direccion("Calle Nueva, 3, Bajo B")
 				.codPostal("41200")
-				.zona("Alcalá de Guadaíra")
+				.zona(Zona.MARCHENA)
 				.peso(5.5)
-				.fechaEntregaEstimada(fechaEntrega9)
+				.prioridad(PrioridadEnvio.NORMAL)
+				.fechaEntregaLimite(fechaEntrega9)
 				.build();
 
 		e10 = Envio.builder()
 				.destinatario("María Luisa Herrera")
 				.direccion("Plaza España, 1, 4ºA")
 				.codPostal("41740")
-				.zona("Lebrija")
+				.zona(Zona.CARMONA)
 				.peso(3.7)
-				.fechaEntregaEstimada(fechaEntrega10)
+				.prioridad(PrioridadEnvio.AHORRO)
+				.fechaEntregaLimite(fechaEntrega10)
 				.build();
 
 		e11 = Envio.builder()
 				.destinatario("Tomás Aguilar")
 				.direccion("Calle Feria, 17, 1ºD")
 				.codPostal("41003")
-				.zona("Sevilla Centro")
+				.zona(Zona.ARAHAL)
 				.peso(0.5)
-				.fechaEntregaEstimada(fechaEntrega11)
+				.prioridad(PrioridadEnvio.URGENTE)
+				.fechaEntregaLimite(fechaEntrega11)
 				.build();
 
 		e12 = Envio.builder()
 				.destinatario("Nuria Blanco")
 				.direccion("Avenida Andalucía, 89, 3ºC")
 				.codPostal("41600")
-				.zona("Arahal")
+				.zona(Zona.OSUNA)
 				.peso(4.2)
-				.fechaEntregaEstimada(fechaEntrega12)
+				.prioridad(PrioridadEnvio.NORMAL)
+				.fechaEntregaLimite(fechaEntrega12)
 				.build();
 
 		repoEnvio.save(e1);
@@ -517,35 +530,30 @@ public class DataSeed {
 		repoEnvio.save(e12);
 
 		a1 = Asignacion.builder()
-				.costePorKmYPeso(2.5)
 				.estadoPedido(false)
 				.fechaAsignacion(fechaAsignacion)
 				.fechaEntrega(fechaEntrega1)
 				.build();
 
 		a2 = Asignacion.builder()
-				.costePorKmYPeso(2.5)
 				.estadoPedido(false)
 				.fechaAsignacion(fechaAsignacion)
 				.fechaEntrega(fechaEntrega2)
 				.build();
 
 		a3 = Asignacion.builder()
-				.costePorKmYPeso(3.0)
 				.estadoPedido(false)
 				.fechaAsignacion(fechaAsignacion)
 				.fechaEntrega(fechaEntrega3)
 				.build();
 
 		a4 = Asignacion.builder()
-				.costePorKmYPeso(3.5)
 				.estadoPedido(false)
 				.fechaAsignacion(fechaAsignacion)
 				.fechaEntrega(fechaEntrega4)
 				.build();
 
 		a5 = Asignacion.builder()
-				.costePorKmYPeso(4.0)
 				.estadoPedido(false)
 				.fechaAsignacion(fechaAsignacion)
 				.fechaEntrega(fechaEntrega5)
