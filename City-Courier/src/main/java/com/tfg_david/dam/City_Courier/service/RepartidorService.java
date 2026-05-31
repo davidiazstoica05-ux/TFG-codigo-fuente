@@ -58,7 +58,11 @@ public class RepartidorService extends BaseService<Repartidor, Long, RepartidorR
 	
 	
 	
-	
+	public List<Repartidor> findByEstado( Disponibilidad estado){
+		
+		
+		return repo.findByEstado(estado);
+	}
 	
 
 	@Transactional
