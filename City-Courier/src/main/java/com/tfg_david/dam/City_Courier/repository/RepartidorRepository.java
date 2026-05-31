@@ -16,6 +16,8 @@ public interface RepartidorRepository extends JpaRepository<Repartidor, Long> {
 	List<Repartidor> findByRuta(Ruta ruta);
 	
 	Optional<Repartidor> findByDni(String dni);
+	
+	List<Repartidor> findByEstado(Disponibilidad estado);
 
 
 	

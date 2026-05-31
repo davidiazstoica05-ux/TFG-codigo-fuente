@@ -144,4 +144,17 @@ public class AsignacionController {
 			return "redirect:/logistica/asignaciones";
 		}
 	}
+	
+	
+	@GetMapping("/autoAsignar")
+	public String asignarAutomaticamente() {
+		
+		
+		asigService.asignarAutomaticamente();
+		
+		
+		return "redirect:/logistica/asignaciones";
+		
+	}
+	
 }

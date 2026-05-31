@@ -40,6 +40,13 @@ public class EnviosService extends BaseService<Envio, Long, EnviosRepository> {
 	}
 	
 	
+	public List<Envio> findByAsignacionNull(){
+		
+		return repo.findByAsignacionNull();
+			
+	}
+	
+	
 	@Transactional
 	public void deleteEnvio(Long codEnvio) {
 		

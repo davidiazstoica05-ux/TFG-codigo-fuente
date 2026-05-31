@@ -54,7 +54,7 @@ public class Asignacion {
 	private Envio envio;
 
 	@DurationMin(minutes = 15, message = "El tiempo estimado tiene que ser mayor a 15 minutos")
-	private Duration tiempoEstimado; // fechaInicio-fechaFinal; acordarse hacerla en service
+	private Duration tiempoEstimado; 
 
 	public void vincularEnvio(Envio envio) {
 

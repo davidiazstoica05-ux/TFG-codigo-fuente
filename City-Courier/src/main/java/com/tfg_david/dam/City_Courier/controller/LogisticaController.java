@@ -24,7 +24,7 @@ public class LogisticaController {
 	private final EnviosService envioService;
 	private final AsignacionService asigService;
 
-	@GetMapping("/logisticaHome") // <--- Ojo a esto
+	@GetMapping("/logisticaHome") 
 	public String home(Model model) {
 		List<Asignacion> asignacionList;
 		int countATiempo;
