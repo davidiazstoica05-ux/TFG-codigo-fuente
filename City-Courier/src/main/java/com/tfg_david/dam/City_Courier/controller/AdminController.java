@@ -125,21 +125,7 @@ public class AdminController {
 		}
 	
 
-		@GetMapping("/nuevoRepartidor")
-		public String mostrarFormRepartidor(Model model) {
-			
-			model.addAttribute("repartidor", new Repartidor());
 
-			return "admin/forms/repartidor-form"; 
-		}
-
-		@PostMapping("/nuevoRepartidor/guardar")
-		public String submitRepartidor(@ModelAttribute("repartidor") Repartidor repartidorForm , Model model) {
-			repartidorForm.setPassw(passwEncoder.encode(repartidorForm.getPassw()));
-			repartidorForm.setActivo(true);
-			repartidorService.save(repartidorForm);
-			return "redirect:/admin/adminHome"; 
-		}
 		
 		
 
