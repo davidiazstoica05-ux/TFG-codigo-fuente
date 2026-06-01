@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.tfg_david.dam.City_Courier.model.Asignacion;
 import com.tfg_david.dam.City_Courier.model.Envio;
-import com.tfg_david.dam.City_Courier.model.Repartidor;
+import com.tfg_david.dam.City_Courier.model.Zona;
 import com.tfg_david.dam.City_Courier.repository.AsignacionRepository;
 import com.tfg_david.dam.City_Courier.repository.EnviosRepository;
 import com.tfg_david.dam.City_Courier.service.base.BaseService;
@@ -31,8 +31,13 @@ public class EnviosService extends BaseService<Envio, Long, EnviosRepository> {
 	}
 	
 	
+	public List<Envio> findByZona(Zona zona){
+		
+		return repo.findByZona(zona);
+		
+	}
 	
-	public List<Envio> findByFechaEntregaEstimada(LocalDateTime fechaEntrega){
+	public List<Envio> findByFechaEntregaLimite(LocalDateTime fechaEntrega){
 				
 		return repo.findByFechaEntregaLimite(fechaEntrega);
 		
