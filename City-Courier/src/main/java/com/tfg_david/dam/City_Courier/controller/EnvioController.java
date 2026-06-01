@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tfg_david.dam.City_Courier.model.Asignacion;
 import com.tfg_david.dam.City_Courier.model.Envio;
+import com.tfg_david.dam.City_Courier.model.Zona;
 import com.tfg_david.dam.City_Courier.service.EnviosService;
 
 import jakarta.validation.Valid;
@@ -31,25 +32,21 @@ public class EnvioController {
 	private final EnviosService envioService;
 
 	@GetMapping
-	public String logisticaEnvio(@RequestParam(required = false) Long codEnvio,
+	public String logisticaEnvio(@RequestParam(required = false) Zona zona,
 			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime fechaBusqueda,
 			Model model) {
 
-		Optional<Envio> envio;
 
-		List<Envio> listaResultado = new ArrayList<>();
+		List<Envio> listaResultado ;
 
-		if (codEnvio != null && fechaBusqueda == null) {
-			envio = envioService.findById(codEnvio);
+		if (zona != null && fechaBusqueda == null) {
+			
+			listaResultado = envioService.findByZona(zona);
+			
 
-			if (envio.isPresent()) {
+		} else if (fechaBusqueda != null && zona == null) {
 
-				listaResultado.add(envio.get());
-			}
-
-		} else if (fechaBusqueda != null && codEnvio == null) {
-
-			listaResultado = envioService.findByFechaEntregaEstimada(fechaBusqueda);
+			listaResultado = envioService.findByFechaEntregaLimite(fechaBusqueda);
 
 		} else {
 
@@ -69,7 +66,6 @@ public class EnvioController {
 		return "logistica/forms/envio-form";
 	}
 
-	// Si deja de funcionar quitar
 	@PostMapping("/guardar")
 	public String submit(@Valid @ModelAttribute("envio") Envio envio, BindingResult bindingResult, Model model) {
 

@@ -47,10 +47,17 @@
 
                             <div class="input-group bg-white rounded-pill shadow-sm overflow-hidden border max-w-300">
                                 <span class="input-group-text bg-transparent border-0 text-muted">
-                                    <i class="bi bi-hash"></i>
+                                    <i class="bi bi-geo-alt"></i>
                                 </span>
-                                <input type="text" class="form-control border-0 shadow-none"
-                                    placeholder="Buscar por ID..." name="codEnvio">
+
+                                <select class="form-select border-0 shadow-none" name="zona">
+                                    <option value="" selected>Buscar por Zona...</option>
+
+                                    <option
+                                        th:each="zonaEnum : ${T(com.tfg_david.dam.City_Courier.model.Zona).values()}"
+                                        th:value="${zonaEnum.name()}" th:text="${zonaEnum.display}">
+                                    </option>
+                                </select>
                             </div>
 
                             <div class="input-group bg-white rounded-pill shadow-sm overflow-hidden border max-w-300">
