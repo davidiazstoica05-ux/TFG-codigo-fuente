@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.tfg_david.dam.City_Courier.model.Asignacion;
 import com.tfg_david.dam.City_Courier.model.Envio;
 import com.tfg_david.dam.City_Courier.model.Zona;
+import com.tfg_david.dam.City_Courier.service.AsignacionService;
 import com.tfg_david.dam.City_Courier.service.EnviosService;
 
 import jakarta.validation.Valid;
@@ -31,6 +32,8 @@ import lombok.RequiredArgsConstructor;
 public class EnvioController {
 
 	private final EnviosService envioService;
+	private final AsignacionService asigService;
+	
 
 	@GetMapping
 	public String logisticaEnvio(@RequestParam(required = false) Zona zona,
@@ -88,13 +91,23 @@ public class EnvioController {
 
 		}
 
+		//Editar
 		if (envio.getCodEnvio() != null) {
+			
 			Optional<Envio> envioRecibido = envioService.findById(envio.getCodEnvio());
+			
+			
 			if (envioRecibido.isPresent()) {
+			
 				asigid = envioRecibido.get().getAsignacion();
+				
 				envio.setAsignacion(asigid);
 			}
 		}
+
+		//La he liado un poco poniendo el estado del paquete en asignacion, pero cuando me di cuenta era demasiado tarde para cambiarlo. 
+		//De todas formas lo he conseguido solucionar de una forma un poco mas enrevesada
+		asigService.monitorizarEntrega(envio.getAsignacion());
 
 		envioService.save(envio);
 
