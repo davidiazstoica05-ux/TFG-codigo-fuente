@@ -15,11 +15,17 @@
 
 <body class="min-vh-100 d-flex flex-column bg-primary">
 
-    <div th:replace="~{fragments/general :: header}"></div>
+
+    <aside sec:authorize="hasRole('ADMIN')" th:replace="~{fragments/general :: headerAdmin}"></aside>
+
+    <div sec:authorize="hasRole('RRHH') and !hasRole('ADMIN')" th:replace="~{fragments/general :: header}"></div>
 
     <div id="row 1" class="row text flex-grow-1 m-0">
 
-        <aside th:replace="~{fragments/general :: asideLogistica}"></aside>
+        <aside sec:authorize="hasRole('ADMIN')" th:replace="~{fragments/general :: asideAdmin}"></aside>
+
+        <aside sec:authorize="hasRole('LOGISTICA') and !hasRole('ADMIN')"
+            th:replace="~{fragments/general :: asideLogistica}"></aside>
 
         <main id="main" class="col-md-10 col-12 p-3 p-md-4">
             <div class="bg-white rounded-5 shadow-lg h-100 p-4 p-md-5">
