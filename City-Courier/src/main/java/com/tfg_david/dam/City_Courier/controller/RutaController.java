@@ -42,6 +42,8 @@ public class RutaController {
 		if (busqueda != null && !busqueda.trim().isEmpty()) {
 			stringConvertido = Utilidades.extraerCodigoSiEsNumerico(busqueda);
 			model.addAttribute("rutaList", rutaService.findByIdOrNombreRuta(busqueda, stringConvertido));
+			model.addAttribute("rutasFrecuentes", topRutas);
+
 		} else {
 			
 			model.addAttribute("rutasFrecuentes", topRutas);
