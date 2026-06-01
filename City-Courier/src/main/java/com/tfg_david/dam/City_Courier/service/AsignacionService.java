@@ -220,11 +220,9 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 		double pesoTotalRepartidor;
 		
 	
-		// Envios sin asignar
 		
 		enviosSinAsignar = envioService.findByAsignacionNull();
 		
-		//Repartidores disponibles
 		repartidoresDisponibles = repartidorService.findByEstado(Disponibilidad.DISPONIBLE);
 				
 
@@ -261,7 +259,7 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 	
 	
 	
-	//Version antigua
+	//Version compleja 
 	/*
 	 * 
 	 * 	public void asignarAutomaticamente() {

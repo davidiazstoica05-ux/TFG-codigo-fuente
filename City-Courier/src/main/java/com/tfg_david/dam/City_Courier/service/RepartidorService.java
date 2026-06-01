@@ -68,17 +68,22 @@ public class RepartidorService extends BaseService<Repartidor, Long, RepartidorR
 	@Transactional
 	public void deleteRepartidor(String dni) {
 
-		Optional<Repartidor> repartidor;
-		repartidor = repo.findByDni(dni);
-		List<Asignacion> asignacionesRepartidor;
+		Optional<Repartidor> repartidorOpt = repo.findByDni(dni);
 
-		if (repartidor.isPresent()) {
+		if (repartidorOpt.isPresent()) {
+			Repartidor repartidor = repartidorOpt.get();
+			List<Asignacion> asignacionesRepartidor = repoAsig.findByRepartidor(repartidor);
 
-			asignacionesRepartidor = repoAsig.findByRepartidor(repartidor.get());
+			for (Asignacion asignacion : asignacionesRepartidor) {
+				if (asignacion.getEnvio() != null) {
+
+					asignacion.getEnvio().setAsignacion(null);
+				}
+			}
 
 			repoAsig.deleteAll(asignacionesRepartidor);
 
-			repo.deleteById(repartidor.get().getIdTrabajador());
+			repo.deleteById(repartidor.getIdTrabajador());
 
 		}
 

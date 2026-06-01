@@ -63,12 +63,11 @@ public class RutaService extends BaseService<Ruta, Long, RutaRepository> {
 		Repartidor repartidor;
 
 		String zonaRuta, zonaRepartidorLimpia;
-		
 
 		puntosEntregas = rutaForm.getPuntosEntregas();
 
 		zonaRuta = puntosEntregas.keySet().stream().findFirst().get();
-		
+
 		zonaRuta = zonaRuta.toUpperCase().trim();
 		// Repartidor
 
@@ -77,9 +76,8 @@ public class RutaService extends BaseService<Ruta, Long, RutaRepository> {
 			repartidor = repartidorOpt.get();
 
 			zonaRepartidorLimpia = repartidor.getZona().getDisplay().toUpperCase().trim();
-			
-			if (repartidor.getZona() == null
-					|| zonaRepartidorLimpia.equals(zonaRuta)) {
+
+			if (repartidor.getZona() == null || zonaRepartidorLimpia.equals(zonaRuta)) {
 
 				repartidor.setRuta(rutaForm);
 
@@ -88,7 +86,8 @@ public class RutaService extends BaseService<Ruta, Long, RutaRepository> {
 
 		}
 
-		throw new RutaInvalidaException("No se puede asignar a la ruta");
+		throw new RutaInvalidaException(
+				"No se puede asignar a la ruta. Compruebe que el repartidor y la zona coinciden");
 
 	}
 
