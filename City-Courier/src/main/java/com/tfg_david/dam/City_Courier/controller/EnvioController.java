@@ -1,7 +1,8 @@
 package com.tfg_david.dam.City_Courier.controller;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,20 +37,30 @@ public class EnvioController {
 			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime fechaBusqueda,
 			Model model) {
 
-
-		List<Envio> listaResultado ;
+		List<Envio> listaResultado;
+		LocalDate soloElDia;
+		LocalDateTime finalDia;
+		LocalDateTime inicioDia;
 
 		if (zona != null && fechaBusqueda == null) {
-			
+
 			listaResultado = envioService.findByZona(zona);
-			
 
 		} else if (fechaBusqueda != null && zona == null) {
 
-			listaResultado = envioService.findByFechaEntregaLimiteAfter(fechaBusqueda);
+			soloElDia = fechaBusqueda.toLocalDate();
+
+			inicioDia = soloElDia.atStartOfDay();
+			
+			finalDia = soloElDia.atTime(LocalTime.MAX);
+
+			listaResultado = envioService.findByFechaEntregaLimiteBetween(inicioDia, finalDia);
+
+		} else if (zona != null && fechaBusqueda != null) {
+
+			listaResultado = envioService.findAll();
 
 		} else {
-
 			listaResultado = envioService.findAll();
 		}
 
