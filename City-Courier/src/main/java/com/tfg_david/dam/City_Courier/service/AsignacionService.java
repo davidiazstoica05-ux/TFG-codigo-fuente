@@ -109,10 +109,6 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 		Envio envio;
 		
 		
-		
-		
-		
-
 		for (Asignacion asignacion : asig) {
 
 			envio = asignacion.getEnvio();

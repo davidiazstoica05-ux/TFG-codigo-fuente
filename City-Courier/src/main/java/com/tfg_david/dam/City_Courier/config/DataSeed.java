@@ -1,5 +1,6 @@
 package com.tfg_david.dam.City_Courier.config;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -42,171 +43,82 @@ public class DataSeed {
 	@PostConstruct
 	public void run() {
 
-		LocalDateTime ahora, fechaEntrega1, fechaEntrega2, fechaEntrega3, fechaEntrega4, 
-					  fechaEntrega5, fechaEntrega6, fechaEntrega7, fechaEntrega8, 
-					  fechaEntrega9, fechaEntrega10, fechaEntrega11, fechaEntrega12, fechaAsignacion;
+		LocalDateTime ahora = LocalDateTime.now();
 
-		Map<String, Double> paradasRuta1, paradasRuta2, paradasRuta3, paradasRuta4, paradasRuta5, 
-							paradasRuta6, paradasRuta7, paradasRuta8, paradasRuta9, paradasRuta10;
+		/* =====================================================================================
+		 * 1. CREACIÓN DE RUTAS (Estrictamente 2 puntos por ruta)
+		 * ===================================================================================== */
+		
+		Map<String, Double> pRuta1 = new LinkedHashMap<>();
+		pRuta1.put("Utrera", 35.0);
+		pRuta1.put("Arahal", 55.0);
 
-		Ruta ruta1, ruta2, ruta3, ruta4, ruta5, ruta6, ruta7, ruta8, ruta9, ruta10;
+		Map<String, Double> pRuta2 = new LinkedHashMap<>();
+		pRuta2.put("Carmona", 30.0);
+		pRuta2.put("Marchena", 38.0);
 
-		Repartidor r1, r2, r3, r4, r5, r6, r7, r8;
+		Map<String, Double> pRuta3 = new LinkedHashMap<>();
+		pRuta3.put("Osuna", 40.0);
+		pRuta3.put("Morón de la Frontera", 60.0);
 
-		Admin admin;
-		RRHH rrhh;
-		Logistica logistica;
+		Map<String, Double> pRuta4 = new LinkedHashMap<>();
+		pRuta4.put("Écija", 65.0);
+		pRuta4.put("Fuentes de Andalucía", 72.0);
 
-		Envio e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12;
+		Map<String, Double> pRuta5 = new LinkedHashMap<>();
+		pRuta5.put("La Lantejuela", 25.0);
+		pRuta5.put("Paradas", 45.0);
 
-		Asignacion a1, a2, a3, a4, a5;
-
-		ahora = LocalDateTime.now();
-
-		fechaEntrega1  = ahora.plusDays(1).withHour(9).withMinute(0);
-		fechaEntrega2  = ahora.plusDays(1).withHour(11).withMinute(30);
-		fechaEntrega3  = ahora.plusDays(1).withHour(14).withMinute(0);
-		fechaEntrega4  = ahora.plusDays(2).withHour(9).withMinute(45);
-		fechaEntrega5  = ahora.plusDays(2).withHour(12).withMinute(0);
-		fechaEntrega6  = ahora.plusDays(2).withHour(15).withMinute(30);
-		fechaEntrega7  = ahora.plusDays(3).withHour(10).withMinute(0);
-		fechaEntrega8  = ahora.plusDays(3).withHour(13).withMinute(15);
-		fechaEntrega9  = ahora.plusDays(4).withHour(9).withMinute(0);
-		fechaEntrega10 = ahora.plusDays(4).withHour(11).withMinute(0);
-		fechaEntrega11 = ahora.plusDays(5).withHour(10).withMinute(30);
-		fechaEntrega12 = ahora.plusDays(5).withHour(16).withMinute(0);
-
-		fechaAsignacion = ahora.minusHours(3);
-
-		paradasRuta1 = new LinkedHashMap<>();
-		paradasRuta1.put("Lantejuela", 20.0);
-		paradasRuta1.put("Marchena", 38.0);
-
-		paradasRuta2 = new LinkedHashMap<>();
-		paradasRuta2.put("Osuna", 40.0);
-		paradasRuta2.put("Arahal", 55.0);
-
-		paradasRuta3 = new LinkedHashMap<>();
-		paradasRuta3.put("Écija", 65.0);
-		paradasRuta3.put("Fuentes de Andalucía", 72.0);
-		paradasRuta3.put("La Campana", 80.0);
-
-		paradasRuta4 = new LinkedHashMap<>();
-		paradasRuta4.put("Carmona", 30.0);
-		paradasRuta4.put("Mairena del Alcor", 22.0);
-
-		paradasRuta5 = new LinkedHashMap<>();
-		paradasRuta5.put("Utrera", 35.0);
-		paradasRuta5.put("Los Palacios y Villafranca", 28.0);
-
-		paradasRuta6 = new LinkedHashMap<>();
-		paradasRuta6.put("Estepa", 90.0);
-		paradasRuta6.put("Herrera", 85.0);
-		paradasRuta6.put("Pedrera", 78.0);
-
-		paradasRuta7 = new LinkedHashMap<>();
-		paradasRuta7.put("Morón de la Frontera", 60.0);
-		paradasRuta7.put("El Saucejo", 75.0);
-
-		paradasRuta8 = new LinkedHashMap<>();
-		paradasRuta8.put("Dos Hermanas", 15.0);
-		paradasRuta8.put("Alcalá de Guadaíra", 18.0);
-
-		paradasRuta9 = new LinkedHashMap<>();
-		paradasRuta9.put("Lebrija", 50.0);
-		paradasRuta9.put("Las Cabezas de San Juan", 42.0);
-
-		paradasRuta10 = new LinkedHashMap<>();
-		paradasRuta10.put("Sevilla Centro", 5.0);
-		paradasRuta10.put("Sevilla Este", 8.0);
-		paradasRuta10.put("Triana", 6.0);
-
-		ruta1 = Ruta.builder()
-				.nombreRuta("Lantejuela-Marchena")
-				.puntosEntregas(paradasRuta1)
+		Ruta r1 = Ruta.builder()
+				.nombreRuta("Ruta Sur: Arahal-Utrera")
+				.puntosEntregas(pRuta1)
 				.fechaInicio(LocalTime.of(8, 0))
 				.fechaFinal(LocalTime.of(16, 0))
 				.build();
-
-		ruta2 = Ruta.builder()
-				.nombreRuta("Arahal-Osuna")
-				.puntosEntregas(paradasRuta2)
-				.fechaInicio(LocalTime.of(8, 0))
-				.fechaFinal(LocalTime.of(16, 0))
+				
+		Ruta r2 = Ruta.builder()
+				.nombreRuta("Ruta Campiña: Carmona-Marchena")
+				.puntosEntregas(pRuta2)
+				.fechaInicio(LocalTime.of(9, 0))
+				.fechaFinal(LocalTime.of(17, 0))
 				.build();
-
-		ruta3 = Ruta.builder()
-				.nombreRuta("Écija-Campana")
-				.puntosEntregas(paradasRuta3)
+				
+		Ruta r3 = Ruta.builder()
+				.nombreRuta("Ruta Sierra: Morón-Osuna")
+				.puntosEntregas(pRuta3)
 				.fechaInicio(LocalTime.of(7, 30))
 				.fechaFinal(LocalTime.of(15, 30))
 				.build();
-
-		ruta4 = Ruta.builder()
-				.nombreRuta("Carmona-Mairena")
-				.puntosEntregas(paradasRuta4)
+				
+		Ruta r4 = Ruta.builder()
+				.nombreRuta("Ruta Este: Fuentes-Écija")
+				.puntosEntregas(pRuta4)
 				.fechaInicio(LocalTime.of(8, 0))
 				.fechaFinal(LocalTime.of(14, 0))
 				.build();
-
-		ruta5 = Ruta.builder()
-				.nombreRuta("Utrera-Los Palacios")
-				.puntosEntregas(paradasRuta5)
-				.fechaInicio(LocalTime.of(9, 0))
-				.fechaFinal(LocalTime.of(17, 0))
+				
+		Ruta r5 = Ruta.builder()
+				.nombreRuta("Ruta Centro: Lantejuela-Paradas")
+				.puntosEntregas(pRuta5)
+				.fechaInicio(LocalTime.of(10, 0))
+				.fechaFinal(LocalTime.of(18, 0))
 				.build();
 
-		ruta6 = Ruta.builder()
-				.nombreRuta("Estepa-Pedrera")
-				.puntosEntregas(paradasRuta6)
-				.fechaInicio(LocalTime.of(7, 0))
-				.fechaFinal(LocalTime.of(15, 0))
-				.build();
+		repoRuta.save(r1); 
+		repoRuta.save(r2); 
+		repoRuta.save(r3); 
+		repoRuta.save(r4); 
+		repoRuta.save(r5);
 
-		ruta7 = Ruta.builder()
-				.nombreRuta("Morón-El Saucejo")
-				.puntosEntregas(paradasRuta7)
-				.fechaInicio(LocalTime.of(8, 30))
-				.fechaFinal(LocalTime.of(16, 30))
-				.build();
-
-		ruta8 = Ruta.builder()
-				.nombreRuta("Dos Hermanas-Alcalá")
-				.puntosEntregas(paradasRuta8)
-				.fechaInicio(LocalTime.of(8, 0))
-				.fechaFinal(LocalTime.of(14, 0))
-				.build();
-
-		ruta9 = Ruta.builder()
-				.nombreRuta("Lebrija-Las Cabezas")
-				.puntosEntregas(paradasRuta9)
-				.fechaInicio(LocalTime.of(9, 0))
-				.fechaFinal(LocalTime.of(17, 0))
-				.build();
-
-		ruta10 = Ruta.builder()
-				.nombreRuta("Sevilla Urbana")
-				.puntosEntregas(paradasRuta10)
-				.fechaInicio(LocalTime.of(8, 0))
-				.fechaFinal(LocalTime.of(20, 0))
-				.build();
-
-		repoRuta.save(ruta1);
-		repoRuta.save(ruta2);
-		repoRuta.save(ruta3);
-		repoRuta.save(ruta4);
-		repoRuta.save(ruta5);
-		repoRuta.save(ruta6);
-		repoRuta.save(ruta7);
-		repoRuta.save(ruta8);
-		repoRuta.save(ruta9);
-		repoRuta.save(ruta10);
-
-		admin = Admin.builder()
+		/* =====================================================================================
+		 * 2. CREACIÓN DE OPERADORES DEL SISTEMA
+		 * ===================================================================================== */
+		
+		Admin admin = Admin.builder()
 				.nombre("Alejandro")
-				.apellidos("Ruiz Navarro")
+				.apellidos("Ruiz")
 				.dni("45678123A")
-				.email("aruiz@citycourier.com")
+				.email("admin@citycourier.com")
 				.telefono("655112233")
 				.genero("Hombre")
 				.activo(true)
@@ -215,11 +127,11 @@ public class DataSeed {
 				.passw(passwordEncoder.encode("admin"))
 				.build();
 
-		rrhh = RRHH.builder()
+		RRHH rrhh = RRHH.builder()
 				.nombre("Carmen")
-				.apellidos("Velasco Silva")
+				.apellidos("Velasco")
 				.dni("23456789B")
-				.email("cvelasco@citycourier.com")
+				.email("rrhh@citycourier.com")
 				.telefono("644998877")
 				.genero("Mujer")
 				.activo(true)
@@ -228,11 +140,11 @@ public class DataSeed {
 				.passw(passwordEncoder.encode("rrhh"))
 				.build();
 
-		logistica = Logistica.builder()
+		Logistica logistica = Logistica.builder()
 				.nombre("Javier")
-				.apellidos("García Montero")
+				.apellidos("García")
 				.dni("34567890C")
-				.email("jgarcia@citycourier.com")
+				.email("logistica@citycourier.com")
 				.telefono("633445566")
 				.genero("Hombre")
 				.activo(true)
@@ -241,327 +153,252 @@ public class DataSeed {
 				.passw(passwordEncoder.encode("logistica"))
 				.build();
 
-		trabajdorRepo.save(admin);
-		trabajdorRepo.save(rrhh);
+		trabajdorRepo.save(admin); 
+		trabajdorRepo.save(rrhh); 
 		trabajdorRepo.save(logistica);
 
-		r1 = Repartidor.builder()
+		/* =====================================================================================
+		 * 3. CREACIÓN DE REPARTIDORES
+		 * ===================================================================================== */
+		
+		// Repartidores ASIGNADOS a una ruta (Para tener datos base)
+		Repartidor rep1 = Repartidor.builder()
 				.nombre("David")
-				.apellidos("Díaz Stoica")
+				.apellidos("Díaz")
 				.dni("31031909X")
 				.email("daviddiaz@gmail.com")
 				.fechaAlta(LocalDate.now().minusMonths(5))
 				.genero("Hombre")
 				.telefono("697386581")
 				.activo(true)
-				.cargaMax(10.5)
-				.zona(Zona.OSUNA)
+				.cargaMax(120.5)
+				.zona(Zona.UTRERA)
 				.estado(Disponibilidad.DISPONIBLE)
 				.vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.Furgoneta)
-				.ruta(ruta2)
+				.ruta(r1)
 				.build();
 
-		r2 = Repartidor.builder()
-				.nombre("Miguel Ángel")
-				.apellidos("Díaz Gallardo")
-				.dni("28934511Z")
-				.email("mdiaz.logistica@gmail.com")
-				.fechaAlta(LocalDate.now().minusYears(1))
-				.genero("Hombre")
-				.telefono("612345678")
-				.activo(true)
-				.cargaMax(10.5)
-				.zona(Zona.OSUNA)
-				.estado(Disponibilidad.VACACIONES)
-				.vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.moto_ecologica)
-				.ruta(ruta2)
-				.build();
-
-		r3 = Repartidor.builder()
+		Repartidor rep2 = Repartidor.builder()
 				.nombre("Claudia")
-				.apellidos("Piñero Pineda")
+				.apellidos("Piñero")
 				.dni("22997473A")
 				.email("claudia@gmail.com")
 				.fechaAlta(LocalDate.now().minusMonths(5))
 				.genero("Mujer")
 				.telefono("611223344")
 				.activo(true)
-				.cargaMax(8.0)
-				.zona(Zona.MARCHENA)
-				.estado(Disponibilidad.DISPONIBLE)
-				.vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.Furgoneta)
-				.ruta(ruta1)
-				.build();
-
-		r4 = Repartidor.builder()
-				.nombre("Sofía")
-				.apellidos("Romero Castillo")
-				.dni("47812635B")
-				.email("sromero@gmail.com")
-				.fechaAlta(LocalDate.now().minusMonths(10))
-				.genero("Mujer")
-				.telefono("655778899")
-				.activo(true)
-				.cargaMax(6.0)
+				.cargaMax(30.0)
 				.zona(Zona.CARMONA)
 				.estado(Disponibilidad.DISPONIBLE)
 				.vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.moto_ecologica)
-				.ruta(ruta4)
+				.ruta(r2)
 				.build();
 
-		r5 = Repartidor.builder()
+		Repartidor rep3 = Repartidor.builder()
 				.nombre("Antonio")
-				.apellidos("Vargas Leal")
+				.apellidos("Vargas")
 				.dni("52369841C")
 				.email("avargas@gmail.com")
 				.fechaAlta(LocalDate.now().minusYears(2))
 				.genero("Hombre")
 				.telefono("666112233")
 				.activo(true)
-				.cargaMax(12.0)
-				.zona(Zona.ECIJA)
+				.cargaMax(150.0)
+				.zona(Zona.OSUNA)
 				.estado(Disponibilidad.DISPONIBLE)
 				.vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.Furgoneta)
-				.ruta(ruta3)
+				.ruta(r3)
 				.build();
+		
+		
 
-		r6 = Repartidor.builder()
+		// Repartidores SUELTOS (Sin ruta asignada) para pruebas del Panel
+		Repartidor repSuelto1 = Repartidor.builder()
 				.nombre("Lucía")
-				.apellidos("Fernández Mora")
+				.apellidos("Fernández")
 				.dni("39274561D")
 				.email("lfernandez@gmail.com")
 				.fechaAlta(LocalDate.now().minusMonths(3))
 				.genero("Mujer")
 				.telefono("677334455")
 				.activo(true)
-				.cargaMax(5.0)
-				.zona(Zona.PARADAS)
-				.estado(Disponibilidad.DE_BAJA)
+				.cargaMax(35.0)
+				.zona(Zona.ARAHAL)
+				.estado(Disponibilidad.DISPONIBLE)
 				.vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.moto_ecologica)
 				.build();
 
-		r7 = Repartidor.builder()
-				.nombre("Carlos")
-				.apellidos("Herrera Santos")
-				.dni("61423857E")
-				.email("cherrera@gmail.com")
-				.fechaAlta(LocalDate.now().minusYears(3))
-				.genero("Hombre")
-				.telefono("688556677")
-				.activo(true)
-				.cargaMax(15.0)
-				.zona(Zona.UTRERA)
-				.estado(Disponibilidad.DISPONIBLE)
-				.vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.Furgoneta)
-				.ruta(ruta5)
-				.build();
-
-		r8 = Repartidor.builder()
+		Repartidor repSuelto2 = Repartidor.builder()
 				.nombre("Jorge")
-				.apellidos("Mellado Fuentes")
+				.apellidos("Mellado")
 				.dni("75341892F")
 				.email("jmellado@gmail.com")
 				.fechaAlta(LocalDate.now().minusMonths(1))
 				.genero("Hombre")
 				.telefono("699102030")
 				.activo(true)
-				.cargaMax(9.0)
-				.zona(Zona.LA_LANTEJUELA)
+				.cargaMax(140.0)
+				.zona(Zona.ECIJA)
+				.estado(Disponibilidad.DISPONIBLE)
+				.vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.Furgoneta)
+				.build();
+
+		Repartidor repSuelto3 = Repartidor.builder()
+				.nombre("Oana Simona")
+				.apellidos("Stoica")
+				.dni("12345678P")
+				.email("lfernandez@gmail.com")
+				.fechaAlta(LocalDate.now().minusMonths(3))
+				.genero("Mujer")
+				.telefono("677334455")
+				.activo(true)
+				.cargaMax(35.0)
+				.zona(Zona.ARAHAL)
 				.estado(Disponibilidad.DISPONIBLE)
 				.vehiculo(com.tfg_david.dam.City_Courier.model.TipoVehiculo.moto_ecologica)
 				.build();
+		
+		
+		repoRepartidor.save(rep1); 
+		repoRepartidor.save(rep2); 
+		repoRepartidor.save(rep3);
+		repoRepartidor.save(repSuelto1); 
+		repoRepartidor.save(repSuelto2);
+		repoRepartidor.save(repSuelto3);
 
-		repoRepartidor.save(r1);
-		repoRepartidor.save(r2);
-		repoRepartidor.save(r3);
-		repoRepartidor.save(r4);
-		repoRepartidor.save(r5);
-		repoRepartidor.save(r6);
-		repoRepartidor.save(r7);
-		repoRepartidor.save(r8);
-
-		e1 = Envio.builder()
-				.destinatario("Manuel Díaz")
-				.direccion("Plaza Juan de Mesa, 4, Bajo C")
-				.codPostal("41640")
-				.zona(Zona.OSUNA)
-				.peso(1.7)
-				.prioridad(PrioridadEnvio.URGENTE)
-				.fechaEntregaLimite(fechaEntrega1)
-				.build();
-
-		e2 = Envio.builder()
-				.destinatario("Laura Gómez")
-				.direccion("Calle Corredera, 45, 1ºA")
-				.codPostal("41640")
-				.zona(Zona.OSUNA)
-				.peso(3.2)
-				.prioridad(PrioridadEnvio.NORMAL)
-				.fechaEntregaLimite(fechaEntrega2)
-				.build();
-
-		e3 = Envio.builder()
-				.destinatario("Fernando Ruiz")
-				.direccion("Avenida de la Constitución, 12, 3ºB")
-				.codPostal("41300")
-				.zona(Zona.CARMONA)
-				.peso(2.5)
-				.prioridad(PrioridadEnvio.AHORRO)
-				.fechaEntregaLimite(fechaEntrega3)
-				.build();
-
-		e4 = Envio.builder()
-				.destinatario("Patricia Morales")
-				.direccion("Calle Real, 8, 2ºA")
-				.codPostal("41400")
-				.zona(Zona.ECIJA)
-				.peso(4.8)
-				.prioridad(PrioridadEnvio.NORMAL)
-				.fechaEntregaLimite(fechaEntrega4)
-				.build();
-
-		e5 = Envio.builder()
-				.destinatario("Jesús Navarro")
-				.direccion("Calle Larga, 33, Bajo D")
+		/* =====================================================================================
+		 * 4. CREACIÓN DE ENVÍOS
+		 * ===================================================================================== */
+		
+		// Envíos ASIGNADOS (Conectados a un repartidor y asignación)
+		Envio e1 = Envio.builder()
+				.destinatario("Cliente Utrera")
+				.direccion("Calle Utrera 1")
 				.codPostal("41710")
 				.zona(Zona.UTRERA)
-				.peso(6.1)
+				.peso(5.0)
 				.prioridad(PrioridadEnvio.URGENTE)
-				.fechaEntregaLimite(fechaEntrega5)
+				.fechaEntregaLimite(ahora.plusDays(1).withHour(10))
 				.build();
-
-		e6 = Envio.builder()
-				.destinatario("Elena Torres")
-				.direccion("Calle Betis, 52, 2º Izquierda")
-				.codPostal("41010")
-				.zona(Zona.MORON_DE_LA_FRONTERA)
-				.peso(0.8)
-				.prioridad(PrioridadEnvio.AHORRO)
-				.fechaEntregaLimite(fechaEntrega6)
-				.build();
-
-		e7 = Envio.builder()
-				.destinatario("Raúl Jiménez")
-				.direccion("Avenida de Europa, 7, 1ºC")
-				.codPostal("41700")
-				.zona(Zona.FUENTES_DE_ANDALUCIA)
-				.peso(2.0)
-				.prioridad(PrioridadEnvio.NORMAL)
-				.fechaEntregaLimite(fechaEntrega7)
-				.build();
-
-		e8 = Envio.builder()
-				.destinatario("Isabel Castillo")
-				.direccion("Calle Granada, 21, Entresuelo")
-				.codPostal("41500")
-				.zona(Zona.LA_LANTEJUELA)
-				.peso(1.3)
-				.prioridad(PrioridadEnvio.URGENTE)
-				.fechaEntregaLimite(fechaEntrega8)
-				.build();
-
-		e9 = Envio.builder()
-				.destinatario("Pablo Serrano")
-				.direccion("Calle Nueva, 3, Bajo B")
-				.codPostal("41200")
-				.zona(Zona.MARCHENA)
-				.peso(5.5)
-				.prioridad(PrioridadEnvio.NORMAL)
-				.fechaEntregaLimite(fechaEntrega9)
-				.build();
-
-		e10 = Envio.builder()
-				.destinatario("María Luisa Herrera")
-				.direccion("Plaza España, 1, 4ºA")
-				.codPostal("41740")
+				
+		Envio e2 = Envio.builder()
+				.destinatario("Cliente Carmona")
+				.direccion("Calle Carmona 2")
+				.codPostal("41410")
 				.zona(Zona.CARMONA)
-				.peso(3.7)
-				.prioridad(PrioridadEnvio.AHORRO)
-				.fechaEntregaLimite(fechaEntrega10)
-				.build();
-
-		e11 = Envio.builder()
-				.destinatario("Tomás Aguilar")
-				.direccion("Calle Feria, 17, 1ºD")
-				.codPostal("41003")
-				.zona(Zona.ARAHAL)
-				.peso(0.5)
-				.prioridad(PrioridadEnvio.URGENTE)
-				.fechaEntregaLimite(fechaEntrega11)
-				.build();
-
-		e12 = Envio.builder()
-				.destinatario("Nuria Blanco")
-				.direccion("Avenida Andalucía, 89, 3ºC")
-				.codPostal("41600")
-				.zona(Zona.OSUNA)
-				.peso(4.2)
+				.peso(1.2)
 				.prioridad(PrioridadEnvio.NORMAL)
-				.fechaEntregaLimite(fechaEntrega12)
+				.fechaEntregaLimite(ahora.plusDays(1).withHour(12))
+				.build();
+				
+		Envio e3 = Envio.builder()
+				.destinatario("Cliente Osuna")
+				.direccion("Calle Osuna 3")
+				.codPostal("41640")
+				.zona(Zona.OSUNA)
+				.peso(15.5)
+				.prioridad(PrioridadEnvio.AHORRO)
+				.fechaEntregaLimite(ahora.plusDays(2).withHour(9))
+				.build();
+		
+		// Envíos SUELTOS (Pendientes para probar Auto-Asignación o Panel)
+		Envio eSuelto1 = Envio.builder()
+				.destinatario("María López")
+				.direccion("Av. Arahal 5")
+				.codPostal("41600")
+				.zona(Zona.ARAHAL)
+				.peso(2.5)
+				.prioridad(PrioridadEnvio.URGENTE)
+				.fechaEntregaLimite(ahora.plusDays(1).withHour(18))
+				.build();
+				
+		Envio eSuelto2 = Envio.builder()
+				.destinatario("Carlos Ruiz")
+				.direccion("Plaza Marchena 6")
+				.codPostal("41620")
+				.zona(Zona.MARCHENA)
+				.peso(12.0)
+				.prioridad(PrioridadEnvio.NORMAL)
+				.fechaEntregaLimite(ahora.plusDays(3).withHour(11))
+				.build();
+				
+		Envio eSuelto3 = Envio.builder()
+				.destinatario("Ana Gómez")
+				.direccion("Calle Écija 9")
+				.codPostal("41400")
+				.zona(Zona.ECIJA)
+				.peso(8.5)
+				.prioridad(PrioridadEnvio.URGENTE)
+				.fechaEntregaLimite(ahora.plusDays(2).withHour(14))
+				.build();
+				
+		Envio eSuelto4 = Envio.builder()
+				.destinatario("Pedro Sánchez")
+				.direccion("Polígono Fuentes 2")
+				.codPostal("41420")
+				.zona(Zona.FUENTES_DE_ANDALUCIA)
+				.peso(45.0)
+				.prioridad(PrioridadEnvio.AHORRO)
+				.fechaEntregaLimite(ahora.plusDays(4).withHour(10))
+				.build();
+				
+		Envio eSuelto5 = Envio.builder()
+				.destinatario("Luis Martínez")
+				.direccion("Calle Paradas 7")
+				.codPostal("41610")
+				.zona(Zona.PARADAS)
+				.peso(3.0)
+				.prioridad(PrioridadEnvio.NORMAL)
+				.fechaEntregaLimite(ahora.plusDays(3).withHour(16))
 				.build();
 
-		repoEnvio.save(e1);
-		repoEnvio.save(e2);
+		repoEnvio.save(e1); 
+		repoEnvio.save(e2); 
 		repoEnvio.save(e3);
-		repoEnvio.save(e4);
-		repoEnvio.save(e5);
-		repoEnvio.save(e6);
-		repoEnvio.save(e7);
-		repoEnvio.save(e8);
-		repoEnvio.save(e9);
-		repoEnvio.save(e10);
-		repoEnvio.save(e11);
-		repoEnvio.save(e12);
+		repoEnvio.save(eSuelto1); 
+		repoEnvio.save(eSuelto2); 
+		repoEnvio.save(eSuelto3); 
+		repoEnvio.save(eSuelto4); 
+		repoEnvio.save(eSuelto5);
 
-		a1 = Asignacion.builder()
+		/* =====================================================================================
+		 * 5. CREACIÓN DE ASIGNACIONES (Solo para los envíos iniciales)
+		 * ===================================================================================== */
+		
+		Asignacion a1 = Asignacion.builder()
 				.estadoPedido(false)
-				.fechaAsignacion(fechaAsignacion)
-				.fechaEntrega(fechaEntrega1)
+				.fechaAsignacion(ahora.minusHours(2))
+				.fechaEntrega(ahora.plusDays(1).withHour(10))
+				.tiempoEstimado(Duration.ofMinutes(45))
 				.build();
 
-		a2 = Asignacion.builder()
+		Asignacion a2 = Asignacion.builder()
 				.estadoPedido(false)
-				.fechaAsignacion(fechaAsignacion)
-				.fechaEntrega(fechaEntrega2)
+				.fechaAsignacion(ahora.minusHours(1))
+				.fechaEntrega(ahora.plusDays(1).withHour(12))
+				.tiempoEstimado(Duration.ofMinutes(30))
 				.build();
 
-		a3 = Asignacion.builder()
+		Asignacion a3 = Asignacion.builder()
 				.estadoPedido(false)
-				.fechaAsignacion(fechaAsignacion)
-				.fechaEntrega(fechaEntrega3)
+				.fechaAsignacion(ahora.minusMinutes(30))
+				.fechaEntrega(ahora.plusDays(2).withHour(9))
+				.tiempoEstimado(Duration.ofMinutes(60))
 				.build();
 
-		a4 = Asignacion.builder()
-				.estadoPedido(false)
-				.fechaAsignacion(fechaAsignacion)
-				.fechaEntrega(fechaEntrega4)
-				.build();
-
-		a5 = Asignacion.builder()
-				.estadoPedido(false)
-				.fechaAsignacion(fechaAsignacion)
-				.fechaEntrega(fechaEntrega5)
-				.build();
-
+		// Vinculamos Asignaciones con Envíos y Repartidores (Relaciones bidireccionales)
 		a1.vincularEnvio(e1);
-		r1.addAsignacion(a1);
+		rep1.addAsignacion(a1);
 
 		a2.vincularEnvio(e2);
-		r2.addAsignacion(a2);
+		rep2.addAsignacion(a2);
 
 		a3.vincularEnvio(e3);
-		r4.addAsignacion(a3);
+		rep3.addAsignacion(a3);
 
-		a4.vincularEnvio(e4);
-		r5.addAsignacion(a4);
-
-		a5.vincularEnvio(e5);
-		r7.addAsignacion(a5);
-
+		// Guardamos las asignaciones generadas
 		repoAsig.save(a1);
 		repoAsig.save(a2);
 		repoAsig.save(a3);
-		repoAsig.save(a4);
-		repoAsig.save(a5);
 	}
 }

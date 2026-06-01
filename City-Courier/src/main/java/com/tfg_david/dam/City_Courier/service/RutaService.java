@@ -69,8 +69,8 @@ public class RutaService extends BaseService<Ruta, Long, RutaRepository> {
 		zonaRuta = puntosEntregas.keySet().stream().findFirst().get();
 
 		zonaRuta = zonaRuta.toUpperCase().trim();
+		
 		// Repartidor
-
 		if (repartidorOpt.isPresent()) {
 
 			repartidor = repartidorOpt.get();
