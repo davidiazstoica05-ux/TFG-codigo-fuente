@@ -39,9 +39,11 @@ public class Trabajador implements UserDetails {
 	private Long idTrabajador;
 
 	@NotBlank(message = "Los apellidos no pueden estar en blanco")
+	@Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]+$", message = "Los apellidos solo pueden contener letras y espacios")
 	private String apellidos;
 
 	@NotBlank(message = "El nombre no puede estar en blanco")
+	@Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]+$", message = "El nombre solo puede contener letras y espacios")
 	private String nombre;
 
 	@NotBlank(message = "El email es obligatorio")
