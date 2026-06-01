@@ -28,7 +28,6 @@ import lombok.RequiredArgsConstructor;
 public class RepartidorController {
 
 	private final RepartidorService repartidorService;
-	private final PasswordEncoder passwEncoder;
 
 	@GetMapping("/repartidores")
 	public String rrhh(@RequestParam(required = false) String dni, Model model) {
