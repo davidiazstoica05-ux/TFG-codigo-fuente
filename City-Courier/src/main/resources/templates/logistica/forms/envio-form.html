@@ -122,9 +122,8 @@
                                 <label for="peso" class="form-label fw-medium text-secondary small text-uppercase">Peso
                                     de Carga (kg)</label>
                                 <div class="input-group shadow-sm">
-                                    <input type="number" max="25" min="0.25" step="0.25"
-                                        class="form-control bg-light border-0 py-2" id="peso" th:field="*{peso}"
-                                        placeholder="Ej. 5.5" required>
+                                    <input type="number" max="25" min="0.5" class="form-control bg-light border-0 py-2"
+                                        id="peso" th:field="*{peso}" placeholder="Ej. 5.5" required>
                                     <span class="input-group-text bg-light border-0 text-muted">kg</span>
                                 </div>
                                 <div th:if="${#fields.hasErrors('peso')}" class="text-danger small">
