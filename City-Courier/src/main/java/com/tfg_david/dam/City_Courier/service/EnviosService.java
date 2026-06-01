@@ -37,9 +37,9 @@ public class EnviosService extends BaseService<Envio, Long, EnviosRepository> {
 		
 	}
 	
-	public List<Envio> findByFechaEntregaLimite(LocalDateTime fechaEntrega){
+	public List<Envio> findByFechaEntregaLimiteBeEnvios(LocalDateTime fechaInicio, LocalDateTime fechaFinal){
 				
-		return repo.findByFechaEntregaLimite(fechaEntrega);
+		return repo.findByFechaEntregaLimiteBetween(fechaInicio, fechaFinal);
 		
 		
 	}

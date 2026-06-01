@@ -13,7 +13,7 @@ import com.tfg_david.dam.City_Courier.model.Zona;
 public interface EnviosRepository extends JpaRepository<Envio, Long> {
 	
 	
-	List<Envio> findByFechaEntregaLimite(LocalDateTime fecha);
+	List<Envio> findByFechaEntregaLimiteBetween(LocalDateTime incioDia, LocalDateTime finalDia);
 	
 	List<Envio> findByZona(Zona zona);
 	

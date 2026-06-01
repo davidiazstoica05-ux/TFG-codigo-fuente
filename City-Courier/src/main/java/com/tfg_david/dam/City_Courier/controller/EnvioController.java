@@ -46,7 +46,7 @@ public class EnvioController {
 
 		} else if (fechaBusqueda != null && zona == null) {
 
-			listaResultado = envioService.findByFechaEntregaLimite(fechaBusqueda);
+			listaResultado = envioService.findByFechaEntregaLimiteAfter(fechaBusqueda);
 
 		} else {
 
