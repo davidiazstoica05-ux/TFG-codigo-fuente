@@ -18,6 +18,8 @@ public interface RepartidorRepository extends JpaRepository<Repartidor, Long> {
 	Optional<Repartidor> findByDni(String dni);
 	
 	List<Repartidor> findByEstado(Disponibilidad estado);
+	
+	List<Repartidor> findByNombreIgnoreCase(String nombre);
 
 
 	
