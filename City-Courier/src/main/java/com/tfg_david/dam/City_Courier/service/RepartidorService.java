@@ -35,12 +35,22 @@ public class RepartidorService extends BaseService<Repartidor, Long, RepartidorR
 
 	}
 
+	public List<Repartidor> findByNombreIgnoreCase(String nombre) {
+
+		String limpiarNombre;
+
+		limpiarNombre = nombre.trim();
+
+		return repo.findByNombreIgnoreCase(limpiarNombre);
+
+	}
+
 	public Optional<Repartidor> findByDni(String dni) {
 
 		return repo.findByDni(dni);
 
 	}
-	
+
 	public double pesoTotalPaquetes(Repartidor repartidor) {
 
 		List<Asignacion> asignacionesRepartidor = new ArrayList<>();
@@ -55,15 +65,11 @@ public class RepartidorService extends BaseService<Repartidor, Long, RepartidorR
 		return pesoTotal;
 
 	}
-	
-	
-	
-	public List<Repartidor> findByEstado( Disponibilidad estado){
-		
-		
+
+	public List<Repartidor> findByEstado(Disponibilidad estado) {
+
 		return repo.findByEstado(estado);
 	}
-	
 
 	@Transactional
 	public void deleteRepartidor(String dni) {
@@ -89,5 +95,4 @@ public class RepartidorService extends BaseService<Repartidor, Long, RepartidorR
 
 	}
 
-	
 }
