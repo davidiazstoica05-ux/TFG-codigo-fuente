@@ -110,7 +110,6 @@ public class AsignacionController {
 
 			if (asigService.validarCargaPeso(asigGuardada)) {
 				
-				//Antes del save aplicamos el cambio del monitor
 				asigService.monitorizarEntrega(asigGuardada);
 				asigService.save(asigGuardada);
 				envioService.save(envioOpt.get());
