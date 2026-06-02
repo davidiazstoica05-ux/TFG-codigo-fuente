@@ -13,6 +13,7 @@ public interface AsignacionRepository extends JpaRepository<Asignacion, Asignaci
 
 	List<Asignacion> findByEnvio_CodEnvioOrRepartidor_IdTrabajador(Long codEnvio, Long idTrabajador);
 	
+	List<Asignacion> findByRepartidor_Ruta_NombreRutaContainingIgnoreCase(String nombreRuta);
 	
 	Long countByEstadoPedido(boolean estado);
 	

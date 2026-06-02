@@ -37,12 +37,10 @@ public class AsignacionController {
 	@GetMapping
 	public String asignacion(@RequestParam(value = "criterio", required = false) String busqueda, Model model) {
 		List<Asignacion> listaResultados; 
-		Long numeroBusqueda; 
-		
 		
 		if (busqueda != null && !busqueda.trim().isEmpty()) {
-			numeroBusqueda = Utilidades.extraerCodigoSiEsNumerico(busqueda);
-			listaResultados = asigService.findByIdAsignacionOrRepartidorId(numeroBusqueda, numeroBusqueda);
+
+			listaResultados = asigService.findByNombreRuta(busqueda.trim());
 		} else {
 			listaResultados = asigService.findAll();
 		}
