@@ -2,9 +2,7 @@ package com.tfg_david.dam.City_Courier.service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -210,27 +208,33 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 
 		List<Envio> enviosSinAsignar;
 		List<Repartidor> repartidoresDisponibles;
-		
-		Asignacion nuevaAsignacion = null; 
-			
+		Asignacion nuevaAsignacion; 
 		double pesoTotalRepartidor;
-		
-	
+		String zonaEnvioStr;
+		boolean zonaValida;
 		
 		enviosSinAsignar = envioService.findByAsignacionNull();
-		
 		repartidoresDisponibles = repartidorService.findByEstado(Disponibilidad.DISPONIBLE);
-				
 
 		for (Envio envio : enviosSinAsignar) {
 
+			zonaEnvioStr = envio.getZona().getDisplay();
+
 			for (Repartidor repartidor : repartidoresDisponibles) {
 
-				if (envio.getZona().equals(repartidor.getZona())) {
+				zonaValida = false;
+
+				if (repartidor.getRuta() != null && repartidor.getRuta().getPuntosEntregas() != null) {
+					if (repartidor.getRuta().getPuntosEntregas().containsKey(zonaEnvioStr)) {
+						zonaValida = true;
+					}
+				}
+
+				if (zonaValida) {
 					
 					pesoTotalRepartidor = repartidorService.pesoTotalPaquetes(repartidor) + envio.getPeso();
 					
-					if (pesoTotalRepartidor <= repartidor.getCargaMax() ) {
+					if (pesoTotalRepartidor <= repartidor.getCargaMax()) {
 						
 						nuevaAsignacion = new Asignacion();
 						
@@ -238,24 +242,21 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 						nuevaAsignacion.setEnvio(envio);
 						nuevaAsignacion.setRepartidor(repartidor);
 						
+						monitorizarEntrega(nuevaAsignacion);
+						
 						save(nuevaAsignacion);
 						
+
 						break;
-						
 					}
-					
-
 				}
-
 			}
-
 		}
-
 	}
 	
 	
 	
-	//Version compleja 
+	//Version compleja sin buscar en la bbdd (Esto fue que luego me di cuenta que tenemos metodos para buscar en la bbd hjjsjs)
 	/*
 	 * 
 	 * 	public void asignarAutomaticamente() {
