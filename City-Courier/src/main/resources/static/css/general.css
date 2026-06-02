@@ -1,0 +1,24 @@
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+#aside {
+    font-family: 'Inter', sans-serif;
+}
+
+
+
+.table tbody tr td:last-child {
+    cursor: pointer;
+}
+
+.table tbody tr td:last-child i {
+    color: var(--bs-primary);
+    transition: all 0.2s ease-in-out;
+    display: inline-block;
+}
+
+.table tbody tr td:last-child i:hover {
+    color: var(--bs-info);
+    transform: scale(1.3);
+}

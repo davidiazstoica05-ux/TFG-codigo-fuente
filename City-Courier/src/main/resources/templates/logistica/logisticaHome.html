@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Inicio - City Courier</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/general.css}">
+</head>
+
+<body class="min-vh-100 d-flex flex-column bg-primary">
+
+
+    <aside sec:authorize="hasRole('ADMIN')" th:replace="~{fragments/general :: headerAdmin}"></aside>
+
+    <div sec:authorize="hasRole('RRHH') and !hasRole('ADMIN')" th:replace="~{fragments/general :: header}"></div>
+
+    <div id="row 1" class="row text flex-grow-1 m-0">
+
+        <aside sec:authorize="hasRole('ADMIN')" th:replace="~{fragments/general :: asideAdmin}"></aside>
+
+        <aside sec:authorize="hasRole('LOGISTICA') and !hasRole('ADMIN')"
+            th:replace="~{fragments/general :: asideLogistica}"></aside>
+
+        <main id="main" class="col-md-10 col-12 p-3 p-md-4">
+            <div class="bg-white rounded-5 shadow-lg h-100 p-4 p-md-5">
+
+                <div class="mb-5 border-bottom pb-3">
+                    <h3 class="fw-bold text-primary m-0">
+                        <i class="bi bi-speedometer2 me-2"></i>Centro de Operaciones
+                    </h3>
+                    <p class="text-muted m-0 mt-1">Visión global del estado logístico y rendimiento en tiempo real.</p>
+                </div>
+
+                <div class="row row-cols-1 justify-content-center row-cols-md-3 g-4 text-center mb-5">
+                    <div class="col">
+                        <div class="card border-0 rounded-4 shadow-sm h-100 bg-light border-start border-4 border-dark">
+                            <div class="card-body py-4">
+                                <h6 class="text-muted fw-bold text-uppercase mb-1">Pedidos totales</h6>
+                                <h2 class="display-5 fw-bold text-dark mb-0" th:text="${totalEnvios}">0</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div
+                            class="card border-0 rounded-4 shadow-sm h-100 bg-light border-start border-4 border-warning">
+                            <div class="card-body py-4">
+                                <h6 class="text-muted fw-bold text-uppercase mb-1">Pendientes</h6>
+                                <h2 class="display-5 fw-bold text-warning mb-0" th:text="${enviosPendientes}">0</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div
+                            class="card border-0 rounded-4 shadow-sm h-100 bg-light border-start border-4 border-primary">
+                            <div class="card-body py-4">
+                                <h6 class="text-muted fw-bold text-uppercase mb-1">Entregados</h6>
+                                <h2 class="display-5 fw-bold text-primary mb-0" th:text="${enviosEntregados}">0</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-light rounded-4 border">
+                    <h5 class="fw-bold text-secondary mb-4">
+                        <i class="bi bi-clock-history me-2"></i>Monitor de Tiempos de Entrega
+                    </h5>
+
+                    <div class="row row-cols-1 justify-content-center row-cols-md-3 g-4 text-center">
+                        <div class="col">
+                            <div class="card border-0 rounded-4 shadow-sm h-100 border-bottom border-4 border-success">
+                                <div class="card-body py-3 d-flex flex-column align-items-center">
+                                    <div class="bg-success bg-opacity-10 rounded-circle p-3 mb-3">
+                                        <i class="bi bi-check-circle-fill text-success fs-2"></i>
+                                    </div>
+                                    <h6 class="text-muted fw-bold text-uppercase mb-1">A Tiempo</h6>
+                                    <h2 class="fw-bold text-success mb-0" th:text="${paquetesATiempo}">0</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card border-0 rounded-4 shadow-sm h-100 border-bottom border-4 border-warning">
+                                <div class="card-body py-3 d-flex flex-column align-items-center">
+                                    <div class="bg-warning bg-opacity-10 rounded-circle p-3 mb-3">
+                                        <i class="bi bi-exclamation-triangle-fill text-warning fs-2"></i>
+                                    </div>
+                                    <h6 class="text-muted fw-bold text-uppercase mb-1">En Riesgo (&lt; 24h)</h6>
+                                    <h2 class="fw-bold text-warning mb-0" th:text="${paquetesEnRiesgo}">0</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card border-0 rounded-4 shadow-sm h-100 border-bottom border-4 border-danger">
+                                <div class="card-body py-3 d-flex flex-column align-items-center">
+                                    <div class="bg-danger bg-opacity-10 rounded-circle p-3 mb-3">
+                                        <i class="bi bi-x-octagon-fill text-danger fs-2"></i>
+                                    </div>
+                                    <h6 class="text-muted fw-bold text-uppercase mb-1">Atrasados</h6>
+                                    <h2 class="fw-bold text-danger mb-0" th:text="${paquetesAtrasados}">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script id="acciones" th:src="@{/script/acciones.js}"></script>
+
+</body>
+
+</html>
