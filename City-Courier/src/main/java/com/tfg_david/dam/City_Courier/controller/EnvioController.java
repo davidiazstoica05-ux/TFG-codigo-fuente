@@ -107,7 +107,10 @@ public class EnvioController {
 
 		//La he liado un poco poniendo el estado del paquete en asignacion, pero cuando me di cuenta era demasiado tarde para cambiarlo. 
 		//De todas formas lo he conseguido solucionar de una forma un poco mas enrevesada
-		asigService.monitorizarEntrega(envio.getAsignacion());
+		
+		if (envio.getAsignacion() != null) {
+		    asigService.monitorizarEntrega(envio.getAsignacion());
+		}
 
 		envioService.save(envio);
 
