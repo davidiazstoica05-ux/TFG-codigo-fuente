@@ -30,27 +30,22 @@ public class RepartidorController {
 	private final RepartidorService repartidorService;
 
 	@GetMapping("/repartidores")
-	public String rrhh(@RequestParam(required = false) String dni, Model model) {
+	public String rrhh(@RequestParam(required = false) String nombre, Model model) {
 
-		List<Repartidor> r = new ArrayList<>();
+		List<Repartidor> repartidorList;
 
 		model.addAttribute("ridersEnVacaciones", repartidorService.countByEstado(Disponibilidad.VACACIONES));
 		model.addAttribute("ridersEnBaja", repartidorService.countByEstado(Disponibilidad.DE_BAJA));
 		model.addAttribute("ridersDisponibles", repartidorService.countByEstado(Disponibilidad.DISPONIBLE));
 		model.addAttribute("totalRiders", repartidorService.count());
 
-		if (dni != null && !dni.trim().isEmpty()) {
-			Optional<Repartidor> repartidor = repartidorService.findByDni(dni);
-
-			if (repartidor.isPresent()) {
-				r.add(repartidor.get());
-				model.addAttribute("repartidorList", r);
-			} else {
-				return "redirect:/rrhh/repartidores";
-			}
+		if (nombre != null && !nombre.trim().isEmpty()) {
+			repartidorList = repartidorService.findByNombreIgnoreCase(nombre.trim());
 		} else {
-			model.addAttribute("repartidorList", repartidorService.findAll());
+			repartidorList = repartidorService.findAll();
 		}
+
+		model.addAttribute("repartidorList", repartidorList);
 
 		return "rrhh/rrhh";
 	}
