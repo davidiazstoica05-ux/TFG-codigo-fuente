@@ -1,0 +1,249 @@
+<!--Tabla de envíos-->
+<div th:fragment="listaEnvios" class="container-fluid p-0">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light text-secondary">
+                <tr>
+                    <th class="fw-semibold">CodEnvio</th>
+                    <th class="fw-semibold">Direccion</th>
+                    <th class="fw-semibold">Zona</th>
+                    <th class="fw-semibold">Código Postal</th>
+                    <th class="fw-semibold">Peso</th>
+                    <th class="fw-semibold">Prioridad</th>
+                    <th class="fw-semibold">Fecha entrega limite</th>
+                    <th class="fw-semibold">Destinatario</th>
+                    <th class="fw-semibold">Repartidor</th>
+                    <th class="fw-semibold text-center" colspan="2">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="border-top-0">
+                <tr th:each="envio : ${envioList}">
+                    <td th:text="${envio.codEnvio}">CodEnvio</td>
+                    <td th:text="${envio.direccion}">Osuna</td>
+                    <td th:text="${envio.zona}">Zona 1</td>
+                    <td th:text="${envio.codPostal}">41001</td>
+                    <td th:text="${envio.peso + ' kg'}">10kg</td>
+
+                    <td>
+                        <span th:if="${envio.prioridad != null and envio.prioridad.name() == 'URGENTE'}"
+                            class="badge bg-danger">Urgente</span>
+                        <span th:if="${envio.prioridad != null and envio.prioridad.name() == 'NORMAL'}"
+                            class="badge bg-primary">Normal</span>
+                        <span th:if="${envio.prioridad != null and envio.prioridad.name() == 'AHORRO'}"
+                            class="badge bg-secondary">Ahorro</span>
+                        <span th:if="${envio.prioridad == null}" class="badge bg-light text-dark">Sin Asignar</span>
+                    </td>
+
+                    <td th:text="${#temporals.format(envio.fechaEntregaLimite, 'dd/MM/yyyy HH:mm')}">14/05/2026</td>
+                    <td th:text="${envio.destinatario}">Juan Pérez</td>
+                    <td th:text="${envio.asignacion?.repartidor?.dni}">Asignación 1</td>
+                    <td class="text-center">
+                        <a th:href="@{/logistica/envios/editar/{codEnvio}(codEnvio=${envio.codEnvio})}"
+                            class="btn btn-sm btn-outline-primary rounded-circle" title="Editar Envío">
+                            <i class="bi bi-pencil-square fs-5"></i>
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <a th:href="@{/logistica/envios/borrar/{codEnvio}(codEnvio=${envio.codEnvio})}"
+                            class="btn btn-sm btn-outline-danger rounded-circle" title="Eliminar Envío"
+                            th:onclick="return confirm('¿Estás seguro de que deseas eliminar este envío?');">
+                            <i class="bi bi-trash fs-5 text-danger"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+<!--Tabla de rutas-->
+<div th:fragment="listaRutas" class="container-fluid p-0">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light text-secondary">
+                <tr>
+                    <th class="fw-semibold">CodRuta</th>
+                    <th class="fw-semibold">DNI Repartidor</th>
+                    <th class="fw-semibold">Nombre Ruta</th>
+                    <th class="fw-semibold">Fecha Inicio</th>
+                    <th class="fw-semibold text-center">Fecha Fin</th>
+                    <th class="fw-semibold text-center" colspan="3">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="border-top-0">
+                <tr th:each="ruta : ${rutaList}">
+                    <td th:text="${ruta.codigoRuta}">CodRuta</td>
+                    <td th:text="${ruta.repartidores.size() + ' repartidor(es)'}">DNI Repartidor</td>
+                    <td th:text="${ruta.nombreRuta}">Nombre Ruta</td>
+                    <td th:text="${#temporals.format(ruta.fechaInicio, 'HH:mm')}">14/05/2026 09:00</td>
+                    <td th:text="${#temporals.format(ruta.fechaFinal, 'HH:mm')}">14/05/2026 17:00</td>
+
+                    <td class="text-center border-end-0 pe-1">
+                        <button type="button" class="btn btn-sm btn-outline-info rounded-circle" data-bs-toggle="modal"
+                            th:data-bs-target="'#modalVerRuta' + ${ruta.codigoRuta}" title="Ver Detalles">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </td>
+
+                    <td class="text-start border-start-0 ps-1">
+                        <a th:href="@{/logistica/rutas/editar/{id}(id=${ruta.codigoRuta})}"
+                            class="btn btn-sm btn-outline-primary rounded-circle" title="EditarRuta">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                    </td>
+
+                    <td class="text-center">
+                        <a th:href="@{/logistica/rutas/borrar/{id}(id=${ruta.codigoRuta})}"
+                            class="btn btn-sm btn-outline-danger rounded-circle" title="Eliminar Ruta"
+                            th:onclick="return confirm('¿Estás seguro de que deseas eliminar esta ruta?');">
+                            <i class="bi bi-trash text-danger"></i>
+                        </a>
+                    </td>
+
+
+                    <div class="modal fade text-start" th:id="'modalVerRuta' + ${ruta.codigoRuta}" tabindex="-1"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content border-0 rounded-4 shadow-lg">
+
+                                <div
+                                    class="modal-header border-0 bg-success bg-opacity-10 rounded-top-4 pb-0 pt-4 px-4">
+                                    <div class="d-flex align-items-center gap-3 pb-3 w-100">
+                                        <div
+                                            class="bg-success text-white rounded-circle d-flex justify-content-center align-items-center shadow-sm circle-55">
+                                            <i class="bi bi-map fs-3"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="modal-title fw-bold text-success mb-0"
+                                                th:text="'Ruta #' + ${ruta.codigoRuta}">Ruta #0</h4>
+                                            <span
+                                                class="badge bg-success bg-opacity-25 text-success rounded-pill mt-1 px-3">En
+                                                Operación</span>
+                                        </div>
+                                        <button type="button" class="btn-close mb-auto ms-auto" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                </div>
+
+                                <div class="modal-body p-4">
+                                    <h6 class="fw-bold text-muted mb-3 text-uppercase text-size-0-85 letter-spacing-1">
+                                        Resumen de Operación
+                                    </h6>
+
+                                    <h6 class="fw-bold text-muted mb-3 text-uppercase text-size-0-85 letter-spacing-1">
+                                        Flota Asignada
+                                    </h6>
+                                    <ul class="list-group list-group-flush border-top border-bottom">
+
+                                        <li class="list-group-item px-0 py-3 d-flex align-items-center border-0 border-bottom"
+                                            th:each="repartidor : ${ruta.repartidores}">
+                                            <div
+                                                class="bg-secondary bg-opacity-10 p-2 rounded-circle me-3 text-secondary">
+                                                <i class="bi bi-person-badge fs-5"></i>
+                                            </div>
+                                            <div>
+                                                <p class="fw-semibold mb-0 text-dark"
+                                                    th:text="'Repartidor DNI: ' + ${repartidor.dni}">DNI</p>
+                                                <small class="text-muted">Vinculado a la ruta</small>
+                                            </div>
+                                        </li>
+
+                                        <li class="list-group-item px-0 py-4 text-center text-muted border-0"
+                                            th:if="${#lists.isEmpty(ruta.repartidores)}">
+                                            <i class="bi bi-inbox d-block fs-3 mb-2 opacity-50"></i>
+                                            No hay repartidores asignados a esta ruta.
+                                        </li>
+                                    </ul>
+
+                                    <div class="row">
+                                        <h6
+                                            class="fw-bold text-muted mt-3 mb-3 text-uppercase text-size-0-85 letter-spacing-1">
+                                            Puntos de Entrega
+                                        </h6>
+                                        <ul class=" list-group list-group-flush border-start border-2 border-success"
+                                            th:each="entrada : ${ruta.puntosEntregas}">
+                                            <li class="list-group ms-3 col-6"
+                                                th:text="' -- ' + ${entrada.key} + ' | Distancia: ' + ${entrada.value} + ' km'">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class=" modal-footer border-0 pt-0 pb-4 px-4 justify-content-center">
+                                    <button type="button" class="btn btn-light border rounded-pill px-5 fw-medium"
+                                        data-bs-dismiss="modal">
+                                        Cerrar Panel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ------------------------------ -->
+
+
+
+<!--Tabla de Asignaciones-->
+<div th:fragment="listaAsignaciones" class="container-fluid p-0">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light text-secondary border-info">
+                <tr>
+                    <th class="fw-semibold">ID</th>
+                    <th class="fw-semibold">Repartidor (DNI)</th>
+                    <th class="fw-semibold">Ruta</th>
+                    <th class="fw-semibold">Estado</th>
+                    <th class="fw-semibold">Cod Envio</th>
+                    <th class="fw-semibold">Coste Total</th>
+                    <th class="fw-semibold">Fecha Asignación</th>
+                    <th class="fw-semibold">Fecha Entrega</th>
+                    <th class="fw-semibold">Incidencia</th>
+                    <th class="fw-semibold text-center" colspan="2">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="border-top-0">
+                <tr th:each="asig : ${asignacionList}">
+                    <td class="fw-bold text-muted"
+                        th:text="${asig.envio?.codEnvio} + '-' + ${asig.repartidor?.idTrabajador}">1-1</td>
+                    <td th:text="${asig.repartidor?.dni}">12345678A</td>
+                    <td th:text="${asig.repartidor?.ruta?.nombreRuta?: 'Sin ruta'}">Ruta 1</td>
+                    <td>
+                        <span th:if="${asig.estadoPedido}" class="badge bg-success">Completado</span>
+                        <span th:unless="${asig.estadoPedido}" class="badge bg-warning text-dark">Pendiente</span>
+                    </td>
+                    <td th:text="${asig.envio?.codEnvio ?: 'Ninguno'}">Ninguno</td>
+
+                    <td class="fw-bold text-success" th:text="${#numbers.formatDecimal(asig.costeTotal, 1, 2)} + ' €'">
+                        0.0 €</td>
+
+                    <td th:text="${#temporals.format(asig.fechaAsignacion, 'dd/MM/yyyy HH:mm')}">14/05/2026</td>
+                    <td th:text="${#temporals.format(asig.fechaEntrega, 'dd/MM/yyyy HH:mm')} ?: 'Sin fecha'">Sin fecha
+                    </td>
+                    <td class="text-danger small" th:text="${asig.motivoIncidencia ?: 'Ninguna'}">Ninguna</td>
+
+                    <td class="text-center">
+                        <a th:href="@{/logistica/asignaciones/editar/{codEnvio}/{idTrabajador}(codEnvio=${asig.envio.codEnvio}, idTrabajador=${asig.repartidor.idTrabajador})}"
+                            class="text-decoration-none text-info">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <a th:href="@{/logistica/asignaciones/borrar/{codEnvio}/{idTrabajador}(codEnvio=${asig.envio.codEnvio}, idTrabajador=${asig.repartidor.idTrabajador})}"
+                            class="text-decoration-none text-danger"
+                            th:onclick="return confirm('¿Estás seguro de que deseas eliminar esta asignación?');">
+                            <i class="bi bi-trash fs-5 text-danger"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
