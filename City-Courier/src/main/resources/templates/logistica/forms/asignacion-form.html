@@ -73,7 +73,7 @@
                                     th:field="*{envio.codEnvio}" required>
                                     <option value="">Seleccione el envío a asignar...</option>
                                     <option th:each="env : ${enviosList}" th:value="${env.codEnvio}"
-                                        th:text="${env.codEnvio}"></option>
+                                        th:text="|Envío #${env.codEnvio} - Destino: ${env.zona.display}|"></option>
                                 </select>
                                 <div class="invalid-feedback">Debe seleccionar un código de envío válido.</div>
                                 <div th:if="${#fields.hasErrors('envio.codEnvio')}" class="text-danger small">
@@ -97,7 +97,7 @@
                                     th:field="*{repartidor.idTrabajador}" required>
                                     <option value="">Seleccione el repartidor...</option>
                                     <option th:each="rep : ${repartidoresList}" th:value="${rep.idTrabajador}"
-                                        th:text="${rep.nombre} + ' ' + ${rep.apellidos} + ' (' + ${rep.dni} + ')'">
+                                        th:text="|${rep.nombre} ${rep.apellidos} - Zona: ${rep.zona.display}|">
                                     </option>
                                 </select>
                                 <div class="invalid-feedback">Debe asignar un repartidor válido.</div>
