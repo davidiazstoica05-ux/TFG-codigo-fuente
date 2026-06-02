@@ -17,9 +17,16 @@
 
 <body class="min-vh-100 d-flex flex-column bg-primary">
 
-    <aside sec:authorize="hasRole('ADMIN')" th:replace="~{fragments/general :: headerAdmin}"></aside>
+    <!--He intentado hacer que funcione de mil maneras, pero ni yo se lo que le pas ay la IA menos aún, así qe lo dejo así -->
+    <th:block sec:authorize="hasRole('ADMIN')">
+        <div th:replace="~{fragments/general :: headerAdmin}"></div>
+    </th:block>
 
-    <div sec:authorize="hasRole('RRHH') and !hasRole('ADMIN')" th:replace="~{fragments/general :: header}"></div>
+    <th:block sec:authorize="hasRole('RRHH') and !hasRole('ADMIN')">
+        <div th:replace="~{fragments/general :: header}"></div>
+    </th:block>
+
+
 
     <div id="row 1" class="row text flex-grow-1 m-0">
 
