@@ -101,6 +101,10 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 		throw new RepartidorNoDisponibleException("El envio y el repartidor no tienen la misma zona");
 	}
 
+	public List<Asignacion> findByNombreRuta(String nombreRuta) {
+		return repo.findByRepartidor_Ruta_NombreRutaContainingIgnoreCase(nombreRuta);
+	}
+	
 	public List<Asignacion> findByIdAsignacionOrRepartidorId(Long codEnvio, Long idTrabajador) {
 		return repo.findByEnvio_CodEnvioOrRepartidor_IdTrabajador(codEnvio, idTrabajador);
 	}
