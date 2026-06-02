@@ -12,36 +12,42 @@
 
 <body class="min-vh-100 d-flex flex-column bg-primary">
 
-    <div th:replace="~{fragments/general :: header}"></div>
 
     <main class="flex-grow-1 d-flex align-items-center justify-content-center p-3">
-        <div class="bg-white rounded-5 shadow-lg p-4 p-md-5 text-center w-100 max-w-550">
+        <div class="container">
+            <div class="row justify-content-center w-100">
+                <div class="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4">
+                    <div class="bg-white rounded-5 shadow-lg p-4 p-md-5 text-center mx-auto">
 
-            <div class="mb-4">
-                <i class="bi bi-exclamation-triangle-fill text-warning icon-large-4-5"></i>
+                        <div class="mb-4">
+                            <i class="bi bi-exclamation-triangle-fill text-warning icon-large-4-5"></i>
+                        </div>
+
+                        <span class="badge bg-light text-muted rounded-pill px-3 py-2 fw-bold mb-2">OPERACIÓN
+                            DENEGADA</span>
+
+                        <h2 class="fw-bold text-primary mb-3" th:text="${titulo}">Aviso del Sistema</h2>
+
+                        <div class="alert alert-warning border-0 bg-warning bg-opacity-10 rounded-4 p-4 mb-4">
+                            <p class="text-dark fw-medium fs-6 mb-0" th:text="${mensaje}">
+                                No se puede completar la operación debido a una restricción del sistema.
+                            </p>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <a href="javascript:history.back()"
+                                class="btn btn-outline-primary rounded-4 py-2 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2">
+                                <i class="bi bi-arrow-left"></i> Volver a la página anterior
+                            </a>
+                            <a th:href="@{/logistica/logisticaHome}"
+                                class="btn btn-primary rounded-4 py-2 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2">
+                                <i class="bi bi-house-door-fill"></i> Ir al Panel Central
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-
-            <span class="badge bg-light text-muted rounded-pill px-3 py-2 fw-bold mb-2">OPERACIÓN DENEGADA</span>
-
-            <h2 class="fw-bold text-primary mb-3" th:text="${titulo}">Aviso del Sistema</h2>
-
-            <div class="alert alert-warning border-0 bg-warning bg-opacity-10 rounded-4 p-4 mb-4">
-                <p class="text-dark fw-medium fs-6 mb-0" th:text="${mensaje}">
-                    No se puede completar la operación debido a una restricción del sistema.
-                </p>
-            </div>
-
-            <div class="d-grid gap-2">
-                <a href="javascript:history.back()"
-                    class="btn btn-outline-primary rounded-4 py-2 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2">
-                    <i class="bi bi-arrow-left"></i> Volver a la página anterior
-                </a>
-                <a th:href="@{/logistica/logisticaHome}"
-                    class="btn btn-primary rounded-4 py-2 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2">
-                    <i class="bi bi-house-door-fill"></i> Ir al Panel Central
-                </a>
-            </div>
-
         </div>
     </main>
 

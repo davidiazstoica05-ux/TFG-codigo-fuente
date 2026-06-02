@@ -136,8 +136,8 @@ public class DataSeed {
 				.genero("Mujer")
 				.activo(true)
 				.fechaAlta(LocalDate.now().minusYears(2))
-				.usuario("rrhh")
-				.passw(passwordEncoder.encode("rrhh"))
+				.usuario("user")
+				.passw(passwordEncoder.encode("user"))
 				.build();
 
 		Logistica logistica = Logistica.builder()
