@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Rutas - City Courier</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/general.css}">
+</head>
+
+<body class="min-vh-100 d-flex flex-column bg-primary">
+
+
+    <aside sec:authorize="hasRole('ADMIN')" th:replace="~{fragments/general :: headerAdmin}"></aside>
+
+    <div sec:authorize="hasRole('LOGISTICA') and !hasRole('ADMIN')" th:replace="~{fragments/general :: header}"></div>
+
+    <div id="row 1" class="row text flex-grow-1 m-0">
+
+        <aside sec:authorize="hasRole('ADMIN')" th:replace="~{fragments/general :: asideAdmin}"></aside>
+
+        <aside sec:authorize="hasRole('LOGISTICA') and !hasRole('ADMIN')"
+            th:replace="~{fragments/general :: asideLogistica}"></aside>
+
+        <main id="main" class="col-md-10 col-12 p-3 p-md-4">
+            <div class="bg-white rounded-5 shadow-lg h-100 p-4 p-md-5">
+
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-5 gap-3">
+                    <div>
+                        <h3 class="fw-bold text-success m-0"><i class="bi bi-geo-alt-fill me-2"></i>Gestión de Rutas
+                        </h3>
+                        <p class="text-muted m-0 mt-1">Diseño y control de trayectos de entrega.</p>
+                    </div>
+
+                    <a th:href="@{/logistica/rutas/nuevo}"
+                        class="btn btn-success rounded-pill px-4 shadow-sm py-2 fw-medium">
+                        <i class="bi bi-map me-2"></i> Diseñar Ruta
+                    </a>
+                </div>
+
+                <form th:action="@{/logistica/rutas}" method="get" class="mb-4">
+                    <div
+                        class="d-flex flex-column flex-md-row justify-content-between align-items-md-center bg-light p-3 rounded-4 border">
+                        <h5 class="fw-bold text-primary m-0 mb-3 mb-md-0"><i class="bi bi-search me-2"></i>Localizador
+                        </h5>
+                        <div class="input-group w-auto bg-white rounded-pill shadow-sm overflow-hidden border">
+                            <span class="input-group-text bg-transparent border-0 text-muted"><i
+                                    class="bi bi-search"></i></span>
+                            <input type="text" class="form-control border-0 shadow-none"
+                                placeholder="ID de envío o destino..." name="criterio">
+                            <button type="submit" class="btn btn-success px-4 fw-medium">Buscar</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="p-4 text-center border rounded-4 border-success border-opacity-25 bg-light mb-5">
+                    <div th:replace="~{fragments/logisticaTables :: listaRutas}"></div>
+                </div>
+
+                <div class="mt-4 pt-2 border-top">
+                    <h4 class="fw-bold text-success mb-4 mt-3"><i class="bi bi-bar-chart-fill me-2"></i>Métricas de
+                        Rendimiento</h4>
+
+                    <div class="row g-4">
+                        <div class="col-12 col-xl-8">
+                            <div class="bg-white p-4 rounded-4 shadow-sm border border-success border-opacity-10 h-100">
+                                <h5 class="fw-bold text-dark mb-4">Top Rutas Más Realizadas</h5>
+
+
+
+                                <div th:if="${rutasFrecuentes != null and !#lists.isEmpty(rutasFrecuentes)}">
+                                    <div class="mb-3" th:each="ruta : ${rutasFrecuentes}">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="fw-medium text-secondary" th:text="${ruta.nombreRuta}">Nombre
+                                                de Ruta</span>
+
+                                            <span class="badge bg-success rounded-pill"
+                                                th:text="${ruta.repartidores.size() + ' repartidores'}">0
+                                                repartidores</span>
+                                        </div>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar bg-success rounded-pill" role="progressbar"
+                                                th:style="'width: ' + (${ruta.repartidores.size()} * 10) + '%'"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div th:if="${rutasFrecuentes == null or #lists.isEmpty(rutasFrecuentes)}">
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="fw-medium text-secondary">Ruta Sevilla Centro</span>
+                                            <span class="badge bg-success rounded-pill">24 viajes</span>
+                                        </div>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar bg-success rounded-pill w-85" role="progressbar">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="fw-medium text-secondary">Ruta Triana - Los Remedios</span>
+                                            <span class="badge bg-success rounded-pill">18 viajes</span>
+                                        </div>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar bg-success rounded-pill opacity-75 w-65"
+                                                role="progressbar"></div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-0">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="fw-medium text-secondary">Ruta Macarena Norte</span>
+                                            <span class="badge bg-success rounded-pill">12 viajes</span>
+                                        </div>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar bg-success rounded-pill opacity-50 w-40"
+                                                role="progressbar"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-xl-4">
+                            <div
+                                class="bg-success bg-opacity-10 p-4 rounded-4 shadow-sm border border-success border-opacity-25 h-100 d-flex flex-column justify-content-center align-items-center text-center">
+                                <div class="bg-white p-3 rounded-circle shadow-sm mb-3 circle-55">
+                                    <i class="bi bi-signpost-split-fill text-success icon-large-2-5"></i>
+                                </div>
+                                <h2 class="fw-bold text-success mb-1"
+                                    th:text="${rutaList != null ? rutaList.size() : 0}">0</h2>
+                                <h6 class="fw-bold text-secondary mb-0 text-uppercase letter-spacing-1">
+                                    Rutas Totales Activas</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script id="accionesRuta" th:src="@{/script/accionesRuta.js}"></script>
+
+</body>
+
+</html>

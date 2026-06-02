@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Envío - City Courier</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/general.css}">
+</head>
+
+<body class="min-vh-100 d-flex flex-column bg-primary">
+
+    <aside sec:authorize="hasRole('ADMIN')" th:replace="~{fragments/general :: headerAdmin}"></aside>
+
+    <div sec:authorize="hasRole('LOGISTICA') and !hasRole('ADMIN')" th:replace="~{fragments/general :: header}"></div>
+
+    <div id="row 1" class="row text flex-grow-1 m-0">
+
+        <aside sec:authorize="hasRole('ADMIN')" th:replace="~{fragments/general :: asideAdmin}"></aside>
+
+        <aside sec:authorize="hasRole('LOGISTICA') and !hasRole('ADMIN')"
+            th:replace="~{fragments/general :: asideLogistica}"></aside>
+
+        <main id="main" class="col-md-10 col-12 p-3 p-md-4">
+
+            <div class="bg-white rounded-5 shadow-lg h-100 p-4 p-md-5">
+
+                <div class="mb-4">
+                    <a th:href="@{/logistica/envios}"
+                        class="btn btn-link text-decoration-none p-0 text-primary fw-medium">
+                        <i class="bi bi-arrow-left me-1"></i> Volver al panel de envíos
+                    </a>
+                </div>
+
+                <h3 class="fw-bold text-primary mb-4 pb-2 border-bottom">
+                    <i class="bi bi-box-seam me-2"></i>
+                    <span
+                        th:text="${envio.codEnvio != null} ? 'Editar Envío' : 'Registrar Nuevo Envío'">Formulario</span>
+                </h3>
+
+                <form method="post" th:action="@{/logistica/envios/guardar}" id="logisticaForm" th:object="${envio}"
+                    class="needs-validation" novalidate>
+
+                    <input type="hidden" th:field="*{codEnvio}">
+
+                    <fieldset class="mb-5">
+                        <h6 class="text-primary fw-bold mb-4">
+                            <i class="bi bi-person-lines-fill me-2"></i>Datos del Destinatario
+                        </h6>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-12 col-lg-8">
+                                <label for="destinatario"
+                                    class="form-label fw-medium text-secondary small text-uppercase">Nombre
+                                    Completo</label>
+                                <input type="text" class="form-control bg-light border-0 shadow-sm py-2"
+                                    id="destinatario" th:field="*{destinatario}" placeholder="Ej. Juan Pérez García"
+                                    required>
+                                <div class="invalid-feedback">Debe introducir un nombre de destinatario válido.</div>
+                                <div th:if="${#fields.hasErrors('destinatario')}" class="text-danger small">
+                                    <span th:errors="*{destinatario}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-12 col-md-12 col-lg-6">
+                                <label for="direccion"
+                                    class="form-label fw-medium text-secondary small text-uppercase">Dirección de
+                                    Entrega</label>
+                                <input type="text" class="form-control bg-light border-0 shadow-sm py-2" id="direccion"
+                                    th:field="*{direccion}" placeholder="Ej. Calle Mayor, 123, 2ºA" required>
+                                <div class="invalid-feedback">Debe introducir una dirección válida.</div>
+                                <div th:if="${#fields.hasErrors('direccion')}" class="text-danger small">
+                                    <span th:errors="*{direccion}"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-6 col-lg-2">
+                                <label for="codigoPostal"
+                                    class="form-label fw-medium text-secondary small text-uppercase">C. Postal</label>
+                                <input type="text" class="form-control bg-light border-0 shadow-sm py-2" maxlength="5"
+                                    minlength="5" id="codigoPostal" th:field="*{codPostal}" placeholder="Ej. 41001"
+                                    required>
+                                <div class="invalid-feedback">Requerido (5 dígitos).</div>
+                                <div th:if="${#fields.hasErrors('codPostal')}" class="text-danger small">
+                                    <span th:errors="*{codPostal}"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-6 col-lg-4">
+                                <label for="zona" class="form-label fw-medium text-secondary small text-uppercase">Zona
+                                    Asignada</label>
+
+                                <select class="form-select bg-light border-0 shadow-sm py-2" id="zona"
+                                    th:field="*{zona}" required>
+
+                                    <option value="">Seleccione una zona...</option>
+
+                                    <option th:each="z : ${T(com.tfg_david.dam.City_Courier.model.Zona).values()}"
+                                        th:value="${z}" th:text="${z.display}">
+                                    </option>
+
+                                </select>
+
+                                <div class="invalid-feedback">Debe seleccionar una zona válida.</div>
+                                <div th:if="${#fields.hasErrors('zona')}" class="text-danger small">
+                                    <span th:errors="*{zona}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="mb-5 border-top pt-4">
+                        <h6 class="text-primary fw-bold mb-4">
+                            <i class="bi bi-truck me-2"></i>Propiedades del Paquete
+                        </h6>
+
+                        <div class="row g-3">
+                            <div class="col-12 col-md-4 col-lg-3">
+                                <label for="peso" class="form-label fw-medium text-secondary small text-uppercase">Peso
+                                    de Carga (kg)</label>
+                                <div class="input-group shadow-sm">
+                                    <input type="number" max="25" min="0.5" class="form-control bg-light border-0 py-2"
+                                        id="peso" th:field="*{peso}" placeholder="Ej. 5.5" required>
+                                    <span class="input-group-text bg-light border-0 text-muted">kg</span>
+                                </div>
+                                <div th:if="${#fields.hasErrors('peso')}" class="text-danger small">
+                                    <span th:errors="*{peso}"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-4 col-lg-4">
+                                <label for="prioridad"
+                                    class="form-label fw-medium text-secondary small text-uppercase">Prioridad del
+                                    Envío</label>
+                                <select class="form-select bg-light border-0 shadow-sm py-2" id="prioridad"
+                                    th:field="*{prioridad}" required>
+                                    <option value="">Seleccione prioridad...</option>
+                                    <option value="AHORRO">Ahorro</option>
+                                    <option value="NORMAL">Normal</option>
+                                    <option value="URGENTE">Urgente</option>
+                                </select>
+                                <div class="invalid-feedback">Debe seleccionar una prioridad válida.</div>
+                                <div th:if="${#fields.hasErrors('prioridad')}" class="text-danger small">
+                                    <span th:errors="*{prioridad}"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-4 col-lg-5">
+                                <label for="fechaEntregaLimite"
+                                    class="form-label fw-medium text-secondary small text-uppercase">Fecha y Hora
+                                    Límite</label>
+                                <input type="datetime-local" class="form-control bg-light border-0 shadow-sm py-2"
+                                    id="fechaEntregaLimite" name="fechaEntregaLimite"
+                                    th:value="${envio.fechaEntregaLimite != null} ? ${#temporals.format(envio.fechaEntregaLimite, 'yyyy-MM-dd''T''HH:mm')} : ''"
+                                    required>
+                                <div class="invalid-feedback">Debe planificar una fecha válida.</div>
+                                <div th:if="${#fields.hasErrors('fechaEntregaLimite')}" class="text-danger small">
+                                    <span th:errors="*{fechaEntregaLimite}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="d-flex justify-content-end gap-3 mt-5 pt-4 border-top">
+                        <a th:href="@{/logistica/envios}"
+                            class="btn btn-light border px-4 rounded-pill text-secondary fw-medium shadow-sm">
+                            Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary px-5 rounded-pill shadow-sm fw-medium">
+                            <i class="bi bi-save me-2"></i> Guardar Registro
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script id="validationForm" th:src="@{/script/validationForm.js}"></script>
+
+</body>
+
+</html>

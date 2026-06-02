@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Envíos - City Courier</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/general.css}">
+</head>
+
+<body class="min-vh-100 d-flex flex-column bg-primary">
+
+
+    <aside sec:authorize="hasRole('ADMIN')" th:replace="~{fragments/general :: headerAdmin}"></aside>
+
+    <div sec:authorize="hasRole('LOGISTICA') and !hasRole('ADMIN')" th:replace="~{fragments/general :: header}"></div>
+
+    <div id="row 1" class="row text flex-grow-1 m-0">
+
+        <aside sec:authorize="hasRole('ADMIN')" th:replace="~{fragments/general :: asideAdmin}"></aside>
+
+        <aside sec:authorize="hasRole('LOGISTICA') and !hasRole('ADMIN')"
+            th:replace="~{fragments/general :: asideLogistica}"></aside>
+
+        <main id="main" class="col-md-10 col-12 p-3 p-md-4">
+            <div class="bg-white rounded-5 shadow-lg h-100 p-4 p-md-5">
+
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-5 gap-3">
+                    <div>
+                        <h3 class="fw-bold text-primary m-0"><i class="bi bi-box-seam-fill me-2"></i>Panel de Envíos
+                        </h3>
+                        <p class="text-muted m-0 mt-1">Control de paquetería y registro de nuevos paquetes.</p>
+                    </div>
+
+                    <a class="btn btn-primary rounded-pill px-4 shadow-sm py-2 fw-medium"
+                        th:href="@{/logistica/envios/nuevos}">
+                        <i class="bi bi-plus-lg me-2"></i> Registrar Nuevo Envío
+                    </a>
+                </div>
+
+                <form th:action="@{/logistica/envios}" method="get" class="mb-4">
+                    <div
+                        class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center bg-light p-3 rounded-4 border gap-3">
+
+                        <h5 class="fw-bold text-primary m-0"><i class="bi bi-search me-2"></i>Localizador</h5>
+
+                        <div class="d-flex flex-column flex-md-row gap-3 w-100 justify-content-lg-end">
+
+                            <div class="input-group bg-white rounded-pill shadow-sm overflow-hidden border max-w-300">
+                                <span class="input-group-text bg-transparent border-0 text-muted">
+                                    <i class="bi bi-geo-alt"></i>
+                                </span>
+
+                                <select class="form-select border-0 shadow-none" name="zona">
+                                    <option value="" selected>Buscar por Zona...</option>
+
+                                    <option
+                                        th:each="zonaEnum : ${T(com.tfg_david.dam.City_Courier.model.Zona).values()}"
+                                        th:value="${zonaEnum.name()}" th:text="${zonaEnum.display}">
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="input-group bg-white rounded-pill shadow-sm overflow-hidden border max-w-300">
+                                <span class="input-group-text bg-transparent border-0 text-muted">
+                                    <i class="bi bi-calendar-date"></i>
+                                </span>
+                                <input type="datetime-local" class="form-control border-0 shadow-none text-muted"
+                                    name="fechaBusqueda">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary rounded-pill px-4 fw-medium shadow-sm">
+                                Buscar
+                            </button>
+
+                        </div>
+                    </div>
+                </form>
+
+                <div class="p-4 text-center bg-light rounded-4 border">
+                    <div th:replace="~{fragments/logisticaTables :: listaEnvios}"></div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script id="accionesEnvio" th:src="@{/script/accionesEnvio.js}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel RRHH - City Courier</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/general.css}">
+</head>
+
+<body class="min-vh-100 d-flex flex-column bg-primary">
+
+    <!--He intentado hacer que funcione de mil maneras, pero ni yo se lo que le pas ay la IA menos aún, así qe lo dejo así -->
+    <th:block sec:authorize="hasRole('ADMIN')">
+        <div th:replace="~{fragments/general :: headerAdmin}"></div>
+    </th:block>
+
+    <th:block sec:authorize="hasRole('RRHH') and !hasRole('ADMIN')">
+        <div th:replace="~{fragments/general :: header}"></div>
+    </th:block>
+
+
+
+    <div id="row 1" class="row text flex-grow-1 m-0">
+
+        <aside sec:authorize="hasRole('ADMIN')" th:replace="~{fragments/general :: asideAdmin}"></aside>
+
+        <aside sec:authorize="hasRole('RRHH') and !hasRole('ADMIN')" th:replace="~{fragments/general :: asideRrhh}">
+        </aside>
+
+        <main id="main" class="col-md-10 col-12 p-3 p-md-4">
+
+            <div class="bg-white rounded-5 shadow-lg h-100 p-4 p-md-5">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="fw-bold text-primary m-0">Gestión de Personal (RRHH)</h3>
+                    <a th:href="@{/rrhh/repartidores/nuevo}" class="btn btn-primary rounded-pill px-4 shadow-sm">
+                        <i class="bi bi-person-plus-fill me-2"></i> Nuevo Repartidor
+                    </a>
+                </div>
+
+                <div id="rowResumen" class="row row-cols-1 row-cols-md-3 g-4 text-center">
+
+                    <div class="col">
+                        <div class="card border-0 rounded-4 shadow-sm h-100 bg-light">
+                            <div class="card-header bg-success text-white border-0 rounded-top-4 py-3">
+                                <i class="bi bi-bicycle fs-3"></i>
+                                <h5 class="fw-bold mb-0 mt-2">Flota Total</h5>
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-center">
+                                <h2 class="display-6 fw-bold text-success" th:text="${totalRiders}">1</h2>
+                                <p class="text-muted mb-0">Repartidores en plantilla</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card border-0 rounded-4 shadow-sm h-100 bg-light">
+                            <div class="card-header bg-info text-white border-0 rounded-top-4 py-3">
+                                <i class="bi bi-check-circle fs-3"></i>
+                                <h5 class="fw-bold mb-0 mt-2">Disponibles</h5>
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-center">
+                                <h2 class="display-6 fw-bold text-info" th:text="${ridersDisponibles}">9</h2>
+                                <p class="text-muted mb-0">Listos para asignar ruta</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card border-0 rounded-4 shadow-sm h-100 bg-light">
+                            <div class="card-header bg-secondary text-white border-0 rounded-top-4 py-3">
+                                <i class="bi bi-umbrella fs-3"></i>
+                                <h5 class="fw-bold mb-0 mt-2">Bajas / Vacaciones</h5>
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-center">
+                                <h2 class="display-6 fw-bold text-secondary"
+                                    th:text="${ridersEnBaja} + ${ridersEnVacaciones}">3</h2>
+                                <p class="text-muted mb-0">Personal inactivo hoy</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-5 text-secondary opacity-25">
+
+                <form th:action="@{/rrhh/repartidores}" method="get">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="fw-bold text-primary m-0">Listado de Repartidores</h4>
+                        <div class="input-group w-auto">
+                            <span class="input-group-text bg-light border-light text-muted"><i
+                                    class="bi bi-search"></i></span>
+                            <input type="text" class="form-control border-light bg-light"
+                                placeholder="Buscar por Nombre..." name="nombre">
+                            <button type="submit" class="btn btn-primary rounded-pill px-4 shadow-sm" value="Buscar">
+                                <i class="bi bi-search"></i> Buscar</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="p-5 text-center bg-light rounded-4">
+                    <div th:replace="~{fragments/riderTable :: listaRiders}"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+
+    <script id="accionesRepartidor" th:src="@{/script/acciones.js}"></script>
+
+</body>
+
+</html>
