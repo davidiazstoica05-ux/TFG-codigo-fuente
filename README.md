@@ -121,8 +121,9 @@ Al haber sido el IDE nativo del proyecto, la forma más sencilla de levantarlo e
 3. **Arrancar la aplicación:**
    - Utiliza el **Boot Dashboard** (selecciona `City_Courier` y pulsa el botón de **Start/Play**).
    - Alternativamente, haz clic derecho sobre el proyecto > **Run As** > **Spring Boot App**.
-   ### 🌐 Acceso a la aplicación
 ```
+
+### 🌐 Acceso a la aplicación
 Independientemente del método elegido, una vez que la consola muestre el mensaje `Started CityCourierApplication`, abre tu navegador y accede a:
 👉 **`http://localhost:9000`**[cite: 2]
 
