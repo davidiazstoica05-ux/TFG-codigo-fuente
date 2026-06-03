@@ -1,6 +1,25 @@
 
 ![Banner de City Courier](docs/CityCourierBanner.png)
 
+## Tecnologías Utilizadas
+
+### ⚙️ Backend
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
+![Spring Security](https://img.shields.io/badge/Spring_Security-6DB33F?style=for-the-badge&logo=Spring-Security&logoColor=white)
+
+### 🎨 Frontend
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+![Thymeleaf](https://img.shields.io/badge/Thymeleaf-%23005C0F.svg?style=for-the-badge&logo=Thymeleaf&logoColor=white)
+
+
+### 🗄️ Base de Datos & Arquitectura
+![H2 Database](https://img.shields.io/badge/H2_Database-4479A1?style=for-the-badge&logo=databricks&logoColor=white)
+![MVC Architecture](https://img.shields.io/badge/Arquitectura-MVC-FF7139?style=for-the-badge)
+
+
 # City Courier - Sistema Integrado de Gestión Logística
 
 > **Proyecto Final - 1º DAM** > Desarrollo de una plataforma web integral para la digitalización y optimización de flotas de reparto urbano, rutas y envíos de paquetería.
@@ -51,26 +70,6 @@ La aplicación está dividida en módulos operativos para cubrir el ciclo de vid
 ### 3. Gestión de Recursos Humanos y Rutas
 - **Gestión de Flota:** Control del ciclo de vida de los trabajadores y sus vehículos.
 - **Rutas Dinámicas:** Creación de rutas conectando múltiples puntos de entrega, fechas de inicio/fin y asignación directa a conductores.
-
----
-
-## 🛠️ Tecnologías Utilizadas
-
-### ⚙️ Backend
-![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
-![Spring Security](https://img.shields.io/badge/Spring_Security-6DB33F?style=for-the-badge&logo=Spring-Security&logoColor=white)
-
-### 🎨 Frontend
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
-![Thymeleaf](https://img.shields.io/badge/Thymeleaf-%23005C0F.svg?style=for-the-badge&logo=Thymeleaf&logoColor=white)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-
-### 🗄️ Base de Datos & Arquitectura
-![H2 Database](https://img.shields.io/badge/H2_Database-4479A1?style=for-the-badge&logo=databricks&logoColor=white)
-![MVC Architecture](https://img.shields.io/badge/Arquitectura-MVC-FF7139?style=for-the-badge)
 
 ---
 
