@@ -11,11 +11,22 @@ El sistema está diseñado para resolver problemas logísticos reales, automatiz
 
 ## 📋 Tabla de Contenidos
 
-- [Características Principales](#-características-principales)
-- [Tecnologías Utilizadas](#-tecnologías-utilizadas)
-- [Arquitectura y Decisiones de Diseño](#-arquitectura-y-decisiones-de-diseño)
-- [Puesta en Marcha (Getting Started)](#-puesta-en-marcha-getting-started)
-- [Accesos y Roles del Sistema](#-accesos-y-roles-del-sistema)
+- [🚀 Características Principales](#-características-principales)
+  - [1. Operativa de Envíos y Auto-Asignación (Core)](#1-operativa-de-envíos-y-auto-asignación-core)
+  - [2. Monitorización de Tiempos (SLA)](#2-monitorización-de-tiempos-sla)
+  - [3. Gestión de Recursos Humanos y Rutas](#3-gestión-de-recursos-humanos-y-rutas)
+- [🛠️ Tecnologías Utilizadas](#-tecnologías-utilizadas)
+  - [⚙️ Backend](#️-backend)
+  - [🎨 Frontend](#-frontend)
+  - [🗄️ Base de Datos & Arquitectura](#️-base-de-datos--arquitectura)
+- [🏗️ Arquitectura y Decisiones de Diseño](#-arquitectura-y-decisiones-de-diseño)
+  - [Desacoplamiento de Ruta y Asignación (Normalización)](#desacoplamiento-de-ruta-y-asignación-normalización)
+- [⚙️ Puesta en Marcha (Getting Started)](#-puesta-en-marcha-getting-started)
+  - [Prerrequisitos](#prerrequisitos)
+  - [Instalación y Ejecución](#instalación-y-ejecución)
+  - [Opción 1: Ejecución desde Spring Tool Suite (STS) - Recomendado](#opción-1-ejecución-desde-spring-tool-suite-sts---recomendado)
+  - [🌐 Acceso a la aplicación](#-acceso-a-la-aplicación)
+- [🔐 Accesos y Roles del Sistema](#-accesos-y-roles-del-sistema)
 - [Autor](#-autor)
 
 ---
@@ -128,3 +139,22 @@ Al haber sido el IDE nativo del proyecto, la forma más sencilla de levantarlo e
 3. **Arrancar la aplicación:**
    - Utiliza el **Boot Dashboard** (selecciona `City_Courier` y pulsa el botón de **Start/Play**).
    - Alternativamente, haz clic derecho sobre el proyecto > **Run As** > **Spring Boot App**.
+   ### 🌐 Acceso a la aplicación
+
+Independientemente del método elegido, una vez que la consola muestre el mensaje `Started CityCourierApplication`, abre tu navegador y accede a:
+👉 **`http://localhost:9000`**[cite: 2]
+
+*Nota: La base de datos H2 se inicializa automáticamente en memoria y la clase `DataSeed` se encarga de poblarla con datos y usuarios de prueba en cada arranque.*
+
+## 🔐 Accesos y Roles del Sistema
+
+El sistema implementa un *Role-Based Access Control* y enruta automáticamente a los usuarios a su panel correspondiente tras el login. Para auditar la plataforma, utiliza los siguientes usuarios de prueba:
+
+| Rol | Usuario | Contraseña | Permisos y Accesos |
+| :--- | :--- | :--- | :--- |
+| **Admin** | `admin` | `admin` | **Acceso Total**. Control sobre todos los módulos operativos y gestión de otros operadores del sistema. |
+| **Logística** | `logistica` | `logistica` | **Núcleo Operativo**. Creación de Rutas, gestión de Envíos, monitorización de SLA y ejecución de Auto-Asignaciones. |
+| **RRHH** | `user` | `user` | **Gestión de Personal**. Altas, bajas, modificación de repartidores y asignación de flotas de vehículos. |
+
+---
+**Desarrollado por David** *TFG 1º de Desarrollo de Aplicaciones Multiplataforma (DAM)*
