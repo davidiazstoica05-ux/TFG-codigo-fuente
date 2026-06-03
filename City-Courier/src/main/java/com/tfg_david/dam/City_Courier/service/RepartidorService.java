@@ -51,6 +51,7 @@ public class RepartidorService extends BaseService<Repartidor, Long, RepartidorR
 
 	}
 
+	//Aqui está el error del peso que no me dio tiempo a resolver 
 	public double pesoTotalPaquetes(Repartidor repartidor) {
 
 		List<Asignacion> asignacionesRepartidor = new ArrayList<>();
