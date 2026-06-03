@@ -1,24 +1,6 @@
 
 ![Banner de City Courier](docs/CityCourierBanner.png)
 
-## Tecnologías Utilizadas
-
-### ⚙️ Backend
-![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
-![Spring Security](https://img.shields.io/badge/Spring_Security-6DB33F?style=for-the-badge&logo=Spring-Security&logoColor=white)
-
-### 🎨 Frontend
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
-![Thymeleaf](https://img.shields.io/badge/Thymeleaf-%23005C0F.svg?style=for-the-badge&logo=Thymeleaf&logoColor=white)
-
-
-### 🗄️ Base de Datos & Arquitectura
-![H2 Database](https://img.shields.io/badge/H2_Database-4479A1?style=for-the-badge&logo=databricks&logoColor=white)
-![MVC Architecture](https://img.shields.io/badge/Arquitectura-MVC-FF7139?style=for-the-badge)
-
 
 # City Courier - Sistema Integrado de Gestión Logística
 
@@ -34,10 +16,6 @@ El sistema está diseñado para resolver problemas logísticos reales, automatiz
   - [1. Operativa de Envíos y Auto-Asignación (Core)](#1-operativa-de-envíos-y-auto-asignación-core)
   - [2. Monitorización de Tiempos (SLA)](#2-monitorización-de-tiempos-sla)
   - [3. Gestión de Recursos Humanos y Rutas](#3-gestión-de-recursos-humanos-y-rutas)
-- [🛠️ Tecnologías Utilizadas](#-tecnologías-utilizadas)
-  - [⚙️ Backend](#️-backend)
-  - [🎨 Frontend](#-frontend)
-  - [🗄️ Base de Datos & Arquitectura](#️-base-de-datos--arquitectura)
 - [🏗️ Arquitectura y Decisiones de Diseño](#-arquitectura-y-decisiones-de-diseño)
   - [Desacoplamiento de Ruta y Asignación (Normalización)](#desacoplamiento-de-ruta-y-asignación-normalización)
 - [⚙️ Puesta en Marcha (Getting Started)](#-puesta-en-marcha-getting-started)
@@ -46,6 +24,10 @@ El sistema está diseñado para resolver problemas logísticos reales, automatiz
   - [Opción 1: Ejecución desde Spring Tool Suite (STS) - Recomendado](#opción-1-ejecución-desde-spring-tool-suite-sts---recomendado)
   - [🌐 Acceso a la aplicación](#-acceso-a-la-aplicación)
 - [🔐 Accesos y Roles del Sistema](#-accesos-y-roles-del-sistema)
+- [🛠️ Tecnologías Utilizadas](#-tecnologías-utilizadas)
+  - [⚙️ Backend](#️-backend)
+  - [🎨 Frontend](#-frontend)
+  - [🗄️ Base de Datos & Arquitectura](#️-base-de-datos--arquitectura)
 - [Autor](#-autor)
 
 ---
@@ -140,7 +122,7 @@ Al haber sido el IDE nativo del proyecto, la forma más sencilla de levantarlo e
    - Utiliza el **Boot Dashboard** (selecciona `City_Courier` y pulsa el botón de **Start/Play**).
    - Alternativamente, haz clic derecho sobre el proyecto > **Run As** > **Spring Boot App**.
    ### 🌐 Acceso a la aplicación
-
+```
 Independientemente del método elegido, una vez que la consola muestre el mensaje `Started CityCourierApplication`, abre tu navegador y accede a:
 👉 **`http://localhost:9000`**[cite: 2]
 
@@ -155,6 +137,25 @@ El sistema implementa un *Role-Based Access Control* y enruta automáticamente a
 | **Admin** | `admin` | `admin` | **Acceso Total**. Control sobre todos los módulos operativos y gestión de otros operadores del sistema. |
 | **Logística** | `logistica` | `logistica` | **Núcleo Operativo**. Creación de Rutas, gestión de Envíos, monitorización de SLA y ejecución de Auto-Asignaciones. |
 | **RRHH** | `user` | `user` | **Gestión de Personal**. Altas, bajas, modificación de repartidores y asignación de flotas de vehículos. |
+
+
+## Tecnologías Utilizadas
+
+### ⚙️ Backend
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
+![Spring Security](https://img.shields.io/badge/Spring_Security-6DB33F?style=for-the-badge&logo=Spring-Security&logoColor=white)
+
+### 🎨 Frontend
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+![Thymeleaf](https://img.shields.io/badge/Thymeleaf-%23005C0F.svg?style=for-the-badge&logo=Thymeleaf&logoColor=white)
+
+
+### 🗄️ Base de Datos & Arquitectura
+![H2 Database](https://img.shields.io/badge/H2_Database-4479A1?style=for-the-badge&logo=databricks&logoColor=white)
+![MVC Architecture](https://img.shields.io/badge/Arquitectura-MVC-FF7139?style=for-the-badge)
 
 ---
 **Desarrollado por David** *TFG 1º de Desarrollo de Aplicaciones Multiplataforma (DAM)*
