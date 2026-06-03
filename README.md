@@ -93,6 +93,7 @@ En su lugar, la `Ruta` se asocia a un `Repartidor` (1:N), y es este quien se vin
 
 La persistencia se maneja mediante Spring Data JPA, utilizando herencia de tablas (`JOINED`) para el control de trabajadores y roles de seguridad.
 
+```
 ## ⚙️ Puesta en Marcha (Getting Started)
 
 Sigue estos pasos para desplegar la aplicación en tu entorno local.
