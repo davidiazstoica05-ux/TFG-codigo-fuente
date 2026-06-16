@@ -51,19 +51,17 @@ public class RepartidorService extends BaseService<Repartidor, Long, RepartidorR
 
 	}
 
-	//Aqui está el error del peso que no me dio tiempo a resolver 
 	public double pesoTotalPaquetes(Repartidor repartidor) {
 
-		List<Asignacion> asignacionesRepartidor = new ArrayList<>();
-		double pesoTotal = 0;
+		List<Asignacion> asignacionesRepartidor = repartidor.getAsignacionesRepartidor();
 
-		for (Asignacion asignacion : asignacionesRepartidor) {
 
-			pesoTotal += asignacion.getEnvio().getPeso();
+		return asignacionesRepartidor.stream()
+									 .mapToDouble(asig -> asig.getEnvio()
+															  .getPeso())
+															  .sum();
 
-		}
 
-		return pesoTotal;
 
 	}
 
@@ -80,13 +78,11 @@ public class RepartidorService extends BaseService<Repartidor, Long, RepartidorR
 		if (repartidorOpt.isPresent()) {
 			Repartidor repartidor = repartidorOpt.get();
 			List<Asignacion> asignacionesRepartidor = repoAsig.findByRepartidor(repartidor);
+			
+			asignacionesRepartidor.stream()
+            .filter(asig -> asig.getEnvio() != null)
+            .forEach(asig -> asig.getEnvio().setAsignacion(null));			
 
-			for (Asignacion asignacion : asignacionesRepartidor) {
-				if (asignacion.getEnvio() != null) {
-
-					asignacion.getEnvio().setAsignacion(null);
-				}
-			}
 
 			repoAsig.deleteAll(asignacionesRepartidor);
 

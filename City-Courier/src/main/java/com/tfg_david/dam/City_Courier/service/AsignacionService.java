@@ -67,25 +67,22 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 				envio = envioOpt.get();
 				repartidor = asig.getRepartidor();
 				zonaEnvioStr = envio.getZona().getDisplay();
-				
-				
+
 				if (repartidor.getAsignacionesRepartidor().contains(envio.getAsignacion())) {
-					
-					
+
 					throw new RepartidorNoDisponibleException("Ya está asignado");
-					
+
 				}
-				
+
 				if (repartidor.getRuta() == null) {
-					
-					
+
 					throw new RepartidorNoDisponibleException("El repartidor no tiene ruta asignada");
-					
+
 				}
 
 				if (repartidor != null && repartidor.getRuta() != null
 						&& repartidor.getRuta().getPuntosEntregas() != null) {
-					
+
 					if (repartidor.getRuta().getPuntosEntregas().containsKey(zonaEnvioStr)) {
 						zonaValida = true;
 					}
@@ -104,7 +101,7 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 	public List<Asignacion> findByNombreRuta(String nombreRuta) {
 		return repo.findByRepartidor_Ruta_NombreRutaContainingIgnoreCase(nombreRuta);
 	}
-	
+
 	public List<Asignacion> findByIdAsignacionOrRepartidorId(Long codEnvio, Long idTrabajador) {
 		return repo.findByEnvio_CodEnvioOrRepartidor_IdTrabajador(codEnvio, idTrabajador);
 	}
@@ -238,131 +235,45 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 
 	}
 
-	// Asginación automatica
-	// Para Ángel: Despues de la pechá que me he pegado en este proyecto quería
-	// hacer algo diferente.
-	// Así que hice esto, que en verdad es una bobería pero me parece divertido,
-	// espero que te guste.
-	// Como se que te gusta ver las dos versiones te pongo las dos :p
-
-	// Versión "Simple"
-
 	public void asignarAutomaticamente() {
 
 		List<Envio> enviosSinAsignar;
 		List<Repartidor> repartidoresDisponibles;
-		Asignacion nuevaAsignacion;
-		double pesoTotalRepartidor;
-		String zonaEnvioStr;
-		boolean zonaValida;
-
+		
 		enviosSinAsignar = envioService.findByAsignacionNull();
 		repartidoresDisponibles = repartidorService.findByEstado(Disponibilidad.DISPONIBLE);
 
 		for (Envio envio : enviosSinAsignar) {
 
-			zonaEnvioStr = envio.getZona().getDisplay();
+			String zonaEnvioStr = envio.getZona().getDisplay();
 
-			for (Repartidor repartidor : repartidoresDisponibles) {
+			Optional<Repartidor> repartidorIdeal = repartidoresDisponibles.stream()
 
-				zonaValida = false;
+					.filter(repartidor -> repartidor.getRuta() != null
+							&& repartidor.getRuta().getPuntosEntregas() != null
+							&& repartidor.getRuta().getPuntosEntregas().containsKey(zonaEnvioStr))
+					
 
-				if (repartidor.getRuta() != null && repartidor.getRuta().getPuntosEntregas() != null) {
-					if (repartidor.getRuta().getPuntosEntregas().containsKey(zonaEnvioStr)) {
-						zonaValida = true;
-					}
-				}
+					.filter(repartidor -> {
+						double pesoTotalRepartidor = repartidorService.pesoTotalPaquetes(repartidor) + envio.getPeso();
+						return pesoTotalRepartidor <= repartidor.getCargaMax();
+					})
+					
+					.findFirst();
 
-				if (zonaValida) {
+			if (repartidorIdeal.isPresent()) {
 
-					pesoTotalRepartidor = repartidorService.pesoTotalPaquetes(repartidor) + envio.getPeso();
+				Asignacion nuevaAsignacion = new Asignacion();
 
-					if (pesoTotalRepartidor <= repartidor.getCargaMax()) {
+				nuevaAsignacion.setEstadoPedido(false);
+				nuevaAsignacion.setEnvio(envio);
+				nuevaAsignacion.setRepartidor(repartidorIdeal.get());
 
-						nuevaAsignacion = new Asignacion();
+				monitorizarEntrega(nuevaAsignacion);
 
-						nuevaAsignacion.setEstadoPedido(false);
-						nuevaAsignacion.setEnvio(envio);
-						nuevaAsignacion.setRepartidor(repartidor);
-
-						monitorizarEntrega(nuevaAsignacion);
-
-						save(nuevaAsignacion);
-
-						break;
-					}
-				}
+				save(nuevaAsignacion);
 			}
 		}
 	}
-
-	// Version compleja sin buscar en la bbdd (Esto fue que luego me di cuenta que
-	// tenemos metodos para buscar en la bbd hjjsjs)
-	/*
-	 * 
-	 * public void asignarAutomaticamente() {
-	 * 
-	 * List<Envio> envios = new ArrayList<>(); List<Repartidor> repartidores = new
-	 * ArrayList<>(); List<Envio> enviosSinAsignar = new ArrayList<>();
-	 * List<Repartidor> repartidoresDisponibles = new ArrayList<>();
-	 * 
-	 * Asignacion nuevaAsignacion = null;
-	 * 
-	 * envios = envioRepo.findAll(); repartidores = repartidorRepo.findAll();
-	 * 
-	 * double pesoTotalRepartidor;
-	 * 
-	 * // Envios sin asignar for (Envio envio : envios) {
-	 * 
-	 * if (envio != null && envio.getAsignacion() == null) {
-	 * 
-	 * enviosSinAsignar.add(envio);
-	 * 
-	 * }
-	 * 
-	 * }
-	 * 
-	 * // Repartidores disponibles for (Repartidor repartidor : repartidores) {
-	 * 
-	 * if (repartidor != null && repartidor.getEstado() ==
-	 * Disponibilidad.DISPONIBLE) {
-	 * 
-	 * repartidoresDisponibles.add(repartidor);
-	 * 
-	 * }
-	 * 
-	 * }
-	 * 
-	 * for (Envio envio : enviosSinAsignar) {
-	 * 
-	 * for (Repartidor repartidor : repartidoresDisponibles) {
-	 * 
-	 * if (envio.getZona().equals(repartidor.getZona())) {
-	 * 
-	 * pesoTotalRepartidor = repartidorService.pesoTotalPaquetes(repartidor) +
-	 * envio.getPeso();
-	 * 
-	 * if (pesoTotalRepartidor <= repartidor.getCargaMax() ) {
-	 * 
-	 * 
-	 * nuevaAsignacion = new Asignacion();
-	 * 
-	 * nuevaAsignacion.setEnvio(envio); nuevaAsignacion.setRepartidor(repartidor);
-	 * 
-	 * save(nuevaAsignacion);
-	 * 
-	 * break;
-	 * 
-	 * }
-	 * 
-	 * 
-	 * }
-	 * 
-	 * }
-	 * 
-	 * }
-	 * 
-	 * }
-	 */
 
 }
