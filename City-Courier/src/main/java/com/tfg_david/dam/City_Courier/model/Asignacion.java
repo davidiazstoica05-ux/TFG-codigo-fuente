@@ -71,6 +71,10 @@ public class Asignacion {
 	@Transient //Para que no lo guarde en la bbdd
 	private EstadoTiempo estadoTiempo;
 
+	@Transient 
+	private double huellaCarbono;
+	
+	
 	@PrePersist
 	public void configurarHoraActural() {
 		

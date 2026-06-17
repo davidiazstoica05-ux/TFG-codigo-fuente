@@ -203,6 +203,7 @@
                     <th class="fw-semibold">Estado</th>
                     <th class="fw-semibold">Cod Envio</th>
                     <th class="fw-semibold">Coste Total</th>
+                    <th class="fw-semibold">Emisiones CO2</th>
                     <th class="fw-semibold">Fecha Asignación</th>
                     <th class="fw-semibold">Fecha Entrega</th>
                     <th class="fw-semibold">Incidencia</th>
@@ -223,6 +224,14 @@
 
                     <td class="fw-bold text-success" th:text="${#numbers.formatDecimal(asig.costeTotal, 1, 2)} + ' €'">
                         0.0 €</td>
+
+                    <td>
+                        <span class="badge"
+                            th:classappend="${asig.huellaCarbono == 0} ? 'bg-secondary' : (${asig.huellaCarbono < 500} ? 'bg-success' : (${asig.huellaCarbono < 1500} ? 'bg-warning text-dark' : 'bg-danger'))"
+                            th:text="${#numbers.formatDecimal(asig.huellaCarbono, 1, 0)} + ' g'">
+                            0 g
+                        </span>
+                    </td>
 
                     <td th:text="${#temporals.format(asig.fechaAsignacion, 'dd/MM/yyyy HH:mm')}">14/05/2026</td>
                     <td th:text="${#temporals.format(asig.fechaEntrega, 'dd/MM/yyyy HH:mm')} ?: 'Sin fecha'">Sin fecha

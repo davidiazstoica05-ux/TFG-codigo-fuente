@@ -69,6 +69,9 @@ public class RepartidorService extends BaseService<Repartidor, Long, RepartidorR
 
 		return repo.findByEstado(estado);
 	}
+	
+
+	
 
 	@Transactional
 	public void deleteRepartidor(String dni) {

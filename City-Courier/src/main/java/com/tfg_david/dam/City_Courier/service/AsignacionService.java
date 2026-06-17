@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.tfg_david.dam.City_Courier.excepciones.CapacidadExcedidaException;
@@ -31,7 +32,23 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 	private final EnviosRepository envioRepo;
 	private final RepartidorService repartidorService;
 	private final EnviosService envioService;
+	
+	// Inyección de variables globales desde application.properties
+	@Value("${cc.logistica.coste-km}")
+	private double costePorKm;
 
+	@Value("${cc.logistica.recargo-peso}")
+	private double recargoPorPeso;
+
+	@Value("${cc.logistica.horas-riesgo}")
+	private int horasRiesgo;
+
+	@Value("${cc.logistica.co2-moto}")
+	private double co2Moto;
+
+	@Value("${cc.logistica.co2-furgoneta}")
+	private double co2Furgoneta;
+	
 	// Buscan al repartidor para añadirlo a una asignacion
 	public boolean asignarRepartidor(Asignacion asig) {
 		Optional<Repartidor> repartidor;
@@ -46,17 +63,14 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 		return false;
 	}
 
-	// Buscan al envio para añadirlo a una asignación y comprueba que la zona sea la
-	// misma
+	// Buscan al envio para añadirlo a una asignación y comprueba que la zona sea la misma
 	public boolean asignarEnvio(Asignacion asig) {
 
 		Optional<Envio> envioOpt;
 		Envio envio;
 		Repartidor repartidor;
 		String zonaEnvioStr;
-		boolean zonaValida;
-
-		zonaValida = false;
+		boolean zonaValida = false;
 
 		if (asig.getEnvio() != null && asig.getEnvio().getCodEnvio() != null) {
 
@@ -69,15 +83,11 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 				zonaEnvioStr = envio.getZona().getDisplay();
 
 				if (repartidor.getAsignacionesRepartidor().contains(envio.getAsignacion())) {
-
 					throw new RepartidorNoDisponibleException("Ya está asignado");
-
 				}
 
 				if (repartidor.getRuta() == null) {
-
 					throw new RepartidorNoDisponibleException("El repartidor no tiene ruta asignada");
-
 				}
 
 				if (repartidor != null && repartidor.getRuta() != null
@@ -110,9 +120,7 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 		return repo.countByEstadoPedido(estado);
 	}
 
-	// Borra la asignación , pero para ello antes se desvincula del envio y el
-	// repartidor
-
+	// Borra la asignación, pero para ello antes se desvincula del envio y el repartidor
 	public void deleteAsignacion(Long codEnvio, Long idTrabajador) {
 		AsignacionPk pk;
 		Optional<Asignacion> asigOpt;
@@ -142,22 +150,29 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 
 	// CalcularPrecioDistancia
 	public void calcularPrecioDistanciaTiempoKm(List<Asignacion> asig) {
+		
 		Collection<Double> rutaDistancia;
 		Optional<Double> distanciaKmOpt;
-		double costeTotal, precioBase = 0, costePeso = 0, recargoPorPeso = 0.25, costeDistancia = 0;
-		double costePorKm = 0.20, costeTotalFinal = 0;
+		
+		double precioBase;
+		double costePeso;
+		double costeDistancia;
+		double costeTotalFinal;
+		
 		Envio envio;
 
 		for (Asignacion asignacion : asig) {
 
+			precioBase = 0;
+			costePeso = 0;
+			costeDistancia = 0;
+			costeTotalFinal = 0;
+
 			envio = asignacion.getEnvio();
 
 			if (envio != null) {
-
 				precioBase = envio.getPrioridad().getPrecioBase();
-
 				costePeso = envio.getPeso() * recargoPorPeso;
-
 			}
 
 			if (asignacion.getRepartidor() != null && asignacion.getRepartidor().getRuta() != null
@@ -167,22 +182,18 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 				distanciaKmOpt = rutaDistancia.stream().findFirst();
 
 				if (distanciaKmOpt.isPresent()) {
-
 					costeDistancia = distanciaKmOpt.get() * costePorKm;
-
 				}
 
 				costeTotalFinal = precioBase + costePeso + costeDistancia;
 			}
 
 			asignacion.setCosteTotal(costeTotalFinal);
-
+			asignacion.setHuellaCarbono(calcularHuellaCarbono(asignacion));
 		}
-
 	}
 
 	// ValidarCargaPeso
-
 	public boolean validarCargaPeso(Asignacion asigForm) {
 		Repartidor repartidor;
 		double pesoTotalRepartidor;
@@ -191,11 +202,8 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 		pesoTotalRepartidor = repartidorService.pesoTotalPaquetes(repartidor) + asigForm.getEnvio().getPeso();
 
 		if (pesoTotalRepartidor <= repartidor.getCargaMax()) {
-
 			return true;
-
 		} else {
-
 			capacidadRestante = repartidor.getCargaMax() - (pesoTotalRepartidor - asigForm.getEnvio().getPeso());
 			throw new CapacidadExcedidaException(
 					String.format("La capacidad restante del repartidor es de: %.2f kg", capacidadRestante));
@@ -212,9 +220,7 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 		ahora = LocalDateTime.now();
 
 		if (asignacion.isEstadoPedido()) {
-
 			return EstadoTiempo.ENTREGADO;
-
 		}
 
 		if (asignacion.getEnvio() != null && asignacion.getEnvio().getFechaEntregaLimite() != null) {
@@ -226,14 +232,63 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 
 			horasRestantes = Duration.between(ahora, limite).toHours();
 
-			if (horasRestantes <= 24) {
+			if (horasRestantes <= horasRiesgo) {
 				return EstadoTiempo.EN_RIESGO;
 			}
 		}
 
 		return EstadoTiempo.A_TIEMPO;
-
 	}
+	
+	
+	public double calcularHuellaCarbono(Asignacion asignacion) {
+	    
+		double distancia, factorEmision,emisionesBase,pesoPaquete;
+		double penalizacionPeso;
+		Optional<Double> distanciaOpt;
+		
+	    if (asignacion.getRepartidor() == null || asignacion.getRepartidor().getVehiculo() == null) {
+	        return 0.0;
+	    }
+
+	    distancia = 0.0;
+	    if (asignacion.getRepartidor().getRuta() != null && asignacion.getRepartidor().getRuta().getPuntosEntregas() != null) {
+	         
+	    	distanciaOpt = asignacion.getRepartidor().getRuta().getPuntosEntregas().values().stream().findFirst();
+	        
+	    	if (distanciaOpt.isPresent()) {
+	        
+	    		distancia = distanciaOpt.get();
+	        
+	    	}
+	    }
+
+	    factorEmision = 0.0;
+	    
+	    switch (asignacion.getRepartidor().getVehiculo()) {
+	        
+	    	case moto_ecologica:
+	            factorEmision = 0.0; 
+	            break;
+	        
+	        case Moto:
+	            factorEmision = co2Moto;
+	            break;
+	        
+	        case Furgoneta:
+	            factorEmision = co2Furgoneta;
+	            break;
+	    }
+
+
+	     emisionesBase = distancia * factorEmision;
+
+	     pesoPaquete = (asignacion.getEnvio() != null) ? asignacion.getEnvio().getPeso() : 0.0;
+	     penalizacionPeso = emisionesBase * (pesoPaquete * 0.05);
+
+	    return emisionesBase + penalizacionPeso;
+	}
+	
 
 	public void asignarAutomaticamente() {
 
@@ -253,7 +308,6 @@ public class AsignacionService extends BaseService<Asignacion, AsignacionPk, Asi
 							&& repartidor.getRuta().getPuntosEntregas() != null
 							&& repartidor.getRuta().getPuntosEntregas().containsKey(zonaEnvioStr))
 					
-
 					.filter(repartidor -> {
 						double pesoTotalRepartidor = repartidorService.pesoTotalPaquetes(repartidor) + envio.getPeso();
 						return pesoTotalRepartidor <= repartidor.getCargaMax();
